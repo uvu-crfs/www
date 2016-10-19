@@ -1,2 +1,2 @@
 cgi-bin
-lib
+lib/*.json
