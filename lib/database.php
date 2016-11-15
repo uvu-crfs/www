@@ -24,12 +24,12 @@
         return $stmt->fetch();
     }
 
-    function describe_table($table_name)
+    function get_all_rows($stmt)
     {
-        //TODO figure out how to make $table_name a good variable
-        $stmt = $GLOBALS['pdo']->prepare('SHOW COLUMNS FROM jason');
-        $stmt->execute();
+        $all = array();
+        while ($row = $stmt->fetch()) {
+            $all[] = $row;
+        }
 
-        return $stmt->fetch();
+        return $all;
     }
-    describe_table('');
