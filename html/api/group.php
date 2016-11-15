@@ -16,7 +16,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     //http_response_code(200);
     break;
   case 'DELETE':
-    //http_response_code(204);
+    delete_by_id($table_name);
     break;
   default:
     http_response_code(404);

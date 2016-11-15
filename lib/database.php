@@ -68,3 +68,13 @@
         $stmt->execute([$id]);
         print_json($stmt->fetch());
     }
+    function delete_by_id($table_name)
+    {
+        $id = post_data()['id'];
+        if (!is_numeric($id)) {
+            return http_response_code(400);
+        }
+        $stmt = $GLOBALS['pdo']->prepare('delete from '.$table_name.' where id = ?');
+        $stmt->execute([$id]);
+        http_response_code(204);
+    }
