@@ -1,12 +1,16 @@
 <?php
 
 require_once '/var/www/lib/database.php';
+
+$table_name = 'groups';
+$group_keys = ['name', 'contact_name', 'affiliation', 'course_num', 'notes'];
+
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET':
-    handleGet();
+    get_by_id($table_name);
     break;
   case 'POST':
-    //http_response_code(201);
+    post($table_name, $group_keys);
     break;
   case 'PUT':
     //http_response_code(200);
@@ -17,18 +21,4 @@ switch ($_SERVER['REQUEST_METHOD']) {
   default:
     http_response_code(404);
     break;
-}
-
-function handleGet()
-{
-    $id = $_GET['id'];
-
-    if (!is_numeric($id)) {
-        http_response_code(400);
-
-        return;
-    }
-    $stmt = $GLOBALS['pdo']->prepare('select * from groups where id = ?');
-    $stmt->execute([$id]);
-    print_json($stmt->fetch());
 }
