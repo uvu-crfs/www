@@ -1,5 +1,4 @@
 <?php
-    //PDO tutorial https://phpdelusions.net/pdo
     require_once '/var/www/lib/helper_functions.php';
     function connect_to_databse()
     {
@@ -33,14 +32,14 @@
 
         return $all;
     }
+
     function return_last_id()
     {
         print_json(array('id' => $GLOBALS['pdo']->lastInsertId()));
     }
+
     function post($table_name, $avaliable_keys)
     {
-        var_dump($table_name);
-        var_dump($avaliable_keys);
         $data = post_data();
         $keys = [];
         $values = [];
@@ -60,15 +59,13 @@
         $stmt->execute($values);
         return_last_id();
     }
+
     function put($table_name, $avaliable_keys)
     {
         $data = post_data();
-
-        // if (!in_array('id', $data)) {
-        //     echo 'this sucks not an array';
-
-        //     return http_response_code(400);
-        // }
+        if (!array_key_exists('id', $data) || !whole_int($data['id'])) {
+            return http_response_code(400);
+        }
 
         $keys = [];
         $values = [];
@@ -107,6 +104,7 @@
         $stmt->execute([$id]);
         print_json($stmt->fetch());
     }
+
     function delete_by_id($table_name)
     {
         $id = post_data()['id'];

@@ -1,9 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-    http_response_code(404);
-
-    return;
+    return http_response_code(404);
 }
 require_once '/var/www/lib/database.php';
 

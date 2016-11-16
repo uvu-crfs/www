@@ -19,3 +19,19 @@
   {
       var_dump($array);
   }
+  function whole_int($val)
+  {
+      //http://php.net/manual/en/function.is-numeric.php
+      $val = strval($val);
+      $val = str_replace('-', '', $val);
+
+      if (ctype_digit($val)) {
+          if ($val === (string) 0) {
+              return true;
+          } elseif (ltrim($val, '0') === $val) {
+              return true;
+          }
+      }
+
+      return false;
+  }
