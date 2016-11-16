@@ -39,6 +39,8 @@
     }
     function post($table_name, $avaliable_keys)
     {
+        var_dump($table_name);
+        var_dump($avaliable_keys);
         $data = post_data();
         $keys = [];
         $values = [];
@@ -58,6 +60,43 @@
         $stmt->execute($values);
         return_last_id();
     }
+    function put($table_name, $avaliable_keys)
+    {
+        $data = post_data();
+
+        // if (!in_array('id', $data)) {
+        //     echo 'this sucks not an array';
+
+        //     return http_response_code(400);
+        // }
+
+        $keys = [];
+        $values = [];
+        foreach ($avaliable_keys as $key) {
+            if (in_array($data[$key], $data)) {
+                array_push($keys, $key);
+                array_push($values, $data[$key]);
+            }
+        }
+        if (count($keys) === 0) {
+            return http_response_code(400);
+        }
+
+        $set_vals = [];
+        $vals = [];
+        for ($i = 0; $i < count($keys); ++$i) {
+            $temp = $keys[$i].'=? ';
+            array_push($set_vals, $temp);
+            array_push($vals, $values[$i]);
+        }
+
+        array_push($vals, $data['id']);
+        $query = 'update '.$table_name.' set '.implode(',', $set_vals).'where id = ?';
+        $stmt = $GLOBALS['pdo']->prepare($query);
+        $stmt->execute($vals);
+        print_json(array('id' => $data['id']));
+    }
+
     function get_by_id($table_name)
     {
         $id = $_GET['id'];

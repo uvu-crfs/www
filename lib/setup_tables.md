@@ -20,3 +20,8 @@ select * from groups;
 insert into groups(name) values ('temp0');
 insert into groups(name) values ('temp1');
 ```
+
+# Visit
+```
+create table visits(id int not null AUTO_INCREMENT PRIMARY KEY, start_date int, end_date int, size int, days int, nights int, students_female int, students_male int, advisors_female int, advisors_male int, evaluation_complete int, summary_complete int, notes varchar(255));
+```
