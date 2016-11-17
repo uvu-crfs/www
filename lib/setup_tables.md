@@ -25,3 +25,16 @@ insert into groups(name) values ('temp1');
 ```
 create table visits(id int not null AUTO_INCREMENT PRIMARY KEY, start_date int, end_date int, days int, nights int, students_female int, students_male int, advisors_female int, advisors_male int, evaluation_complete int, summary_complete int, notes varchar(255));
 ```
+
+# Sensor
+
+## Types
+
+```
+create table sensors(id int not null AUTO_INCREMENT PRIMARY KEY, name varchar(255) not null, unit varchar(255) not null);
+```
+
+## Data
+```
+create table sensor_#(id int not null AUTO_INCREMENT PRIMARY KEY, quantity int, timestamp int);
+```

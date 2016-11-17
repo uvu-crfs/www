@@ -40,29 +40,58 @@ function return_last_id()
     print_json(array('id' => $GLOBALS['pdo']->lastInsertId()));
 }
 
-function post($table_name, $avaliable_keys)
+function post($table_name, $available_keys, $required_keys)
+{
+    insert($table_name, $available_keys, $required_keys);
+    return_last_id();
+}
+
+function insert($table_name, $available_keys, $required_keys)
 {
     $data = post_data();
+    foreach ($required_keys as $key) {
+        if (!array_key_exists($key, $data)) {
+            bad_request("Key '".$key."' is required");
+        }
+    }
+
     $keys = [];
     $values = [];
-    foreach ($avaliable_keys as $key) {
+    $value_placeholders = [];
+    foreach ($available_keys as $key) {
         if (in_array($data[$key], $data)) {
             array_push($keys, $key);
             array_push($values, $data[$key]);
+            array_push($value_placeholders, '?');
         }
     }
     if (count($keys) === 0) {
         return http_response_code(400);
     }
+
+    if (in_array('timestamp', $available_keys) && !array_key_exists('timestamp', $keys)) {
+        array_push($keys, 'timestamp');
+        array_push($values, time());
+        array_push($value_placeholders, '?');
+    }
+
     $keys_str = implode(',', $keys);
-    $values_str = str_repeat('? ', count($keys));
+    $values_str = implode(',', $value_placeholders);
     $query = 'insert into '.$table_name.'('.$keys_str.') values ('.$values_str.')';
-    $stmt = $GLOBALS['pdo']->prepare($query);
-    $stmt->execute($values);
-    return_last_id();
+    echo 'Query: '.$query;
+    var_dump($values);
+
+    try {
+        $stmt = $GLOBALS['pdo']->prepare($query);
+        $stmt->execute($values);
+    } catch (PDOException $e) {
+        echo 'Database issue: '.$e->getMessage();
+
+        return http_response_code(500);
+    }
 }
 
-function put($table_name, $avaliable_keys)
+function put($table_name, $available_keys)
 {
     $data = post_data();
     if (!array_key_exists('id', $data) || !whole_int($data['id'])) {
@@ -71,7 +100,7 @@ function put($table_name, $avaliable_keys)
 
     $keys = [];
     $values = [];
-    foreach ($avaliable_keys as $key) {
+    foreach ($available_keys as $key) {
         if (in_array($data[$key], $data)) {
             array_push($keys, $key);
             array_push($values, $data[$key]);
@@ -93,7 +122,6 @@ function put($table_name, $avaliable_keys)
     $query = 'update '.$table_name.' set '.implode(',', $set_vals).'where id = ?';
     $stmt = $GLOBALS['pdo']->prepare($query);
     $stmt->execute($vals);
-    print_json(array('id' => $data['id']));
 }
 
 function get_by_id($table_name)
@@ -113,9 +141,14 @@ function delete_by_id($table_name)
     if (!is_numeric($id)) {
         return http_response_code(400);
     }
+    delete($table_name, $id);
+    http_response_code(204);
+}
+
+function delete($table_name, $id)
+{
     $stmt = $GLOBALS['pdo']->prepare('delete from '.$table_name.' where id = ?');
     $stmt->execute([$id]);
-    http_response_code(204);
 }
 
 function get_all_rows_from_table($table_name)
@@ -123,4 +156,30 @@ function get_all_rows_from_table($table_name)
     $stmt = $GLOBALS['pdo']->prepare('select * FROM '.$table_name);
     $stmt->execute();
     print_json(get_all_rows($stmt));
+}
+
+function create_sensor_table($id)
+{
+    $query = 'create table sensor_'.$id.
+      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL not null, timestamp int not null)';
+
+    try {
+        $stmt = $GLOBALS['pdo']->prepare($query);
+        $stmt->execute($values);
+    } catch (PDOException $e) {
+        echo 'Database issue: '.$e->getMessage();
+
+        return http_response_code(500);
+    }
+}
+
+function delete_sensor_table($id)
+{
+    if (!is_numeric($id)) {
+        bad_request("Must send a number under key 'id'");
+    }
+    $query = 'drop table sensor_'.$id;
+    echo 'Query '.$query."\n";
+    $stmt = $GLOBALS['pdo']->prepare($query);
+    $stmt->execute();
 }

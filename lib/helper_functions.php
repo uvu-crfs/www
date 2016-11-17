@@ -37,3 +37,9 @@
 
       return false;
   }
+
+  function bad_request($str)
+  {
+      http_response_code(400);
+      exit($str);
+  }
