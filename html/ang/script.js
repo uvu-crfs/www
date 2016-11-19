@@ -23,6 +23,21 @@
                 templateUrl : 'pages/sensor.html',
                 controller  : 'sensorController'
             })
+
+            .when('/visit', {
+                templateUrl : 'pages/visit.html',
+                controller  : 'groupController'
+            })
+
+            .when('/reports', {
+                templateUrl : 'pages/reports.html',
+                controller  : 'groupController'
+            })
+
+            .when('/usage', {
+                templateUrl : 'pages/usage.html',
+                controller  : 'groupController'
+            })
         ;
     });
 
@@ -149,5 +164,5 @@
             }, function errorCallback(response) {});
         };
 
-        
+
     });
