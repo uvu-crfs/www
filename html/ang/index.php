@@ -38,5 +38,5 @@
     </div>
 
     <?php
-      echo '$_GET'.var_dump($_GET);
+      echo 'This is something in php';
     ?>
