@@ -114,6 +114,7 @@
         $scope.fillEditModal = function(sensor){
           $scope.editModal.name = sensor.name;
           $scope.editModal.unit = sensor.unit;
+          $scope.editModal.id = sensor.id;
         };
 
         $scope.deleteSensor = function(id){
