@@ -59,6 +59,7 @@
         $scope.message = 'Look! I am an about page.';
         $scope.allGroups = [];
         $scope.groupHeaders = [];
+        $scope.editModal = {};
         $scope.getAllGroups = function(){
           $http({
             method: 'GET',
@@ -77,6 +78,15 @@
         $scope.fillDeleteModal = function(group){
           $scope.deleteModal = group;
         };
+
+        $scope.fillEditModal= function(group) {
+            $scope.editModal.id = group.id;
+            $scope.editModal.name = group.name;
+            $scope.editModal.contact_name = group.contact_name;
+            $scope.editModal.affiliation = group.affiliation;
+            $scope.editModal.course_num = group.course_num;
+            $scope.editModal.notes = group.notes;
+        }
 
         $scope.deleteGroup = function(id){
           $http({
@@ -98,6 +108,18 @@
             $scope.add = {};
             }, function errorCallback(response) {});
         };
+
+        $scope.editGroup = function(){
+          $http({
+            method: 'PUT',
+            url: '/api/group.php',
+            data: $scope.editModal
+          }).then(function successCallback(response) {
+            $scope.getAllGroups();
+            $scope.editModal = {};
+            }, function errorCallback(response) {});
+        };
+
     });
 
     crfsApp.controller('sensorController', function($scope, $http) {
@@ -129,7 +151,7 @@
         $scope.fillEditModal = function(sensor){
           $scope.editModal.name = sensor.name;
           $scope.editModal.unit = sensor.unit;
-          $scope.editModal.id = sensor.id;
+          $scope.editModal.id   = sensor.id;
         };
 
         $scope.deleteSensor = function(id){
