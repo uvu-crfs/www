@@ -85,7 +85,7 @@
         };
     });
 
-    crfsApp.controller('sensorController', function($scope) {
+    crfsApp.controller('sensorController', function($scope, $http) {
         $scope.add = {};
         $scope.message = 'Look! This is a sensor page.';
         $scope.allSensors = [];
