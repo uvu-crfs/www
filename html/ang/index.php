@@ -1,6 +1,11 @@
 <!-- index.html -->
     <!DOCTYPE html>
 
+
+    <?php
+      $developer = false;
+    ?>
+
     <!-- define angular app -->
     <html ng-app="crfsApp">
     <head>
@@ -47,5 +52,5 @@
     </div>
 
     <?php
-      echo 'This is something in php'.print_r($_GET);
+      echo 'Current user is a developer: '.$developer;
     ?>
