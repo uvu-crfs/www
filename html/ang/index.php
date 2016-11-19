@@ -45,6 +45,13 @@
           <li class="nav-item">
             <a class="nav-link" href="#/reports">Reports</a>
           </li>
+          <?php
+            if ($developer) {
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link" href="#/developer">Developer</a>';
+                echo '</li>';
+            }
+          ?>
         </ul>
       </nav>
     <!-- MAIN CONTENT AND INJECTED VIEWS -->
