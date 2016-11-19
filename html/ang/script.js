@@ -26,7 +26,7 @@
 
             .when('/visit', {
                 templateUrl : 'pages/visit.html',
-                controller  : 'groupController'
+                controller  : 'visitController'
             })
 
             .when('/reports', {
@@ -120,6 +120,65 @@
             }, function errorCallback(response) {});
         };
 
+    });
+
+    crfsApp.controller('visitController', function($scope, $http) {
+        $scope.add = {};
+        $scope.message = 'Look! This is a visit page.';
+        $scope.allVisits = [];
+        $scope.visitHeaders = [];
+        $scope.editModal = {};
+
+        $scope.getAllVisits = function(){
+          $http({
+            method: 'GET',
+            url: '/api/visits.php'
+          }).then(function successCallback(response) {
+              $scope.allVisits = response.data;
+              $scope.visitHeaders = getHeaders($scope.allVisits);
+            }, function errorCallback(response) {});
+        };
+        $scope.getAllVisits();
+
+        $scope.fillDeleteModal = function(row){
+          $scope.deleteModal = row;
+        };
+
+        $scope.fillEditModal = function(row){
+          $scope.editModal = row;
+        };
+
+        $scope.deleteVisit = function(id){
+          $http({
+            method: 'DELETE',
+            url: '/api/visit.php',
+            data: '{"id":"'+id+'"}'
+          }).then(function successCallback(response) {
+            $scope.getAllVisits();
+            }, function errorCallback(response) {});
+        };
+
+        $scope.addVisit = function(){
+          $http({
+            method: 'POST',
+            url: '/api/visit.php',
+            data: $scope.add
+          }).then(function successCallback(response) {
+            $scope.getAllVisits();
+            $scope.add = {};
+            }, function errorCallback(response) {});
+        };
+
+        $scope.editVisit = function(){
+          $http({
+            method: 'PUT',
+            url: '/api/visit.php',
+            data: $scope.editModal
+          }).then(function successCallback(response) {
+            $scope.getAllVisits();
+            $scope.editModal = {};
+            }, function errorCallback(response) {});
+        };
     });
 
     crfsApp.controller('sensorController', function($scope, $http) {
