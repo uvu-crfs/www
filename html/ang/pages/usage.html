@@ -1,5 +1,30 @@
-<button class="pull-right btn btn-primary" data-toggle="modal" data-target="#addModal">Add Usage</button>
+<button class="pull-right btn btn-primary" data-toggle="modal" data-target="#enterModal">Enter Usage</button>
 
-<select>
-<option ng-repeat="sensor in sensors" value="{{sensor.id}}">{{sensor.name}}</option>
-</select>
+<select><option ng-repeat="sensor in sensors" value="{{sensor.id}}">{{sensor.name}}</option></select>
+
+<div class="modal fade" id="enterModal" tabindex="-1" role="dialog" aria-labelledby="enterModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="enterModalLabel">Enter Usage</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+         <label for="enterAmount">Amount</label>
+         <input type="text" class="form-control" id="enterAmount" ng-model="add.name" placeholder="Enter amount">
+       </div>
+       <div class="form-group">
+         <label for="unitInput">Unit</label>
+         <input type="text" class="form-control" id="unitInput" ng-model="add.unit" placeholder="Enter unit">
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addSensor()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
