@@ -4,6 +4,7 @@
 
     <?php
       $developer = false;
+      $developer = true;
     ?>
 
     <!-- define angular app -->
