@@ -11,3 +11,4 @@ Tutorials:
 * Bootstrap
 * mySQL
 * PHP 5.4
+* AngularJS  http://www.w3schools.com/angular/angular_intro.asp 
