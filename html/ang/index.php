@@ -38,5 +38,5 @@
     </div>
 
     <?php
-      echo 'This is something in php';
+      echo 'This is something in php'.print_r($_GET);
     ?>
