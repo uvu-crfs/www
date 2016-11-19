@@ -10,8 +10,8 @@
   <tbody>
     <tr ng-repeat="sensor in allSensors">
       <td ng-repeat="key in sensorHeaders" >{{sensor[key]}}</td>
-      <td><button class="btn btn-danger" ng-click="fillDeleteModal(sensor)" data-toggle="modal" data-target="#myModal">Delete</button></td>
       <td><button class="btn" ng-click="fillEditModal(sensor)" data-toggle="modal" data-target="#editModal">Edit</button>
+      <td><button class="btn btn-danger" ng-click="fillDeleteModal(sensor)" data-toggle="modal" data-target="#myModal">Delete</button></td>
     </tr>
   </tbody>
 </table>
