@@ -4,7 +4,9 @@
 
     <?php
       $developer = false;
-      $developer = true;
+      if (isset($_GET['dev'])) {
+          $developer = true;
+      }
     ?>
 
     <!-- define angular app -->
