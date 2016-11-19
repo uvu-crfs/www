@@ -25,6 +25,11 @@
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
       <script src="script.js"></script>
+
+      <?php
+      if ($developer) {
+          echo '<script src="js/developer.js"></script>';
+      } ?>
     </head>
 
     <!-- define angular controller -->
