@@ -24,11 +24,20 @@
       <nav class="navbar navbar-light bg-faded">
         <a class="navbar-brand" href="#">CRFS</a>
         <ul class="nav navbar-nav">
-          <li class="nav-item active">
+          <li class="nav-item">
+            <a class="nav-link" href="#/useage">Enter Usage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/visit">Visits</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#/group">Groups <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/sensor">Sensors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/reports">Reports</a>
           </li>
         </ul>
       </nav>
