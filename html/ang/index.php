@@ -65,7 +65,3 @@
     <div id="main">
         <div ng-view></div>
     </div>
-
-    <?php
-      echo 'Current user is a developer: '.$developer;
-    ?>
