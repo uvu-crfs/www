@@ -30,17 +30,13 @@
           <li class="nav-item">
             <a class="nav-link" href="#/sensor">Sensors</a>
           </li>
-
-          <?php
-            var_dump($_GET);
-          ?>
-
-
-
-
         </ul>
       </nav>
     <!-- MAIN CONTENT AND INJECTED VIEWS -->
     <div id="main">
         <div ng-view></div>
     </div>
+
+    <?php
+      echo '$_GET'.var_dump($_GET);
+    ?>
