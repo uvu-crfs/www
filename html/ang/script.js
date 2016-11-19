@@ -1,11 +1,11 @@
 // script.js
 
-    // create the module and name it scotchApp
+    // create the module and name it crfsApp
         // also include ngRoute for all our routing needs
-    var scotchApp = angular.module('scotchApp', ['ngRoute']);
+    var crfsApp = angular.module('crfsApp', ['ngRoute']);
 
     // configure our routes
-    scotchApp.config(function($routeProvider) {
+    crfsApp.config(function($routeProvider) {
         $routeProvider
 
             // route for the home page
@@ -22,12 +22,12 @@
     });
 
     // create the controller and inject Angular's $scope
-    scotchApp.controller('mainController', function($scope) {
+    crfsApp.controller('mainController', function($scope) {
         // create a message to display in our view
         $scope.message = 'Everyone come and see how good I look!';
     });
 
-    scotchApp.controller('groupController', function($scope, $http) {
+    crfsApp.controller('groupController', function($scope, $http) {
         $scope.message = 'Look! I am an about page.';
         $scope.allGroups = [];
 

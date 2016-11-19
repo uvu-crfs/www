@@ -2,7 +2,7 @@
     <!DOCTYPE html>
 
     <!-- define angular app -->
-    <html ng-app="scotchApp">
+    <html ng-app="crfsApp">
     <head>
       <!-- SCROLLS -->
       <!-- load bootstrap and fontawesome via CDN -->
