@@ -123,7 +123,7 @@
         $scope.addSensor = function(){
           $http({
             method: 'POST',
-            url: '/api/type.php',
+            url: '/api/sensor/type.php',
             data: $scope.add
           }).then(function successCallback(response) {
             $scope.getAllSensors();
