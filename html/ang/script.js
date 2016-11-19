@@ -35,6 +35,7 @@
     };
 
     crfsApp.controller('groupController', function($scope, $http) {
+        $scope.add = {};
         $scope.message = 'Look! I am an about page.';
         $scope.allGroups = [];
         $scope.groupHeaders = [];
@@ -53,19 +54,30 @@
         };
         $scope.getAllGroups();
 
+        $scope.fillDeleteModal = function(group){
+          $scope.deleteModal = group;
+        };
+
         $scope.deleteGroup = function(id){
           $http({
             method: 'DELETE',
-            url: '/api/grous.php',
+            url: '/api/group.php',
             data: '{"id":"'+id+'"}'
           }).then(function successCallback(response) {
             $scope.getAllGroups();
             }, function errorCallback(response) {});
         };
 
-
-
-
+        $scope.addGroup = function(){
+          $http({
+            method: 'POST',
+            url: '/api/group.php',
+            data: $scope.add
+          }).then(function successCallback(response) {
+            $scope.getAllGroups();
+            $scope.add = {};
+            }, function errorCallback(response) {});
+        };
     });
 
     crfsApp.controller('sensorController', function($scope) {
