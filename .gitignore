@@ -1,3 +1,4 @@
 cgi-bin
 lib/*.json
 .phpintel
+.DS_Store
