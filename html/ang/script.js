@@ -129,6 +129,13 @@
         $scope.visitHeaders = [];
         $scope.editModal = {};
 
+
+        $scope.inputs = [
+          {id:"addStartDate", label:"Start Date",type:"text", key:"start_date", placeholder:"Enter start date"}
+        ];
+
+
+
         $scope.getAllVisits = function(){
           $http({
             method: 'GET',

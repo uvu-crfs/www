@@ -48,16 +48,17 @@
         <h4 class="modal-title" id="addModalLabel">Add Visit</h4>
       </div>
       <div class="modal-body">
-        'start_date', 'end_date', 'days', 'nights', 'students_female', 'students_male', 'advisors_female', 'advisors_male', 'evaluation_complete', 'summary_complete', 'notes'
-        <div class="form-group">
-         <label for="addName">Name</label>
-         <input type="text" class="form-control" id="addName" ng-model="add.name" placeholder="Enter name">
-         <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
-       </div>
-       <div class="form-group">
-         <label for="unitInput">Unit</label>
-         <input type="text" class="form-control" id="unitInput" ng-model="add.unit" placeholder="Enter unit">
-       </div>
+        <div class="form-group" ng-repeat="input in inputs">
+          {{input}}
+         <label for="addStartDate">{{input.label}}</label>
+         <input type="text" class="form-control" id="addStartDate" ng-model="add.start_date" placeholder="Enter start date">
+        </div>
+
+
+
+
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
