@@ -27,20 +27,42 @@
         $scope.message = 'Everyone come and see how good I look!';
     });
 
-    crfsApp.controller('groupController', function($scope, $http) {
-        $scope.message = 'Look! I am an group page.';
-        $scope.allGroups = [];
 
-        $http({
-          method: 'GET',
-          url: '/api/groups.php'
-        }).then(function successCallback(response) {
-            $scope.allGroups  = response;
-            console.log(JSON.stringify(response));
-          }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-          });
+    var getHeaders = function(all){
+        if (all.length > 0 ){
+            return Object.keys(all[0]);
+        }
+    };
+
+    crfsApp.controller('groupController', function($scope, $http) {
+        $scope.message = 'Look! I am an about page.';
+        $scope.allGroups = [];
+        $scope.groupHeaders = [];
+        $scope.getAllGroups = function(){
+          $http({
+            method: 'GET',
+            url: '/api/groups.php'
+          }).then(function successCallback(response) {
+              $scope.allGroups = response.data;
+              $scope.groupHeaders = getHeaders($scope.allGroups);
+              //console.log(JSON.stringify(response));
+            }, function errorCallback(response) {
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+            });
+        };
+        $scope.getAllGroups();
+
+        $scope.deleteGroup = function(id){
+          $http({
+            method: 'DELETE',
+            url: '/api/grous.php',
+            data: '{"id":"'+id+'"}'
+          }).then(function successCallback(response) {
+            $scope.getAllGroups();
+            }, function errorCallback(response) {});
+        };
+
 
 
 
@@ -60,4 +82,4 @@
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
-    })
+    });
