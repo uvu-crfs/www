@@ -90,6 +90,7 @@
         $scope.message = 'Look! This is a sensor page.';
         $scope.allSensors = [];
         $scope.sensorHeaders = [];
+        $scope.editModal = {};
 
         $scope.getAllSensors = function(){
           $http({
@@ -110,6 +111,10 @@
           $scope.deleteModal = sensor;
         };
 
+        $scope.fillEditModal = function(sensor){
+          $scope.editModal = sensor;
+        };
+
         $scope.deleteSensor = function(id){
           $http({
             method: 'DELETE',
@@ -128,6 +133,17 @@
           }).then(function successCallback(response) {
             $scope.getAllSensors();
             $scope.add = {};
+            }, function errorCallback(response) {});
+        };
+
+        $scope.editSensor = function(){
+          $http({
+            method: 'PUT',
+            url: '/api/sensor/type.php',
+            data: $scope.editModal
+          }).then(function successCallback(response) {
+            $scope.getAllSensors();
+            $scope.editModal = {};
             }, function errorCallback(response) {});
         };
 
