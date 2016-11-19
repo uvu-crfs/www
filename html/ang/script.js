@@ -18,6 +18,11 @@
                 templateUrl : 'pages/group.html',
                 controller  : 'groupController'
             })
+
+            .when('/sensor', {
+                templateUrl : 'pages/sensor.html',
+                controller  : 'sensorController'
+            })
         ;
     });
 
@@ -81,17 +86,50 @@
     });
 
     crfsApp.controller('sensorController', function($scope) {
+        $scope.add = {};
         $scope.message = 'Look! This is a sensor page.';
         $scope.allSensors = [];
+        $scope.sensorHeaders = [];
 
-        $http({
+        $scope.getAllSensors = function(){
+          $http({
             method: 'GET',
             url: '/api/sensor/types.php'
-        }).then(function successCallback(response) {
-            $scope.allSensors  = response;
-            console.log(JSON.stringify(response));
-        }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-        });
+          }).then(function successCallback(response) {
+              $scope.allSensors = response.data;
+              $scope.sensorHeaders = getHeaders($scope.allSensors);
+              //console.log(JSON.stringify(response));
+            }, function errorCallback(response) {
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+            });
+        };
+        $scope.getAllSensors();
+
+        $scope.fillDeleteModal = function(sensor){
+          $scope.deleteModal = sensor;
+        };
+
+        $scope.deleteSensor = function(id){
+          $http({
+            method: 'DELETE',
+            url: '/api/sensor/type.php',
+            data: '{"id":"'+id+'"}'
+          }).then(function successCallback(response) {
+            $scope.getAllSensors();
+            }, function errorCallback(response) {});
+        };
+
+        $scope.addSensor = function(){
+          $http({
+            method: 'POST',
+            url: '/api/type.php',
+            data: $scope.add
+          }).then(function successCallback(response) {
+            $scope.getAllSensors();
+            $scope.add = {};
+            }, function errorCallback(response) {});
+        };
+
+        
     });
