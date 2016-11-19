@@ -1,6 +1,8 @@
 <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#enterModal">Enter Usage</button>
 
-<select><option ng-repeat="sensor in sensors" value="{{sensor.id}}">{{sensor.name}}</option></select>
+<select>
+  <option ng-repeat="sensor in sensors" value="{{sensor.id}}"> a {{sensor}} {{sensor.name}}</option>
+</select>
 
 <div class="modal fade" id="enterModal" tabindex="-1" role="dialog" aria-labelledby="enterModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
