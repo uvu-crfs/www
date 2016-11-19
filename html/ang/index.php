@@ -38,7 +38,7 @@
         <a class="navbar-brand" href="#">CRFS</a>
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#/useage">Enter Usage</a>
+            <a class="nav-link" href="#/usage">Enter Usage</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/visit">Visits</a>
