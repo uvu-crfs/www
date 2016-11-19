@@ -23,7 +23,17 @@
 
     <!-- define angular controller -->
     <body ng-controller="mainController">
-      <div ng-include="'parts/header.html'"></div>
+      <nav class="navbar navbar-light bg-faded">
+        <a class="navbar-brand" href="#">CRFS</a>
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#/group">Groups <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/sensor">Sensors</a>
+          </li>
+        </ul>
+      </nav>
     <!-- MAIN CONTENT AND INJECTED VIEWS -->
     <div id="main">
         <div ng-view></div>
