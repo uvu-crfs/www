@@ -28,7 +28,7 @@
     });
 
     crfsApp.controller('groupController', function($scope, $http) {
-        $scope.message = 'Look! I am an about page.';
+        $scope.message = 'Look! I am an group page.';
         $scope.allGroups = [];
 
         $http({
@@ -45,3 +45,19 @@
 
 
     });
+
+    crfsApp.controller('sensorController', function($scope) {
+        $scope.message = 'Look! This is a sensor page.';
+        $scope.allSensors = [];
+
+        $http({
+            method: 'GET',
+            url: '/api/sensor/types.php'
+        }).then(function successCallback(response) {
+            $scope.allSensors  = response;
+            console.log(JSON.stringify(response));
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+    })
