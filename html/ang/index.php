@@ -30,6 +30,14 @@
           <li class="nav-item">
             <a class="nav-link" href="#/sensor">Sensors</a>
           </li>
+
+          <?php
+            var_dump($_GET);
+          ?>
+
+
+
+
         </ul>
       </nav>
     <!-- MAIN CONTENT AND INJECTED VIEWS -->
