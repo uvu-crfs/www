@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="sensor in allSensors">
-      <td ng-repeat="key in sensorHeaders" editable-text="sensor[key]">{{sensor[key]}}</td>
+      <td ng-repeat="key in sensorHeaders" >{{sensor[key]}}</td>
       <td><button class="btn btn-danger" ng-click="fillDeleteModal(sensor)" data-toggle="modal" data-target="#myModal">Delete</button></td>
     </tr>
   </tbody>

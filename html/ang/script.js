@@ -2,11 +2,7 @@
 
     // create the module and name it crfsApp
         // also include ngRoute for all our routing needs
-    var crfsApp = angular.module('crfsApp', ['ngRoute', 'xeditable']);
-
-    crfsApp.run(function(editableOptions) {
-        editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-    });
+    var crfsApp = angular.module('crfsApp', ['ngRoute']);
 
     // configure our routes
     crfsApp.config(function($routeProvider) {

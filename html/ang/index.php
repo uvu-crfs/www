@@ -8,7 +8,6 @@
       <!-- load bootstrap and fontawesome via CDN -->
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
-      <link href="./vendor/angular-xeditable-0.5.0/css/xeditable.css" rel="stylesheet">
 
       <!-- SPELLS -->
       <!-- load angular via CDN -->
@@ -18,7 +17,6 @@
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
       <script src="script.js"></script>
-      <script src="vendor/angular-xeditable-0.5.0/js/xeditable.js"></script>
     </head>
 
     <!-- define angular controller -->
