@@ -51,7 +51,7 @@
         <div class="form-group" ng-repeat="input in inputs">
           {{input}}
          <label for="{{input.id}}">{{input.label}}</label>
-         <input type="{{input.type}}" class="form-control" id="{{input.id}}" ng-model="add.{{input.start_date}}" placeholder="{{placeholder}}">
+         <input type="{{input.type}}" class="form-control" id="{{input.id}}" ng-model="{{'add.' + input.start_date}}" placeholder="{{placeholder}}">
         </div>
 
 
