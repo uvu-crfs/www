@@ -50,8 +50,8 @@
       <div class="modal-body">
         <div class="form-group" ng-repeat="input in inputs">
           {{input}}
-         <label for="addStartDate">{{input.label}}</label>
-         <input type="text" class="form-control" id="addStartDate" ng-model="add.start_date" placeholder="Enter start date">
+         <label for="{{input.id}}">{{input.label}}</label>
+         <input type="{{input.type}}" class="form-control" id="{{input.id}}" ng-model="add.{{input.start_date}}" placeholder="{{placeholder}}">
         </div>
 
 

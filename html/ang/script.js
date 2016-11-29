@@ -86,7 +86,7 @@
             $scope.editModal.affiliation = group.affiliation;
             $scope.editModal.course_num = group.course_num;
             $scope.editModal.notes = group.notes;
-        }
+        };
 
         $scope.deleteGroup = function(id){
           $http({
@@ -131,7 +131,8 @@
 
 
         $scope.inputs = [
-          {id:"addStartDate", label:"Start Date",type:"text", key:"start_date", placeholder:"Enter start date"}
+          {id:"addStartDate", label:"Start Date",type:"text", key:"start_date", placeholder:"Enter start date"},
+          {id:"endStartDate", label:"End Date",type:"text", key:"end_date", placeholder:"Enter start end"}
         ];
 
 
