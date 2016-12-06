@@ -60,9 +60,12 @@
             }
           ?>
         </ul>
+
+        <!--
         <ul class="pull-right">
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
+          <li class="nav-item"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        -->
       </nav>
     <!-- MAIN CONTENT AND INJECTED VIEWS -->
     <div id="main">

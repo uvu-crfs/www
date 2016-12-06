@@ -1,8 +1,28 @@
 <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#enterModal">Enter Usage</button>
 
-<select>
-  <option ng-repeat="sensor in sensors" value="{{sensor.id}}"> a {{sensor}} {{sensor.name}}</option>
-</select>
+
+<label>Select Sensor:<label>
+<select ng-model="select" ng-change="getData(select)"
+   ng-options="sensor.id as sensor.name for sensor in sensors">
+</select>{{sensors[id]}}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th ng-repeat="key in sensorDataHeaders">{{key}}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="sensor in allSensorData">
+      <td ng-repeat="key in sensorDataHeaders" >{{sensor[key]}}</td>
+      <td><button class="btn" ng-click="fillEditModal(sensor)" data-toggle="modal" data-target="#editModal">Edit</button>
+      <td><button class="btn btn-danger" ng-click="fillDeleteModal(sensor)" data-toggle="modal" data-target="#myModal">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 <div class="modal fade" id="enterModal" tabindex="-1" role="dialog" aria-labelledby="enterModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

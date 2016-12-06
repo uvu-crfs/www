@@ -36,7 +36,7 @@
 
             .when('/usage', {
                 templateUrl : 'pages/usage.html',
-                controller  : 'groupController'
+                controller  : 'usageController'
             })
         ;
     });
@@ -146,7 +146,6 @@
         return i;
       });
     }
-
 
 
 
@@ -291,6 +290,53 @@
             $scope.editModal = {};
             }, function errorCallback(response) {});
         };
+
+
+    });
+
+    function dataFromRequest($http, $scope, reqObj, variable, transform){
+      return $http(reqObj).then(function successCallback(response) {
+          if (typeof transform === "undefined"){
+              $scope[variable] = response.data;
+          }else{
+            $scope[variable] = transform(response.data);
+          }
+          return $scope[variable];
+        }, function errorCallback(response) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
+    }
+
+
+    crfsApp.controller('usageController', function($scope, $http) {
+        $scope.add = {};
+        $scope.message = 'Look! This is a sensor page.';
+        $scope.allSensors = [];
+        $scope.sensorDataHeaders = [];
+        $scope.editModal = {};
+
+
+        $scope.getData = function(id){
+          $http({method: 'GET',url: '/api/sensor/value.php?sensor=' + id})
+            .then(function successCallback(response) {
+                $scope.sensors = response.data;
+            }, function errorCallback(response) {})
+          ;
+        };
+
+        $http({method: 'GET',url: '/api/sensor/types.php'})
+          .then(function successCallback(response) {
+              $scope.sensors = response.data;
+          }, function errorCallback(response) {})
+          .then(function(){
+            console.log("$scope.selection", $scope.selection);
+          })
+        ;
+
+
+
+
 
 
     });
