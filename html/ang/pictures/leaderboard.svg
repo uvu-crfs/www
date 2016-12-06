@@ -1,0 +1,29 @@
+<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="482" width="642" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <line stroke="#000" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_5" y2="402.667284" x2="105.666363" y1="101.332907" x1="105.666367" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_6" y2="402.000608" x2="105.666366" y1="402.667276" x1="510.333581" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="none"/>
+  <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_7" y="106.333546" x="54.99968" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">100 gal</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_8" y="226.667045" x="63.332899" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">60 gal</text>
+  <text stroke="#000" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_9" y="346.667218" x="61.332871" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">20 gal</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_10" y="286.333825" x="61.666188" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">40 gal</text>
+  <text style="cursor: move;" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_11" y="167.33451" x="63.666228" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">80 gal</text>
+  <rect id="svg_12" height="9.333208" width="59.999191" y="390.660752" x="180.330903" stroke-width="1.5" stroke="#5B9BA2" fill="#083734"/>
+  <rect stroke="#5B9BA2" id="svg_13" height="29.332908" width="59.999191" y="371.994315" x="420.994332" stroke-width="1.5" fill="#083734"/>
+  <rect stroke="#5B9BA2" id="svg_14" height="17.666416" width="59.999191" y="382.660864" x="301.32927" stroke-width="1.5" fill="#083734"/>
+  <text transform="rotate(65 214.32824707031256,425.833251953125) " stroke="#5B9BA2" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_15" y="429.993643" x="195.330701" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">Winner</text>
+  <text transform="rotate(65 337.17187499999994,426.48437500000006) " stroke="#5B9BA2" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_16" y="430.493643" x="316.830701" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">Second</text>
+  <text style="cursor: move;" transform="rotate(65 450.48437499999994,425.984375) " stroke="#894F3F" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="12" id="svg_17" y="429.993643" x="436.830701" stroke-width="0" fill="#000000">Third</text>
+  <rect stroke="#894F3F" id="svg_18" height="68.499999" width="402.50001" y="100.999998" x="108.5" stroke-width="0" fill="#884D58"/>
+  <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" id="svg_20" y="144.999993" x="223.500006" stroke-opacity="null" stroke-width="0" stroke="#894F3F" fill="#000000">Average American</text>
+  <text stroke="#894F3F" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" id="svg_22" y="53.999982" x="192.500002" stroke-opacity="null" stroke-width="0" fill="#000000">Water Usage Leaderboard</text>
+ </g>
+</svg>

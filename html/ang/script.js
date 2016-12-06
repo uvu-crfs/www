@@ -122,6 +122,34 @@
 
     });
 
+    function keyToLabel(key){
+      switch (key) {
+        case 'start_date': return "Start Date";
+        case 'end_date': return "End Date";
+        case 'days': return "Days";
+        case 'nights': return "Nights";
+        case 'students_female': return "Female Students";
+        case 'students_male': return "Male Students";
+        case 'advisors_female': return "Female Advisors";
+        case 'advisors_male': return "Male Advisors";
+        case 'evaluation_complete': return "Completed Evaluation";
+        case 'summary_complete': return "Completed Summary";
+        case 'notes': return "Notes";
+        default: return key;
+        }
+    }
+
+    function editedInputs(inputs, type){
+      return inputs.map(function(i){
+        i.id = type + '_'+ i.key;
+        i.label = keyToLabel(i.key);
+        return i;
+      });
+    }
+
+
+
+
     crfsApp.controller('visitController', function($scope, $http) {
         $scope.add = {};
         $scope.message = 'Look! This is a visit page.';
@@ -131,9 +159,20 @@
 
 
         $scope.inputs = [
-          {id:"addStartDate", label:"Start Date",type:"text", key:"start_date", placeholder:"Enter start date"},
-          {id:"endStartDate", label:"End Date",type:"text", key:"end_date", placeholder:"Enter start end"}
+          {type:"datetime-local", key:"start_date", placeholder:"Arrival Time"},
+          {type:"datetime-local", key:"end_date", placeholder:"Leaving Time"},
+          {type:"number", key:"days", placeholder:"Enter start end"},
+          {type:"number", key:"nights", placeholder:"Enter start end"},
+          {type:"number", key:"students_female", placeholder:"Enter number of female students"},
+          {type:"number", key:"students_male", placeholder:"Enter number of male students"},
+          {type:"number", key:"advisors_female", placeholder:"Enter number of female advisors"},
+          {type:"number", key:"advisors_male", placeholder:"Enter number of male advisors"},
+          {type:"text", key:"evaluation_complete", placeholder:"Have they completed the evaluation"},
+          {type:"text", key:"summary_complete", placeholder:"Has the summary been completed"},
+          {type:"text", key:"notes", placeholder:"Notes"}
         ];
+
+        $scope.addInputs = editedInputs($scope.inputs, "add");
 
 
 
