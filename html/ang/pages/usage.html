@@ -1,10 +1,11 @@
-<button class="pull-right btn btn-primary" data-toggle="modal" data-target="#enterModal">Enter Usage</button>
+<button ng-if="select" class="pull-right btn btn-primary" data-toggle="modal" data-target="#enterModal">Enter Usage</button>
 
 
 <label>Select Sensor:<label>
-<select ng-model="select" ng-change="getData(select)"
+<select ng-model="select" ng-change="getValues(select)"
    ng-options="sensor.id as sensor.name for sensor in sensors">
-</select>{{sensors[id]}}
+</select>{{unit}}
+
 
 <table class="table table-striped">
   <thead>
@@ -16,13 +17,11 @@
   <tbody>
     <tr ng-repeat="sensor in allSensorData">
       <td ng-repeat="key in sensorDataHeaders" >{{sensor[key]}}</td>
-      <td><button class="btn" ng-click="fillEditModal(sensor)" data-toggle="modal" data-target="#editModal">Edit</button>
+      <!--<td><button class="btn" ng-click="fillEditModal(sensor)" data-toggle="modal" data-target="#editModal">Edit</button>-->
       <td><button class="btn btn-danger" ng-click="fillDeleteModal(sensor)" data-toggle="modal" data-target="#myModal">Delete</button></td>
     </tr>
   </tbody>
 </table>
-
-
 
 <div class="modal fade" id="enterModal" tabindex="-1" role="dialog" aria-labelledby="enterModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -36,16 +35,32 @@
       <div class="modal-body">
         <div class="form-group">
          <label for="enterAmount">Amount</label>
-         <input type="text" class="form-control" id="enterAmount" ng-model="add.name" placeholder="Enter amount">
-       </div>
-       <div class="form-group">
-         <label for="unitInput">Unit</label>
-         <input type="text" class="form-control" id="unitInput" ng-model="add.unit" placeholder="Enter unit">
+         <input type="text" class="form-control" id="enterAmount" ng-model="add.quantity" placeholder="Enter amount">
        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addSensor()">Add</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addSensorData()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Are you sure you want to delete data</h4>
+      </div>
+      <div class="modal-body">
+        {{deleteModal.quantity}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal" ng-click="deleteValue(deleteModal.id)">Delete</button>
       </div>
     </div>
   </div>

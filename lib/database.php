@@ -139,16 +139,18 @@ function delete_by_id($table_name)
 {
     $id = post_data()['id'];
     if (!is_numeric($id)) {
+        echo '"id" is not numeric:'.$id;
+
         return http_response_code(400);
     }
     delete($table_name, $id);
-    http_response_code(204);
 }
 
 function delete($table_name, $id)
 {
     $stmt = $GLOBALS['pdo']->prepare('delete from '.$table_name.' where id = ?');
     $stmt->execute([$id]);
+    http_response_code(204);
 }
 
 function get_all_rows_from_table($table_name)

@@ -294,49 +294,57 @@
 
     });
 
-    function dataFromRequest($http, $scope, reqObj, variable, transform){
-      return $http(reqObj).then(function successCallback(response) {
-          if (typeof transform === "undefined"){
-              $scope[variable] = response.data;
-          }else{
-            $scope[variable] = transform(response.data);
-          }
-          return $scope[variable];
-        }, function errorCallback(response) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-        });
-    }
-
 
     crfsApp.controller('usageController', function($scope, $http) {
         $scope.add = {};
         $scope.message = 'Look! This is a sensor page.';
-        $scope.allSensors = [];
+        $scope.allSensorData = [];
         $scope.sensorDataHeaders = [];
         $scope.editModal = {};
 
-
-        $scope.getData = function(id){
-          $http({method: 'GET',url: '/api/sensor/value.php?sensor=' + id})
-            .then(function successCallback(response) {
-                $scope.sensors = response.data;
-            }, function errorCallback(response) {})
-          ;
-        };
 
         $http({method: 'GET',url: '/api/sensor/types.php'})
           .then(function successCallback(response) {
               $scope.sensors = response.data;
           }, function errorCallback(response) {})
-          .then(function(){
-            console.log("$scope.selection", $scope.selection);
-          })
         ;
 
+        $scope.getValues = function(id){
+          $scope.add.sensor = id;
+          $http({method: 'GET',url: '/api/sensor/values.php?sensor=' + id})
+            .then(function successCallback(response) {
+                $scope.sensors.forEach(function(sensor){
+                  if (sensor.id === $scope.select) $scope.unit = sensor.unit;
+                });
+                $scope.allSensorData = response.data;
+                $scope.sensorDataHeaders = getHeaders($scope.allSensorData);
+            }, function errorCallback(response) {})
+          ;
+        };
 
+        $scope.addSensorData = function(){
+          $http({
+            method: 'POST',
+            url: '/api/sensor/value.php',
+            data: $scope.add
+          }).then(function successCallback(response) {
+            $scope.getValues($scope.add.sensor);
+            $scope.add = {};
+            }, function errorCallback(response) {});
+        };
 
+        $scope.deleteValue = function(id){
+          $http({
+            method: 'DELETE',
+            url: '/api/sensor/value.php',
+            data: '{"sensor":'+$scope.select+',"id":'+id+'}'
+          }).then(function successCallback(response) {
+            $scope.getValues($scope.select);
+            }, function errorCallback(response) {});
+        };
 
-
+        $scope.fillDeleteModal = function(json){
+          $scope.deleteModal = json;
+        };
 
     });

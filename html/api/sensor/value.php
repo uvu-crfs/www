@@ -23,8 +23,20 @@ switch ($_SERVER['REQUEST_METHOD']) {
     put($table_name.$sensor, $senor_data_keys);
     break;
   case 'DELETE':
-    $sensor = get_sensor_id();
-    delete_by_id($table_name.$sensor);
+    $data = post_data();
+    $sensor = $data['sensor'];
+    if (!is_numeric($sensor)) {
+        echo '"sensor" is not numeric:'.$id;
+
+        return http_response_code(400);
+    }
+    $id = $data['id'];
+    if (!is_numeric($id)) {
+        echo '"id" is not numeric:'.$id;
+
+        return http_response_code(400);
+    }
+    delete($table_name.$sensor, $id);
     break;
   default:
     http_response_code(404);
