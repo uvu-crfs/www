@@ -12,12 +12,11 @@
     <!-- define angular app -->
     <html ng-app="crfsApp">
     <head>
-      <!-- SCROLLS -->
+      <title>CRFS Admin</title>
       <!-- load bootstrap and fontawesome via CDN -->
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 
-      <!-- SPELLS -->
       <!-- load angular via CDN -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

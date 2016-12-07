@@ -78,8 +78,8 @@ function insert($table_name, $available_keys, $required_keys)
     $keys_str = implode(',', $keys);
     $values_str = implode(',', $value_placeholders);
     $query = 'insert into '.$table_name.'('.$keys_str.') values ('.$values_str.')';
-    echo 'Query: '.$query;
-    var_dump($values);
+    //echo 'Query: '.$query;
+    //var_dump($values);
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
