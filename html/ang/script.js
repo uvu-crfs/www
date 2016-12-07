@@ -158,6 +158,7 @@
 
 
         $scope.inputs = [
+          {type:"number", key:"group_id", placeholder:"Group ID"},
           {type:"datetime-local", key:"start_date", placeholder:"Arrival Time"},
           {type:"datetime-local", key:"end_date", placeholder:"Leaving Time"},
           {type:"number", key:"days", placeholder:"Enter start end"},
@@ -170,7 +171,6 @@
           {type:"text", key:"summary_complete", placeholder:"Has the summary been completed"},
           {type:"text", key:"notes", placeholder:"Notes"}
         ];
-
         $scope.addInputs = editedInputs($scope.inputs, "add");
 
 
@@ -204,7 +204,16 @@
             }, function errorCallback(response) {});
         };
 
+
+        var toUnixTime = function(date){
+          if (typeof date !== "undefined")
+            return Date.parse(date)/1000;
+        };
+
         $scope.addVisit = function(){
+          $scope.add.start_date = toUnixTime($scope.add.start_date);
+          $scope.add.end_date = toUnixTime($scope.add.end_date);
+          console.log($scope.add);
           $http({
             method: 'POST',
             url: '/api/visit.php',
