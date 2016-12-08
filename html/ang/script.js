@@ -54,6 +54,15 @@
         }
     };
 
+    var toUnixTime = function(date){
+      if (typeof date !== "undefined")
+        return Date.parse(date)/1000;
+    };
+
+    var unixToDate = function(unix_timestamp){
+      return new Date(unix_timestamp*1000);
+    };
+
     crfsApp.controller('groupController', function($scope, $http) {
         $scope.add = {};
         $scope.message = 'Look! I am an about page.';
@@ -204,12 +213,6 @@
             }, function errorCallback(response) {});
         };
 
-
-        var toUnixTime = function(date){
-          if (typeof date !== "undefined")
-            return Date.parse(date)/1000;
-        };
-
         $scope.addVisit = function(){
           $scope.add.start_date = toUnixTime($scope.add.start_date);
           $scope.add.end_date = toUnixTime($scope.add.end_date);
@@ -311,6 +314,8 @@
         $scope.sensorDataHeaders = [];
         $scope.editModal = {};
 
+        $scope.unixToDate = unixToDate;
+
 
         $http({method: 'GET',url: '/api/sensor/types.php'})
           .then(function successCallback(response) {
@@ -332,13 +337,15 @@
         };
 
         $scope.addSensorData = function(){
+          if ($scope.add.timestamp) $scope.add.timestamp = toUnixTime($scope.add.timestamp);
+          if ($scope.add.timestamp === null) delete $scope.add.timestamp;
           $http({
             method: 'POST',
             url: '/api/sensor/value.php',
             data: $scope.add
           }).then(function successCallback(response) {
             $scope.getValues($scope.add.sensor);
-            $scope.add = {};
+            $scope.add = {sensor: $scope.add.sensor};
             }, function errorCallback(response) {});
         };
 

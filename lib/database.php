@@ -69,7 +69,7 @@ function insert($table_name, $available_keys, $required_keys)
         return http_response_code(400);
     }
 
-    if (in_array('timestamp', $available_keys) && !array_key_exists('timestamp', $keys)) {
+    if (in_array('timestamp', $available_keys) && !in_array('timestamp', $keys)) {
         array_push($keys, 'timestamp');
         array_push($values, time());
         array_push($value_placeholders, '?');
