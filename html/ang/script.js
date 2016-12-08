@@ -60,7 +60,7 @@
     };
 
     var unixToDate = function(unix_timestamp){
-      return new Date(unix_timestamp*1000);
+      return new Date(parseInt(unix_timestamp)*1000);
     };
 
     crfsApp.controller('groupController', function($scope, $http) {
@@ -190,6 +190,10 @@
             url: '/api/visits.php'
           }).then(function successCallback(response) {
               $scope.allVisits = response.data;
+              $scope.allVisits.forEach(function(data,i){
+                if(data.start_date) $scope.allVisits[i].start_date = unixToDate(data.start_date);
+                if(data.end_date) $scope.allVisits[i].end_date = unixToDate(data.end_date);
+              });
               $scope.visitHeaders = getHeaders($scope.allVisits);
             }, function errorCallback(response) {});
         };
@@ -331,6 +335,9 @@
                   if (sensor.id === $scope.select) $scope.unit = sensor.unit;
                 });
                 $scope.allSensorData = response.data;
+                $scope.allSensorData.forEach(function(data,i){
+                  $scope.allSensorData[i].timestamp = unixToDate(data.timestamp);
+                });
                 $scope.sensorDataHeaders = getHeaders($scope.allSensorData);
             }, function errorCallback(response) {})
           ;
