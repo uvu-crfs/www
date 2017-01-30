@@ -5,6 +5,7 @@ echo 'mail: '.getenv('mail').'<br>';
 echo 'uvuEntitlements: '.getenv('uvuEntitlements').'<br>';
 echo '<br>';
 echo 'http'.(isset($_SERVER['HTTPS']) ? 's' : '').'://'."{$_SERVER['HTTP_HOST']}/{$_SERVER['REQUEST_URI']}";
+echo '<br>';
 echo print_r($_SERVER);
 
 ?>
