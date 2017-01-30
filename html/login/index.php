@@ -1,3 +1,4 @@
 <?php
 
-echo $displayName;
+
+echo getenv('displayName');
