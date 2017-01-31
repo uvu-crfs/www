@@ -10,8 +10,8 @@ script: phpunit test/test.php
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_53ef43865792_key -iv $encrypted_53ef43865792_iv -in deploy_key.enc -out deploy_key -d
 - eval "$(ssh-agent -s)"
-- chmod 600 /tmp/deploy_key
-- ssh-add /tmp/deploy_key
+- chmod 600 deploy_key
+- ssh-add deploy_key
 
 deploy:
   provider: script
