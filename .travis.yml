@@ -1,9 +1,22 @@
+addons:
+ssh_known_hosts: stu-web4.uvu.edu
+
 language: php
 php:
 - 5.4
 - 5.3
 script: phpunit test/test.php
 
-before_install:
-- openssl aes-256-cbc -K $encrypted_53ef43865792_key -iv $encrypted_53ef43865792_iv
-  -in deploy_key.enc -out deploy_key -d
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_53ef43865792_key -iv $encrypted_53ef43865792_iv -in deploy_key.enc -out deploy_key -d
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/deploy_key
+- ssh-add /tmp/deploy_key
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/www erick@stu-web4.uvu.edu:/var/www
+  on:
+    branch: master
+
