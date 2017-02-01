@@ -1,6 +1,10 @@
 addons:
 ssh_known_hosts: stu-web4.uvu.edu
 
+before_script:
+  - echo -e "Host stu-web4.uvu.edu\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+
+
 language: php
 php:
 - 5.4
