@@ -1,0 +1,7 @@
+{
+	"host":"maria",
+	"port":"3306",
+	"dbname":"crfs",
+	"username":"crfs",
+	"password":"crfs"
+}

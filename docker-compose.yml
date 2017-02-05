@@ -1,0 +1,20 @@
+crfs:
+  build: "./docker-compose-secrets"
+  links:
+    - maria
+  volumes:
+    - "./:/var/www"
+    - "./docker-compose-secrets:/var/secrets"
+  ports:
+    - "80:80"
+    - "443:443"
+  #command: "bash"
+
+maria:
+  image: mariadb
+  environment:
+    - MYSQL_ROOT_PASSWORD=my-secret-pw
+  ports:
+    - "3306:3306"
+  # volumes:
+  #   - "./docker-compose-secrets/my.cnf:/etc/mysql/my.cnf"
