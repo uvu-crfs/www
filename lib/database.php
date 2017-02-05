@@ -4,8 +4,8 @@ require_once '/var/www/lib/helper_functions.php';
 
 function connect_to_databse()
 {
-    $db_json = file_get_contents('/var/www/lib/database.json');
-    //$db_json = file_get_contents('/var/secrets/database.json');
+    //$db_json = file_get_contents('/var/www/lib/database.json');
+    $db_json = file_get_contents('/var/secrets/database.json');
     $db = json_decode($db_json, true);
     $servername = $db['host']; //.':'.$db['port'];
     $dsn = "mysql:host=$servername;dbname=".$db['dbname'].';charset=utf8';
