@@ -12,9 +12,9 @@ crfs:
 
 maria:
   image: mariadb
-  #environment:
-   # - MYSQL_ROOT_PASSWORD=my-secret-pw
+  environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  volumes:
+    - "./docker-compose-secrets:/var/secrets"
   ports:
     - "3306:3306"
-  # volumes:
-  #   - "./docker-compose-secrets/my.cnf:/etc/mysql/my.cnf"
