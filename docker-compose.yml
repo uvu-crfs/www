@@ -12,8 +12,8 @@ crfs:
 
 maria:
   image: mariadb
-  environment:
-    - MYSQL_ROOT_PASSWORD=my-secret-pw
+  #environment:
+   # - MYSQL_ROOT_PASSWORD=my-secret-pw
   ports:
     - "3306:3306"
   # volumes:
