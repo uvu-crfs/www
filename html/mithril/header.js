@@ -1,6 +1,6 @@
 var header = {};
 
-var style = {style:"background-color: gray; width:100vw; padding: 10px 10px"};
+var style = {style:"background-color: gray; width:100vw; padding: 10px 0"};
 var route = function(r) {
   return {style:"color: white; padding: 0 5px; text-decoration: none;", href: "./#!/" + r};
 };

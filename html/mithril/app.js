@@ -19,5 +19,3 @@ m.route(document.body.querySelector("#app"), "/home", {
     "/home": Home,
     "/hello": Hello,
 });
-
-console.log("Username in mithril", username);
