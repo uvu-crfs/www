@@ -6,7 +6,11 @@
     <style> body {margin: 0;} </style>
   </head>
   <body>
-    <script src="http://unpkg.com/mithril/mithril.js"></script>
+    <script src="//unpkg.com/mithril/mithril.js"></script>
+    <script>
+      var username = "<?php echo getenv('displayName'); ?>";
+      console.log(username);
+    </script>
     <div id="header"></div><script src="mithril/header.js"></script>
     <div id="app"></div><script src="mithril/app.js"></script>
 
@@ -15,10 +19,5 @@
       <br><?php echo 'PHP: HTML page'; ?>
       <br><?php echo 'displayName: '.getenv('displayName'); ?>
     </div>
-
-    <script>
-      var username = "<?php echo getenv('displayName'); ?>";
-      console.log(username);
-    </script>
   </body>
 </html>
