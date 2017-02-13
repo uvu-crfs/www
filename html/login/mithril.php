@@ -11,8 +11,8 @@
       var username = "<?php echo getenv('displayName'); ?>";
       console.log(username);
     </script>
-    <div id="header"></div><script src="mithril/header.js"></script>
-    <div id="app"></div><script src="mithril/app.js"></script>
+    <div id="header"></div><script src="/mithril/header.js"></script>
+    <div id="app"></div><script src="/mithril/app.js"></script>
 
     <div style="border: 1px solid black; padding: 5px">
       None Mithril stuff:
