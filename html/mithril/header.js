@@ -10,6 +10,8 @@ header.view = function(){
   return m("", style, [
     m("a", route("home"), "CRFS"),
     m("a", route("hello"),  "hello"),
+    m('span', username),
+    loggedIn ? m("a[href='https://cas.uvu.edu/cas/logout]", 'Logout') : null
   ]);
 };
 
