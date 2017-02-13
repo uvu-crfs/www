@@ -6,9 +6,15 @@
     <style> body {margin: 0;} </style>
   </head>
   <body>
-    <script src="http://unpkg.com/mithril/mithril.js"></script>
-    <div id="header"></div><script src="header.js"></script>
-    <div id="app"></div><script src="app.js"></script>
+    <script src="//unpkg.com/mithril/mithril.js"></script>
+    <script>
+      var loggedIn = "<?php echo strlen(getenv('displayName')) > 0; ?>" == '1';
+      var username = "<?php echo getenv('displayName'); ?>";
+      console.log(username);
+      console.log("loggedIn", loggedIn);
+    </script>
+    <div id="header"></div><script src="/mithril/header.js"></script>
+    <div id="app"></div><script src="/mithril/app.js"></script>
 
     <div style="border: 1px solid black; padding: 5px">
       None Mithril stuff:

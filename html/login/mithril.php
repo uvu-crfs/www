@@ -8,7 +8,7 @@
   <body>
     <script src="//unpkg.com/mithril/mithril.js"></script>
     <script>
-      var loggedIn = "<?php echo strlen(getenv('displayName')) > 0; ?>";
+      var loggedIn = "<?php echo strlen(getenv('displayName')) > 0; ?>" == '1';
       var username = "<?php echo getenv('displayName'); ?>";
       console.log(username);
       console.log("loggedIn", loggedIn);
