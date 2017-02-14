@@ -4,6 +4,7 @@
   <head>
     <title>CRFS Admin</title>
     <style> body {margin: 0;} </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css" integrity="sha256-6ZFIKt0ohcBorQWIruhlYBoADBIFrJuXtEJsjFxb2Wk=" crossorigin="anonymous" />
   </head>
   <body>
     <script src="//unpkg.com/mithril/mithril.js"></script>
@@ -17,7 +18,6 @@
       console.log("loggedIn", loggedIn);
       console.log("uvu", uvu);
     </script>
-    <div id="header"></div><script src="/mithril/header.js"></script>
     <div id="app"></div><script src="/mithril/app.js"></script>
   </body>
 </html>
