@@ -20,7 +20,7 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR erik@stu-web4.uvu.edu:/var && cp ~/database.json /var/www/lib
+  script: scripts/deploy.sh
   on:
     branch: master
 
