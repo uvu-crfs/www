@@ -25,7 +25,7 @@ var header = {
       m("a", header.linkAttrs("firstApp"),  "FirstApp"),
       m('span',{style:"float:right;"} , [
         m('span', uvu.displayName),
-        loggedIn ? m("a[href='https://cas.uvu.edu/cas/logout']", 'Logout') : null
+        loggedIn ? m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout']", 'Logout') : null
       ])
     ]);
   }
