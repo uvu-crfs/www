@@ -7,9 +7,15 @@ var useLocalData =  function(){
     };
 };
 //This shouldn't be enabled
-useLocalData();
+//useLocalData();
 console.log("loggedIn", loggedIn);
 console.log("uvu", uvu);
+
+var notifications = [];
+var addNotification = function(text){
+  notifications.push(text); m.redraw();
+  setTimeout(function () {notifications.shift(); m.redraw(); }, 4000);
+};
 
 var sensors = [];
 var getSensors = function(){
@@ -24,36 +30,67 @@ var addSensor = function(vnode){
     data: {name:vnode.state.add.name, unit:vnode.state.add.unit}
   })
   .then(
-    function(r){ getSensors(); vnode.state.addModalOpen = false; },
+    function(r){ getSensors();
+      addNotification('New sensor "' + vnode.state.add.name +
+      '" with units of "' + vnode.state.add.unit + '"');
+    },
     function(r){ console.log("Could not add sensor", r); }
-  );
+  )
+  .then(function(){vnode.state.addModalOpen = false;})
+  ;
 };
 var deleteSensor = function(vnode){
-  m.request({method: 'DELETE', url: '/api/sensor/type.php', data: {id:vnode.state.delete.id}})
+  m.request({
+      method: 'DELETE', url: '/api/sensor/type.php',
+      data: {id:vnode.state.delete.id}
+  })
   .then(
-    function(r){ getSensors(); vnode.state.deleteModalOpen = false; },
+    function(r){ getSensors(); addNotification("Deleted sensor " + vnode.state.delete.name); },
     function(r){ console.log("Could not delete sensors", id, r); }
-  );
+  )
+  .then(function(){ vnode.state.deleteModalOpen = false; });
+};
+var addSensorData = function(data){
+  console.log(data);
+  //TODO something is weird with the timestamp
+  m.request({method: 'POST', url: '/api/sensor/value.php', data: data})
+  .then(
+    function(r){ getSensors();  },
+    function(r){ console.log("Could not add sensor data", r); }
+  )
+  .then(function(){data.quantity = 0;})
+  ;
 };
 
+var homeAddSensorDataComponent = {
+  oninit:function(vnode){
+    vnode.state = {sensor: Number(vnode.attrs.id), quantity: 0};
+  },
+  view: function(vnode){
+    return m('',[
+      m('span',  vnode.attrs.name),
+      m('input', {
+        type:"number", min:'0', step:"0.1", value:vnode.state.quantity,
+        onchange:function(e){ vnode.state.quantity = Number(e.target.value); }
+      }, ''),
+      m('span', vnode.attrs.unit),
+      m('button', {
+        onclick:function(){ if(vnode.state.quantity > 0) addSensorData(vnode.state); },
+        class: (vnode.state.quantity > 0) ? '' : '',
+      }, 'Add')
+    ]);
+  }
+};
 
 var home = {
-    oncreate:function(vnode){
-      getSensors();
-    },
-    view: function(vnode) {
-        return m('',[
-          m('.title','Welcome Home'),
-          loggedIn ?  m('',sensors.map(function(v){
-            return m('', [
-              m('span', v.name),
-              m('input', ''),
-              m('span', v.unit),
-              m('button', 'Submit')
-            ]);
-          })) : null
-        ]);
-    }
+  oncreate:function(vnode){ getSensors(); },
+  view: function(vnode) {
+    return m('',[
+      m('.title','Welcome Home'),
+      m("a[href='http://www.uvu.edu/crfs/']", 'Capitol Reef Field Station Home'),
+      loggedIn ? m('',sensors.map(function(v){ return m(homeAddSensorDataComponent,v); })) : null,
+    ]);
+  }
 };
 
 var reportsComponent = {
@@ -121,6 +158,11 @@ function headerFooter(content){
         m(header),
         m('',{style:'padding:1vh 1vw;'}, m(content, vnode.state)),
         //m('h1','FOOTER')
+        (notifications.length > 0) ? m('.notification.is-info',
+        {style:'position: absolute; top: 50px; right: 10px; z-index: 2;'} ,[
+          m('.delete',{onclick:function(){notifications = []; }},''),
+          notifications.map(function(v){ return m('',  v); })
+        ]) : null,
       ]);
     }
   };
