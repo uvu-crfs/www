@@ -1,5 +1,15 @@
+var useLocalData =  function(){
+    loggedIn = true;
+    uvu = {
+      displayName : "Docker Person",
+      mail : "email@server.tld",
+      entitlements : "crfs.admin"
+    };
+};
 //This shouldn't be enabled
-//loggedIn = true;
+useLocalData();
+console.log("loggedIn", loggedIn);
+console.log("uvu", uvu);
 
 var sensors = [];
 var getSensors = function(){
@@ -58,8 +68,10 @@ var sensorsComponent = {
   oninit:function(vnode){ vnode.state = { delete:{name:''}, add:{}}; },
   oncreate:function(vnode){ getSensors(); },
   view: function(vnode){ return m('',[
-    m('.title','Sensors'),
-    m('button', {onclick:function(){ vnode.state.addModalOpen = true; }} ,'Add'),
+    m('.level',[
+      m('.level-left', m('.title','Sensors')),
+      m('.level-right',m('button.button.is-primary', {onclick:function(){ vnode.state.addModalOpen = true; }} ,'Add')),
+    ]),
     m('.modal',{class: vnode.state.addModalOpen ? 'is-active':''}, [
       m('.modal-background', {onclick:function(){vnode.state.addModalOpen = false;}}, ''),
       m('.modal-card',[
@@ -93,35 +105,13 @@ var sensorsComponent = {
             m('p',"Are you sure you want to delete the '" + vnode.state.delete.name + "' sensor?")
           ]),
           m('footer.modal-card-foot',[
-            m('a.button.is-success', {onclick:function(){deleteSensor(vnode);}}, 'Delete'),
+            m('a.button.is-danger', {onclick:function(){deleteSensor(vnode);}}, 'Delete'),
             m('a.button', {onclick:function(){vnode.state.deleteModalOpen = false;}}, 'Cancel')
           ])
         ])
       ])
     ]); }))
   ]);}
-};
-
-var header = {
-  linkAttrs: function(r) {
-    return {href: "./#!" + r, class: m.route.get() == r ? 'is-active': ''};
-  },
-  oninit: function(){},
-  view:function(){
-    return m(".nav.has-shadow ", [
-      m('.nav-left',[
-        m("a.nav-item",{href: "./#!/home"}, "CRFS"),
-        m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
-        loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
-      ]),
-      m('.nav-center',[
-        m('.nav-item', uvu.displayName)
-      ]),
-      m('.nav-right', [
-        loggedIn ? m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout'].nav-item", 'Logout') : null
-      ])
-    ]);
-  }
 };
 
 function headerFooter(content){
@@ -135,6 +125,30 @@ function headerFooter(content){
     }
   };
 }
+
+var header = {
+  linkAttrs: function(r) {
+    return {href: "./#!" + r, class: m.route.get() == r ? 'is-active': ''};
+  },
+  oninit: function(){},
+  view:function(){
+    return m(".nav.has-shadow ", [
+      m('.nav-left',[
+        m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
+        m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
+        loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
+      ]),
+      m('.nav-center',[
+        m('.nav-item', uvu.displayName)
+      ]),
+      m('.nav-right', [
+        loggedIn ?
+          m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout'].nav-item", 'Logout') :
+          m("a[href='/login'].nav-item",'Login')
+      ])
+    ]);
+  }
+};
 
 m.route(document.body, "/home", {
   '/home': headerFooter(home),

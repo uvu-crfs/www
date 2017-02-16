@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>CRFS Admin</title>
+    <title>Capitol Reef</title>
     <style> body {margin: 0;} </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css" integrity="sha256-6ZFIKt0ohcBorQWIruhlYBoADBIFrJuXtEJsjFxb2Wk=" crossorigin="anonymous" />
   </head>
@@ -15,8 +15,6 @@
         mail : "<?php echo getenv('mail'); ?>",
         entitlements : "<?php echo getenv('uvuEntitlements'); ?>"
       };
-      console.log("loggedIn", loggedIn);
-      console.log("uvu", uvu);
     </script>
     <div id="app"></div><script src="/mithril/app.js"></script>
   </body>
