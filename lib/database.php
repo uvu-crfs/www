@@ -161,11 +161,11 @@ function get_all_rows_from_table($table_name)
     print_json(get_all_rows($stmt));
 }
 
-function get_all_affiliations_from_groups($table_name)
+function get_all_affiliations_from_groups()
 {
   $stmt = $GLOBALS['pdo']->prepare('select affiliation FROM groups');
   $stmt->execute();
-  print_json(get_all_rows($stmt));
+  print_json(array_count_values(get_all_rows($stmt)));
 }
 
 function create_sensor_table($id)
