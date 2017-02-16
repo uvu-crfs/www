@@ -5,6 +5,7 @@ crfs:
   volumes:
     - "./:/var/www"
     - "./docker-compose-secrets:/var/secrets"
+    - "./docker-compose-secrets/database.json:/var/www/lib/database.json"
   ports:
     - "80:80"
     - "443:443"
