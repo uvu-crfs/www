@@ -166,6 +166,28 @@ var sensorsComponent = {
   ]);}
 };
 
+var developerComponent = {
+  //oninit:function(vnode){vnode.state = {}},
+  view: function(vnode){ return m('',[
+    m('.title', "Developer Tools"),
+    m('',[
+      m('.subtitle', 'Notifications'),
+      m('form',[
+        m('input',{
+          onchange:function(e){ vnode.state.notification = e.target.value; },
+          placeholder:'Notification text'
+        },''),
+        m('button',{
+          type:'submit',
+          onclick:function(e){addNotification(vnode.state.notification); }
+        },'submit')
+      ])
+
+    ])
+
+  ]);}
+};
+
 function headerFooter(content){
   return {
     view: function(vnode) {
@@ -194,6 +216,7 @@ var header = {
         m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
         m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
         loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
+        docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
       ]),
       m('.nav-center',[
         m('.nav-item', uvu.displayName)
@@ -214,4 +237,5 @@ m.route(document.body, "/home", {
   // "/visits": headerFooter(''),
   // "/groups": headerFooter(''),
   "/sensors": headerFooter(loggedIn ? sensorsComponent : ''),
+  "/developer": headerFooter(docker ? developerComponent : '')
 });
