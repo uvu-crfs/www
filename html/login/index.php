@@ -15,6 +15,7 @@
         mail : "<?php echo getenv('mail'); ?>",
         entitlements : "<?php echo getenv('uvuEntitlements'); ?>"
       };
+      var docker = "<?php echo getenv('docker'); ?>" == 'true';
     </script>
     <div id="app"></div><script src="/mithril/app.js"></script>
   </body>

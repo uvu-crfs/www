@@ -9,6 +9,8 @@ crfs:
   ports:
     - "80:80"
     - "443:443"
+  environment:
+    - docker=true
   #command: "bash"
 
 maria:

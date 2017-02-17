@@ -1,13 +1,11 @@
-var useLocalData =  function(){
-    loggedIn = true;
-    uvu = {
-      displayName : "Docker Person",
-      mail : "email@server.tld",
-      entitlements : "crfs.admin"
-    };
-};
-//This shouldn't be enabled
-//useLocalData();
+if (docker) {
+  loggedIn = true;
+  uvu = {
+    displayName : "Docker Person",
+    mail : "email@server.tld",
+    entitlements : "crfs.admin"
+  };
+}
 console.log("loggedIn", loggedIn);
 console.log("uvu", uvu);
 
@@ -45,7 +43,10 @@ var deleteSensor = function(vnode){
       data: {id:vnode.state.delete.id}
   })
   .then(
-    function(r){ getSensors(); addNotification("Deleted sensor " + vnode.state.delete.name); },
+    function(r){
+      getSensors();
+      addNotification("Deleted sensor " + vnode.state.delete.name);
+    },
     function(r){ console.log("Could not delete sensors", id, r); }
   )
   .then(function(){ vnode.state.deleteModalOpen = false; });
@@ -75,7 +76,8 @@ var homeAddSensorDataComponent = {
       }, ''),
       m('span', vnode.attrs.unit),
       m('button', {
-        onclick:function(){ if(vnode.state.quantity > 0) addSensorData(vnode.state); },
+        onclick:function(){
+          if(vnode.state.quantity > 0) addSensorData(vnode.state); },
         class: (vnode.state.quantity > 0) ? '' : '',
       }, 'Add')
     ]);
@@ -87,8 +89,11 @@ var home = {
   view: function(vnode) {
     return m('',[
       m('.title','Welcome Home'),
-      m("a[href='http://www.uvu.edu/crfs/']", 'Capitol Reef Field Station Home'),
-      loggedIn ? m('',sensors.map(function(v){ return m(homeAddSensorDataComponent,v); })) : null,
+      m("a[href='http://www.uvu.edu/crfs/']",
+        'Capitol Reef Field Station Home'),
+      loggedIn ? m('',
+        sensors.map(function(v){ return m(homeAddSensorDataComponent,v); }))
+      : null,
     ]);
   }
 };
@@ -107,20 +112,27 @@ var sensorsComponent = {
   view: function(vnode){ return m('',[
     m('.level',[
       m('.level-left', m('.title','Sensors')),
-      m('.level-right',m('button.button.is-primary', {onclick:function(){ vnode.state.addModalOpen = true; }} ,'Add')),
+      m('.level-right',m('button.button.is-primary',
+        {onclick:function(){ vnode.state.addModalOpen = true; }} ,'Add')),
     ]),
     m('.modal',{class: vnode.state.addModalOpen ? 'is-active':''}, [
-      m('.modal-background', {onclick:function(){vnode.state.addModalOpen = false;}}, ''),
+      m('.modal-background',
+        {onclick:function(){vnode.state.addModalOpen = false;}}, ''),
       m('.modal-card',[
         m('header.modal-card-head',[
           m('p.modal-card-title', 'Add Sensor'),
-          m('button.delete', {onclick:function(){vnode.state.addModalOpen = false;}}, ''),
+          m('button.delete',
+            {onclick:function(){vnode.state.addModalOpen = false;}}, ''),
         ]),
         m('section.modal-card-body', [
           m('.label', 'Name'),
-          m('input.input', {onchange:function(e){ vnode.state.add.name = e.target.value; }}, ''),
+          m('input.input',
+            {onchange:function(e){ vnode.state.add.name = e.target.value; }},
+          ''),
           m('.label', 'Units'),
-          m('input.input', {onchange:function(e){ vnode.state.add.unit = e.target.value; }}, ''),
+          m('input.input',
+            {onchange:function(e){ vnode.state.add.unit = e.target.value; }},
+          ''),
         ]),
         m('footer.modal-card-foot',[
           m('a.button.is-success', {onclick:function(){addSensor(vnode);}}, 'Add'),
@@ -130,13 +142,16 @@ var sensorsComponent = {
     ]),
     m('',sensors.map(function(v){ return m('', [
       m('span', v.name + "  " +v.unit),
-      m('button', {onclick:function(){ vnode.state.delete = v; vnode.state.deleteModalOpen = true; }}, 'Delete'),
+      m('button', {onclick:function(){
+        vnode.state.delete = v; vnode.state.deleteModalOpen = true;
+      }}, 'Delete'),
       m('.modal',{class: vnode.state.deleteModalOpen ? 'is-active':''}, [
-        m('.modal-background', {onclick:function(){vnode.state.deleteModalOpen = false;}}, ''),
+        m('.modal-background',
+          {onclick:function(){vnode.state.deleteModalOpen = false;}}, ''),
         m('.modal-card',[
           m('header.modal-card-head',[
             m('p.modal-card-title', 'Delete Sensor'),
-            m('button.delete', {onclick:function(){vnode.state.deleteModalOpen = false;}}, ''),
+            m('button.delete', {onclick:function(){ vnode.state.deleteModalOpen = false;}}, ''),
           ]),
           m('section.modal-card-body', [
             m('p',"Are you sure you want to delete the '" + vnode.state.delete.name + "' sensor?")
