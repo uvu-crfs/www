@@ -171,7 +171,7 @@ function get_all_affiliations_from_groups()
 function create_sensor_table($id)
 {
     $query = 'create table sensor_'.$id.
-      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL not null, timestamp int not null)';
+      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL(10,3) not null, timestamp int not null)';
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
