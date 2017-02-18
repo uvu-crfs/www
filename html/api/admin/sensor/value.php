@@ -3,8 +3,8 @@
 require_once '/var/www/lib/database.php';
 
 $table_name = 'sensor_';
-$senor_data_keys = ['quantity', 'timestamp'];
-$required_keys = ['quantity'];
+$sensor_data_keys = ['quantity', 'timestamp', 'visit_id'];
+$required_keys = $sensor_data_keys;
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET':
@@ -16,11 +16,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
     break;
   case 'POST':
     $sensor = get_sensor_id();
-    post($table_name.$sensor, $senor_data_keys, $required_keys);
+    post($table_name.$sensor, $sensor_data_keys, $required_keys);
     break;
   case 'PUT':
     $sensor = get_sensor_id();
-    put($table_name.$sensor, $senor_data_keys);
+    put($table_name.$sensor, $sensor_data_keys);
     break;
   case 'DELETE':
     $data = post_data();

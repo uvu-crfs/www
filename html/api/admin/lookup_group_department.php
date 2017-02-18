@@ -2,18 +2,18 @@
 
 require_once '/var/www/lib/database.php';
 
-$table_name = 'groups';
-$group_keys = ['name', 'contact_id'];
+$table_name = 'lookup_group_departmnet';
+$lookup_keys = ['group_id', 'department_id'];
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET':
     get_by_id($table_name);
     break;
   case 'POST':
-    post($table_name, $group_keys);
+    post($table_name, $lookup_keys);
     break;
   case 'PUT':
-    put($table_name, $group_keys);
+    put($table_name, $lookup_keys);
     break;
   case 'DELETE':
     delete_by_id($table_name);
