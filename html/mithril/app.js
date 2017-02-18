@@ -101,9 +101,32 @@ var home = {
 };
 
 var reportsComponent = {
+  oninit: function(vnode) {
+    vnode.state = {affiliations: []};
+    m.request({url:"/api/reports.php"}).then(
+      function(r){//regular req
+        console.log(r);
+        vnode.state.affiliations = r;
+      }, function(r) {//error req
+        console.log(r);
+      }
+    );
+
+    //make c3 generate a report
+    var chart = c3.generate({
+        data: {
+            columns: vnode.state.affiliations,
+            type : 'pie',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        }
+    });
+  },
     view: function(vnode) {
         return m("", [
             m(".title", {class: "title"}, "Reports"),
+            m("#chart")
         ]);
     }
 };
@@ -266,7 +289,7 @@ var header = {
 };
 
 m.route(document.body, "/home", {
-  '/home': headerFooter(home),
+  "/home": headerFooter(home),
   "/reports": headerFooter(reportsComponent),
   // "/usage": headerFooter(''),
   // "/visits": headerFooter(''),

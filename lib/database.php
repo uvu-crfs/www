@@ -165,7 +165,17 @@ function get_all_affiliations_from_groups()
 {
   $stmt = $GLOBALS['pdo']->prepare('select affiliation from groups');
   $stmt->execute();
-  print_json(array_count_values(get_all_rows($stmt)));//returns associative array
+  $array = get_all_rows($stmt);
+  $affiliations = array_map(("grabAffiliation"), $array);
+  echo json_encode(array_count_values($affiliations));//returns associative array
+}
+
+/*
+Returns the 'affiliation' from the key/value pair
+*/
+function grabAffiliation($indexInArray)
+{
+  return $indexInArray['affiliation'];
 }
 
 function create_sensor_table($id)
