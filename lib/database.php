@@ -5,7 +5,7 @@ require_once '/var/www/lib/helper_functions.php';
 function connect_to_databse()
 {
     $db_json = file_get_contents('/var/www/lib/database.json');
-    //$db_json = file_get_contents('/var/secrets/database.json');
+    // $db_json = file_get_contents('/var/secrets/database.json');
     $db = json_decode($db_json, true);
     $servername = $db['host']; //.':'.$db['port'];
     $dsn = "mysql:host=$servername;dbname=".$db['dbname'].';charset=utf8';
@@ -165,7 +165,7 @@ function get_all_affiliations_from_groups()
 {
   $stmt = $GLOBALS['pdo']->prepare('select affiliation from groups');
   $stmt->execute();
-  array_count_values(get_all_row($stmt));//returns associative array
+  print_json(array_count_values(get_all_rows($stmt)));//returns associative array
 }
 
 function create_sensor_table($id)
