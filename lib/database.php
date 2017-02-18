@@ -163,11 +163,11 @@ function get_all_rows_from_table($table_name)
 
 function get_all_affiliations_from_groups()
 {
-  $stmt = $GLOBALS['pdo']->prepare('select affiliation from groups');
-  $stmt->execute();
-  $array = get_all_rows($stmt);
-  $affiliations = array_map(("grabAffiliation"), $array);
-  echo json_encode(array_count_values($affiliations));//returns associative array
+    $stmt = $GLOBALS['pdo']->prepare('select affiliation from groups');
+    $stmt->execute();
+    $array = get_all_rows($stmt);
+    $affiliations = array_map(('grabAffiliation'), $array);
+    echo json_encode(array_count_values($affiliations)); //returns associative array
 }
 
 /*
@@ -175,13 +175,13 @@ Returns the 'affiliation' from the key/value pair
 */
 function grabAffiliation($indexInArray)
 {
-  return $indexInArray['affiliation'];
+    return $indexInArray['affiliation'];
 }
 
 function create_sensor_table($id)
 {
     $query = 'create table sensor_'.$id.
-      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL(10,3) not null, timestamp int not null)';
+      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL not null, timestamp int not null, visit_id int not null)';
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
