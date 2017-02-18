@@ -118,9 +118,10 @@ var reportsComponent = {
       }
     );
   },//end oninit
-  oncreate: function(vnode) {
+  onupdate: function(vnode) {
     //make c3 generate a report
-    var chart = c3.generate({
+    vnode.state.chart = c3.generate({
+      bindto: '#chart',
         data: {
             columns: vnode.state.affiliations,
             type : 'pie',
@@ -133,7 +134,7 @@ var reportsComponent = {
     view: function(vnode) {
         return m("", [
             m(".title", {class: "title"}, "Reports"),
-            m("#chart","")
+            m("#chart", "")
         ]);
     }
 };
