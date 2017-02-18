@@ -106,12 +106,19 @@ var reportsComponent = {
     m.request({url:"/api/admin/reports.php"}).then(
       function(r){//regular req
         console.log(r);
-        vnode.state.affiliations = r;
+        var temp = [];
+        for (var key in r) {
+          temp.push([key,r[key]]);//was append
+        }
+        console.log(temp);
+
+        vnode.state.affiliations = temp;
       }, function(r) {//error req
         console.log(r);
       }
     );
-
+  },//end oninit
+  oncreate: function(vnode) {
     //make c3 generate a report
     var chart = c3.generate({
         data: {
@@ -126,7 +133,7 @@ var reportsComponent = {
     view: function(vnode) {
         return m("", [
             m(".title", {class: "title"}, "Reports"),
-            m("#chart")
+            m("#chart","")
         ]);
     }
 };
