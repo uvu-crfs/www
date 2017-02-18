@@ -20,3 +20,4 @@
 
 ## Setup mysql
 * `docker exec -i -t www_maria_1 /bin/bash -c "/var/secrets/setup_mysql.sh"`
+* `docker exec -i -t www_maria_1 /bin/bash -c "mysqldump cfrs >  /var/secrets/mysql_dump.sql"`
