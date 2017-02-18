@@ -3,9 +3,11 @@ if (docker) {
   uvu = {
     displayName : "Docker Person",
     mail : "email@server.tld",
-    entitlements : "crfs.admin"
+    entitlements : "crfs.admin",
+    admin : loggedIn //TODO change this to check for admin entitlement
   };
 }
+
 console.log("loggedIn", loggedIn);
 console.log("uvu", uvu);
 
@@ -270,5 +272,5 @@ m.route(document.body, "/home", {
   // "/visits": headerFooter(''),
   // "/groups": headerFooter(''),
   "/sensors": headerFooter(loggedIn ? sensorsComponent : ''),
-  "/developer": headerFooter(docker ? developerComponent : '')
+  "/developer": headerFooter(docker || uvu.admin ? developerComponent : '')
 });
