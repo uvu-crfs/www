@@ -72,7 +72,7 @@
         $scope.getAllGroups = function(){
           $http({
             method: 'GET',
-            url: '/api/groups.php'
+            url: '/api/admin/groups.php'
           }).then(function successCallback(response) {
               $scope.allGroups = response.data;
               $scope.groupHeaders = getHeaders($scope.allGroups);
@@ -100,7 +100,7 @@
         $scope.deleteGroup = function(id){
           $http({
             method: 'DELETE',
-            url: '/api/group.php',
+            url: '/api/admin/group.php',
             data: '{"id":"'+id+'"}'
           }).then(function successCallback(response) {
             $scope.getAllGroups();
@@ -110,7 +110,7 @@
         $scope.addGroup = function(){
           $http({
             method: 'POST',
-            url: '/api/group.php',
+            url: '/api/admin/group.php',
             data: $scope.add
           }).then(function successCallback(response) {
             $scope.getAllGroups();
@@ -121,7 +121,7 @@
         $scope.editGroup = function(){
           $http({
             method: 'PUT',
-            url: '/api/group.php',
+            url: '/api/admin/group.php',
             data: $scope.editModal
           }).then(function successCallback(response) {
             $scope.getAllGroups();
@@ -187,7 +187,7 @@
         $scope.getAllVisits = function(){
           $http({
             method: 'GET',
-            url: '/api/visits.php'
+            url: '/api/admin/visits.php'
           }).then(function successCallback(response) {
               $scope.allVisits = response.data;
               $scope.allVisits.forEach(function(data,i){
@@ -210,7 +210,7 @@
         $scope.deleteVisit = function(id){
           $http({
             method: 'DELETE',
-            url: '/api/visit.php',
+            url: '/api/admin/visit.php',
             data: '{"id":"'+id+'"}'
           }).then(function successCallback(response) {
             $scope.getAllVisits();
@@ -223,7 +223,7 @@
           console.log($scope.add);
           $http({
             method: 'POST',
-            url: '/api/visit.php',
+            url: '/api/admin/visit.php',
             data: $scope.add
           }).then(function successCallback(response) {
             $scope.getAllVisits();
@@ -234,7 +234,7 @@
         $scope.editVisit = function(){
           $http({
             method: 'PUT',
-            url: '/api/visit.php',
+            url: '/api/admin/visit.php',
             data: $scope.editModal
           }).then(function successCallback(response) {
             $scope.getAllVisits();
@@ -253,7 +253,7 @@
         $scope.getAllSensors = function(){
           $http({
             method: 'GET',
-            url: '/api/sensor/types.php'
+            url: '/api/admin/sensor/types.php'
           }).then(function successCallback(response) {
               $scope.allSensors = response.data;
               $scope.sensorHeaders = getHeaders($scope.allSensors);
@@ -278,7 +278,7 @@
         $scope.deleteSensor = function(id){
           $http({
             method: 'DELETE',
-            url: '/api/sensor/type.php',
+            url: '/api/admin/sensor/type.php',
             data: '{"id":"'+id+'"}'
           }).then(function successCallback(response) {
             $scope.getAllSensors();
@@ -288,7 +288,7 @@
         $scope.addSensor = function(){
           $http({
             method: 'POST',
-            url: '/api/sensor/type.php',
+            url: '/api/admin/sensor/type.php',
             data: $scope.add
           }).then(function successCallback(response) {
             $scope.getAllSensors();
@@ -299,7 +299,7 @@
         $scope.editSensor = function(){
           $http({
             method: 'PUT',
-            url: '/api/sensor/type.php',
+            url: '/api/admin/sensor/type.php',
             data: $scope.editModal
           }).then(function successCallback(response) {
             $scope.getAllSensors();
@@ -321,7 +321,7 @@
         $scope.unixToDate = unixToDate;
 
 
-        $http({method: 'GET',url: '/api/sensor/types.php'})
+        $http({method: 'GET',url: '/api/admin/sensor/types.php'})
           .then(function successCallback(response) {
               $scope.sensors = response.data;
           }, function errorCallback(response) {})
@@ -329,7 +329,7 @@
 
         $scope.getValues = function(id){
           $scope.add.sensor = id;
-          $http({method: 'GET',url: '/api/sensor/values.php?sensor=' + id})
+          $http({method: 'GET',url: '/api/admin/sensor/values.php?sensor=' + id})
             .then(function successCallback(response) {
                 $scope.sensors.forEach(function(sensor){
                   if (sensor.id === $scope.select) $scope.unit = sensor.unit;
@@ -348,7 +348,7 @@
           if ($scope.add.timestamp === null) delete $scope.add.timestamp;
           $http({
             method: 'POST',
-            url: '/api/sensor/value.php',
+            url: '/api/admin/sensor/value.php',
             data: $scope.add
           }).then(function successCallback(response) {
             $scope.getValues($scope.add.sensor);
@@ -359,7 +359,7 @@
         $scope.deleteValue = function(id){
           $http({
             method: 'DELETE',
-            url: '/api/sensor/value.php',
+            url: '/api/admin/sensor/value.php',
             data: '{"sensor":'+$scope.select+',"id":'+id+'}'
           }).then(function successCallback(response) {
             $scope.getValues($scope.select);

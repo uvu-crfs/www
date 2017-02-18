@@ -19,14 +19,14 @@ var addNotification = function(text){
 
 var sensors = [];
 var getSensors = function(){
-  m.request({url: '/api/sensor/types.php'})
+  m.request({url: '/api/admin/sensor/types.php'})
   .then(
     function(r){ sensors = r; },
     function(r){ console.log("Could not request sensors", r);
   });
 };
 var addSensor = function(vnode){
-  m.request({method: 'POST', url: '/api/sensor/type.php',
+  m.request({method: 'POST', url: '/api/admin/sensor/type.php',
     data: {name:vnode.state.add.name, unit:vnode.state.add.unit}
   })
   .then(
@@ -41,7 +41,7 @@ var addSensor = function(vnode){
 };
 var deleteSensor = function(vnode){
   m.request({
-      method: 'DELETE', url: '/api/sensor/type.php',
+      method: 'DELETE', url: '/api/admin/sensor/type.php',
       data: {id:vnode.state.delete.id}
   })
   .then(
@@ -56,7 +56,7 @@ var deleteSensor = function(vnode){
 var addSensorData = function(data){
   console.log(data);
   //TODO something is weird with the timestamp
-  m.request({method: 'POST', url: '/api/sensor/value.php', data: data})
+  m.request({method: 'POST', url: '/api/admin/sensor/value.php', data: data})
   .then(
     function(r){ getSensors();  },
     function(r){ console.log("Could not add sensor data", r); }
@@ -103,7 +103,7 @@ var home = {
 var reportsComponent = {
   oninit: function(vnode) {
     vnode.state = {affiliations: []};
-    m.request({url:"/api/reports.php"}).then(
+    m.request({url:"/api/admin/reports.php"}).then(
       function(r){//regular req
         console.log(r);
         vnode.state.affiliations = r;
