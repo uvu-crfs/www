@@ -166,8 +166,25 @@ var sensorsComponent = {
   ]);}
 };
 
+var sqlResponse = '';
+var sqlRequest = function(vnode){
+  vnode.state.sql.last = vnode.state.sql.query;
+  m.request({method:'POST', url:'/login/sql.php', data:{query:vnode.state.sql.query}})
+  .then(
+    function(r){
+      vnode.state.sql.response = r;
+      sqlResponse = r;
+      console.log("var sqlResponse = ", r);
+      console.log("JSON.stringify(sqlResponse) = ", JSON.stringify(r));
+    },
+    function(r){ console.log('Error', r); vnode.state.sql.response = r; }
+  )
+  .then(function(){ vnode.state.sql.query = ''; m.redraw(); })
+  ;
+};
+
 var developerComponent = {
-  //oninit:function(vnode){vnode.state = {}},
+  oninit:function(vnode){ vnode.state = { sql:{last:''} }; },
   view: function(vnode){ return m('',[
     m('.title', "Developer Tools"),
     m('',[
@@ -179,12 +196,28 @@ var developerComponent = {
         },''),
         m('button',{
           type:'submit',
-          onclick:function(e){addNotification(vnode.state.notification); }
+          onclick:function(e){e.preventDefault(); addNotification(vnode.state.notification); }
         },'submit')
       ])
-
+    ]),
+    m('',[
+      m('form',[
+        m('.subtitle', 'SQL Requests'),
+        m('input',{
+          onchange:function(e){ vnode.state.sql.query = e.target.value; },
+          placeholder:'SQL statement',
+          value: vnode.state.sql.query
+        },''),
+        m('button',{
+          type:'submit',
+          onclick:function(e){e.preventDefault(); sqlRequest(vnode); }
+        },'submit'),
+        m('br',''),
+        vnode.state.sql.last.length > 0 ? m('', 'Last request: ' + vnode.state.sql.last) : null,
+        //m('',JSON.stringify(vnode.state.sql.response)),
+        m('',JSON.stringify(vnode.state.sql.response)),
+      ])
     ])
-
   ]);}
 };
 
