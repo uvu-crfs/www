@@ -5,9 +5,14 @@
     <title>Capitol Reef</title>
     <style> body {margin: 0;} </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css" integrity="sha256-6ZFIKt0ohcBorQWIruhlYBoADBIFrJuXtEJsjFxb2Wk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+    <script src="/vendor/system.js"></script>
+    <script src="/vendor/traceur.js"></script>
+    <script src="/vendor/mithril.js"></script>
   </head>
   <body>
-    <script src="//unpkg.com/mithril/mithril.js"></script>
     <script>
       var loggedIn = "<?php echo strlen(getenv('displayName')) > 0; ?>" == '1';
       var uvu = {
@@ -16,7 +21,10 @@
         entitlements : "<?php echo getenv('uvuEntitlements'); ?>"
       };
       var docker = "<?php echo getenv('docker'); ?>" == 'true';
+      window.onload = () => {
+      	System.config({ transpiler: traceur });
+      	System.import("/mithril/app.js");
+      };
     </script>
-    <div id="app"></div><script src="/mithril/app.js"></script>
   </body>
 </html>
