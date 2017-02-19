@@ -12,11 +12,7 @@ uvu.admin = uvu.entitlements.includes('services:crfs:admin');
 console.log("loggedIn", loggedIn);
 console.log("uvu", uvu);
 
-var notifications = [];
-var addNotification = function(text){
-  notifications.push(text); m.redraw();
-  setTimeout(function () {notifications.shift(); m.redraw(); }, 4000);
-};
+
 
 var sensors = [];
 var getSensors = function(){
@@ -32,8 +28,8 @@ var addSensor = function(vnode){
   })
   .then(
     function(r){ getSensors();
-      addNotification('New sensor "' + vnode.state.add.name +
-      '" with units of "' + vnode.state.add.unit + '"');
+      // addNotification('New sensor "' + vnode.state.add.name +
+      // '" with units of "' + vnode.state.add.unit + '"');
     },
     function(r){ console.log("Could not add sensor", r); }
   )
@@ -48,7 +44,7 @@ var deleteSensor = function(vnode){
   .then(
     function(r){
       getSensors();
-      addNotification("Deleted sensor " + vnode.state.delete.name);
+      //addNotification("Deleted sensor " + vnode.state.delete.name);
     },
     function(r){ console.log("Could not delete sensors", id, r); }
   )
@@ -140,7 +136,7 @@ var reportsComponent = {
     }
 };
 
-var sensorsComponent = {
+var sensorsView = {
   oninit:function(vnode){ vnode.state = { delete:{name:''}, add:{}}; },
   oncreate:function(vnode){ getSensors(); },
   view: function(vnode){ return m('',[
@@ -200,102 +196,12 @@ var sensorsComponent = {
   ]);}
 };
 
-var sqlResponse = '';
-var sqlRequest = function(vnode){
-  vnode.state.sql.last = vnode.state.sql.query;
-  m.request({method:'POST', url:'/login/sql.php', data:{query:vnode.state.sql.query}})
-  .then(
-    function(r){
-      vnode.state.sql.response = r;
-      sqlResponse = r;
-      console.log("var sqlResponse = ", r);
-      console.log("JSON.stringify(sqlResponse) = ", JSON.stringify(r));
-    },
-    function(r){ console.log('Error', r); vnode.state.sql.response = r; }
-  )
-  .then(function(){ vnode.state.sql.query = ''; m.redraw(); })
-  ;
-};
 
-var developerComponent = {
-  oninit:function(vnode){ vnode.state = { sql:{last:''} }; },
-  view: function(vnode){ return m('',[
-    m('.title', "Developer Tools"),
-    m('',[
-      m('.subtitle', 'Notifications'),
-      m('form',[
-        m('input',{
-          onchange:function(e){ vnode.state.notification = e.target.value; },
-          placeholder:'Notification text'
-        },''),
-        m('button',{
-          type:'submit',
-          onclick:function(e){e.preventDefault(); addNotification(vnode.state.notification); }
-        },'submit')
-      ])
-    ]),
-    m('',[
-      m('form',[
-        m('.subtitle', 'SQL Requests'),
-        m('input',{
-          onchange:function(e){ vnode.state.sql.query = e.target.value; },
-          placeholder:'SQL statement',
-          value: vnode.state.sql.query
-        },''),
-        m('button',{
-          type:'submit',
-          onclick:function(e){e.preventDefault(); sqlRequest(vnode); }
-        },'submit'),
-        m('br',''),
-        vnode.state.sql.last.length > 0 ? m('', 'Last request: ' + vnode.state.sql.last) : null,
-        //m('',JSON.stringify(vnode.state.sql.response)),
-        m('',JSON.stringify(vnode.state.sql.response)),
-      ])
-    ])
-  ]);}
-};
 
-function headerFooter(content){
-  return {
-    view: function(vnode) {
-      return m('',  [
-        m(header),
-        m('',{style:'padding:1vh 1vw;'}, m(content, vnode.state)),
-        //m('h1','FOOTER')
-        (notifications.length > 0) ? m('.notification.is-info',
-        {style:'position: absolute; top: 50px; right: 10px; z-index: 2;'} ,[
-          m('.delete',{onclick:function(){notifications = []; }},''),
-          notifications.map(function(v){ return m('',  v); })
-        ]) : null,
-      ]);
-    }
-  };
-}
 
-var header = {
-  linkAttrs: function(r) {
-    return {href: "./#!" + r, class: m.route.get() == r ? 'is-active': ''};
-  },
-  oninit: function(){},
-  view:function(){
-    return m(".nav.has-shadow ", [
-      m('.nav-left',[
-        m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
-        m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
-        loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
-        docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
-      ]),
-      m('.nav-center',[
-        m('.nav-item', uvu.displayName)
-      ]),
-      m('.nav-right', [
-        loggedIn ?
-          m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout'].nav-item", 'Logout') :
-          m("a[href='/login'].nav-item",'Login')
-      ])
-    ]);
-  }
-};
+import headerFooter from '/mithril/components/headerFooter.js'
+//import sensorsView from '/mithril/views/sensors.js'
+import developerView from '/mithril/views/developer.js'
 
 m.route(document.body, "/home", {
   "/home": headerFooter(home),
@@ -303,6 +209,6 @@ m.route(document.body, "/home", {
   // "/usage": headerFooter(''),
   // "/visits": headerFooter(''),
   // "/groups": headerFooter(''),
-  "/sensors": headerFooter(loggedIn ? sensorsComponent : ''),
-  "/developer": headerFooter(docker || uvu.admin ? developerComponent : '')
+  "/sensors": headerFooter(loggedIn ? sensorsView : ''),
+  "/developer": headerFooter(docker || uvu.admin ? developerView : '')
 });
