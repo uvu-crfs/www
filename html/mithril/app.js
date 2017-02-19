@@ -3,11 +3,12 @@ if (docker) {
   uvu = {
     displayName : "Docker Person",
     mail : "email@server.tld",
-    entitlements : "crfs.admin",
-    admin : loggedIn //TODO change this to check for admin entitlement
+    entitlements : "urn:mace:uvu.edu:entitlement:iam:services:crfs:admin",
   };
 }
 
+
+uvu.admin = uvu.entitlements.includes('services:crfs:admin');
 console.log("loggedIn", loggedIn);
 console.log("uvu", uvu);
 

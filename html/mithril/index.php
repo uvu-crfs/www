@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
-    <script src="/vendor/system.js"></script>
-    <script src="/vendor/traceur.js"></script>
+    <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+    <script src="https://google.github.io/traceur-compiler/bin/BrowserSystem.js"></script>
+    <script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script>
     <script src="/vendor/mithril.js"></script>
   </head>
   <body>
@@ -21,10 +22,7 @@
         entitlements : "<?php echo getenv('uvuEntitlements'); ?>"
       };
       var docker = "<?php echo getenv('docker'); ?>" == 'true';
-      window.onload = () => {
-      	System.config({ transpiler: traceur });
-      	System.import("/mithril/app.js");
-      };
     </script>
+    <script type="module"> import '/mithril/app.js';</script>
   </body>
 </html>
