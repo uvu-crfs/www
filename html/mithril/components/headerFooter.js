@@ -8,22 +8,20 @@ var header = {
       m('.nav-left',[
         m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
         m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
-        loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
-        docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
+        g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
+        g.docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
       ]),
       m('.nav-center',[
-        m('.nav-item', uvu.displayName)
+        m('.nav-item', g.uvu.displayName)
       ]),
       m('.nav-right', [
-        loggedIn ?
+        g.uvu.loggedIn ?
           m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout'].nav-item", 'Logout') :
-          m("a[href='/login'].nav-item",'Login')
+          m("a[href='/login'].nav-item",'Login') //TODO change this to /uvu when the route is protected
       ])
     ]);
   }
 };
-
-//import {notifications, addNotification, clearNotifications} from '/mithril/utils.js'
 
 export default function headerFooter(content){
   return {
@@ -32,11 +30,11 @@ export default function headerFooter(content){
         m(header),
         m('',{style:'padding:1vh 1vw;'}, m(content, vnode.state)),
         //m('h1','FOOTER')
-        // (notifications.length > 0) ? m('.notification.is-info',
-        // {style:'position: absolute; top: 50px; right: 10px; z-index: 2;'} ,[
-        //   m('.delete',{onclick:function(){clearNotifications(); }},''),
-        //   notifications.map(function(v){ return m('',  v); })
-        // ]) : null,
+        (g.notifications.length > 0) ? m('.notification.is-info',
+        {style:'position: absolute; top: 50px; right: 10px; z-index: 2;'} ,[
+          m('.delete',{onclick:function(){g.notifications = []; }},''),
+          g.notifications.map(function(v){ return m('',  v); })
+        ]) : null,
       ]);
     }
   };

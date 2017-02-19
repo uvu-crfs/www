@@ -15,13 +15,15 @@
   </head>
   <body>
     <script>
-      var loggedIn = "<?php echo strlen(getenv('displayName')) > 0; ?>" == '1';
-      var uvu = {
-        displayName : "<?php echo getenv('displayName'); ?>",
-        mail : "<?php echo getenv('mail'); ?>",
-        entitlements : "<?php echo getenv('uvuEntitlements'); ?>"
+      var g = {
+        docker : "<?php echo getenv('docker'); ?>" == 'true',
+        uvu : {
+          loggedIn : "<?php echo strlen(getenv('displayName')) > 0; ?>" == '1',
+          displayName : "<?php echo getenv('displayName'); ?>",
+          mail : "<?php echo getenv('mail'); ?>",
+          entitlements : "<?php echo getenv('uvuEntitlements'); ?>"
+        },
       };
-      var docker = "<?php echo getenv('docker'); ?>" == 'true';
     </script>
     <script type="module"> import '/mithril/app.js';</script>
   </body>
