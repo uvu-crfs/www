@@ -25,5 +25,5 @@ m.route(document.body, "/home", {
   // "/visits": headerFooter(''),
   // "/groups": headerFooter(''),
   "/sensors": headerFooter(g.uvu.loggedIn ? sensorsView : ''),
-  "/developer": headerFooter(g.docker || uvu.admin ? developerView : '')
+  "/developer": headerFooter(g.docker || g.uvu.admin ? developerView : '')
 });
