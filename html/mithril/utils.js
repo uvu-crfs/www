@@ -8,7 +8,7 @@ export var clearNotifications = _ => notifications = [];
 
 export var sqlRequest = function(vnode){
   vnode.state.sql.last = vnode.state.sql.query;
-  m.request({method:'POST', url:'/login/sql.php', data:{query:vnode.state.sql.query}})
+  return m.request({method:'POST', url:'/login/sql.php', data:{query:vnode.state.sql.query}})
   .then(
     function(r){
       vnode.state.sql.response = r;
@@ -20,7 +20,7 @@ export var sqlRequest = function(vnode){
 };
 
 export var getSensors = function(){
-  m.request({url: '/api/admin/sensor/types.php'})
+  return m.request({url: '/api/admin/sensor/types.php'})
   .then(
     function(r){ g.sensors = r; },
     function(r){ console.log("Could not request sensors", r);
@@ -28,7 +28,7 @@ export var getSensors = function(){
 };
 
 export var addSensor = function(vnode){
-  m.request({method: 'POST', url: '/api/admin/sensor/type.php',
+  return m.request({method: 'POST', url: '/api/admin/sensor/type.php',
     data: {name:vnode.state.add.name, unit:vnode.state.add.unit}
   })
   .then(
@@ -43,7 +43,7 @@ export var addSensor = function(vnode){
 };
 
 export var deleteSensor = function(vnode){
-  m.request({
+  return m.request({
       method: 'DELETE', url: '/api/admin/sensor/type.php',
       data: {id:vnode.state.delete.id}
   })
@@ -58,13 +58,22 @@ export var deleteSensor = function(vnode){
 };
 
 export var addSensorData = function(data){
+  if (!data.timestamp) data.timestamp = Date.now();
+  //TODO needs visit
   console.log(data);
-  //TODO something is weird with the timestamp
-  m.request({method: 'POST', url: '/api/admin/sensor/value.php', data: data})
+  return m.request({method: 'POST', url: '/api/admin/sensor/value.php', data: data})
   .then(
     function(r){ getSensors();  },
     function(r){ console.log("Could not add sensor data", r); }
   )
   .then(function(){data.quantity = 0;})
   ;
+};
+
+export var getGroups = function(){
+  return m.request({url: '/api/admin/groups.php'})
+  .then(
+    function(r){ g.groups = r; },
+    function(r){ console.log("Could not request groups", r);
+  });
 };

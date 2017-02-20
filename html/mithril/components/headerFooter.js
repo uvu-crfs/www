@@ -8,6 +8,7 @@ var header = {
       m('.nav-left',[
         m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
         m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
+        g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/groups"),  "Groups") : null,
         g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
         g.docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
       ]),
@@ -30,10 +31,15 @@ export default function headerFooter(content){
         m(header),
         m('',{style:'padding:1vh 1vw;'}, m(content, vnode.state)),
         //m('h1','FOOTER')
-        (g.notifications.length > 0) ? m('.notification.is-info',
+        (g.notifications.length > 0) ? m('.message',
         {style:'position: absolute; top: 50px; right: 10px; z-index: 2;'} ,[
-          m('.delete',{onclick:function(){g.notifications = []; }},''),
-          g.notifications.map(function(v){ return m('',  v); })
+          m('.message-header',[
+            m('p',''),
+            m('.delete',{onclick:function(){g.notifications = []; }},''),
+          ]),
+          m('.message-body',[
+            g.notifications.map(function(v){ return m('',  v); })
+          ]),
         ]) : null,
       ]);
     }

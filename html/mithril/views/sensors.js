@@ -1,4 +1,5 @@
 import {getSensors, addSensor, deleteSensor} from '/mithril/utils.js';
+import sensorDataList from '/mithril/components/sensorDataList.js';
 
 export default {
   oninit:function(vnode){ vnode.state = { delete:{name:''}, add:{}}; },
@@ -56,6 +57,7 @@ export default {
           ])
         ])
       ])
-    ]); }))
+    ]); })),
+    m(sensorDataList, vnode.state)
   ]);}
 };

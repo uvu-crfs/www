@@ -11,5 +11,6 @@ Tutorials:
 * Bulma http://bulma.io/
 * D3 https://uwdata.github.io/d3-tutorials/
 * AngularJS  http://www.w3schools.com/angular/angular_intro.asp
+* JavaScript 2015 [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)
 * mySQL
 * PHP 5.4
