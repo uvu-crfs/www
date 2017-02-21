@@ -8,13 +8,10 @@ export var sqlRequest = function(vnode){
   vnode.state.sql.last = vnode.state.sql.query;
   return m.request({method:'POST', url:'/login/sql.php', data:{query:vnode.state.sql.query}})
   .then(
-    function(r){
-      vnode.state.sql.response = r;
-    },
-    function(r){ console.log('Error', r); vnode.state.sql.response = r; }
+    (r) => vnode.state.sql.response = r,
+    (r) => { console.log('Error', r); vnode.state.sql.response = r; }
   )
-  .then(function(){ vnode.state.sql.query = ''; m.redraw(); })
-  ;
+  .then(function(){ vnode.state.sql.query = ''; m.redraw(); });
 };
 
 export var getSensors = function(){
@@ -26,33 +23,21 @@ export var getSensors = function(){
 };
 
 export var addSensor = function(vnode){
-  return m.request({method: 'POST', url: '/api/admin/sensor/type.php',
-    data: {name:vnode.state.add.name, unit:vnode.state.add.unit}
-  })
+  return m.request({method: 'POST', url: '/api/admin/sensor/type.php', data:vnode.state.data })
   .then(
-    function(r){ getSensors();
-       addNotification('New sensor "' + vnode.state.add.name +
-       '" with units of "' + vnode.state.add.unit + '"');
-    },
-    function(r){ console.log("Could not add sensor", r); }
+    (r) => { getSensors(); addNotification('New sensor "' + vnode.state.data.name + '" with units of "' + vnode.state.data.unit + '"'); },
+    (r) => console.log("Could not add sensor", r)
   )
-  .then(function(){vnode.state.addModalOpen = false;})
-  ;
+  .then( _ => vnode.state.close() );
 };
 
 export var deleteSensor = function(vnode){
-  return m.request({
-      method: 'DELETE', url: '/api/admin/sensor/type.php',
-      data: {id:vnode.state.delete.id}
-  })
+  return m.request({ method: 'DELETE', url: '/api/admin/sensor/type.php', data: {id:vnode.attrs.id} })
   .then(
-    function(r){
-      getSensors();
-      addNotification("Deleted sensor " + vnode.state.delete.name);
-    },
+    function(r){ getSensors(); addNotification("Deleted sensor " + vnode.attrs.name); },
     function(r){ console.log("Could not delete sensors", id, r); }
   )
-  .then(function(){ vnode.state.deleteModalOpen = false; });
+  .then( _ => vnode.state.close() );
 };
 
 export var addSensorData = function(data){
@@ -83,15 +68,10 @@ export var addGroup = function(vnode){
 };
 
 export var deleteGroup = function(vnode){
-  console.log(vnode);
   return m.request({ method: 'DELETE', url: '/api/admin/group.php', data: {id:vnode.attrs.id}})
   .then(
-    function(r){
-      getGroups();
-      addNotification("Deleted group " + vnode.attrs.name);
-    },
+    (r) => { getGroups(); addNotification("Deleted group " + vnode.attrs.name); },
     (r) => console.log("Could not delete sensors", vnode.attrs.name, r)
   )
-  .then( _ => vnode.state.close() )
-  ;
+  .then( _ => vnode.state.close() );
 };

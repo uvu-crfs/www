@@ -1,5 +1,5 @@
 import {getGroups, addGroup, deleteGroup} from '/mithril/utils.js';
-import {deleteModal} from '/mithril/components/modals.js';
+import {addModal, deleteModal} from '/mithril/components/modals.js';
 
 let groupDetails = {
   onchange:(vnode) => console.log(vnode.attrs),
@@ -10,33 +10,14 @@ let groupDetails = {
   ]) : null,
 };
 
-let addGroupModal = {
-  oninit:(vnode) => {
-    vnode.state.close = _ => vnode.attrs.modal = false;
-    vnode.state.data = {};
-  },
-  view:(vnode) => vnode.attrs.modal ? m('.modal.is-active', [
-    m('.modal-background', {onclick:vnode.state.close }, ''),
-    m('.modal-card',[
-      m('header.modal-card-head',[
-        m('p.modal-card-title', 'Add Group'),
-        m('button.delete', {onclick:vnode.state.close }, ''),
-      ]),
-      m('section.modal-card-body', [
-        m('.label', 'Name'),
-        m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
-      ]),
-      m('footer.modal-card-foot',[
-        m('a.button.is-success', {onclick:function(){ addGroup(vnode); }}, 'Add'),
-        m('a.button',  {onclick:vnode.state.close }, 'Cancel')
-      ])
-    ])
-  ]) : null
-};
+let addGroupModalBody = (vnode) => [
+  m('.label', 'Name'),
+  m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
+];
 
 export default {
   oninit: (vnode) => {
-    vnode.state.add = {modal:false};
+    vnode.state.add = {modal:false, type: 'group', func:addGroup, body:addGroupModalBody };
     vnode.state.delete = {modal:false, type:'group', func: deleteGroup};
     getGroups();
     vnode.state.openDetails = (group) => {
@@ -50,7 +31,7 @@ export default {
       m('.level-right',m('button.button.is-primary',
         {onclick:_ => vnode.state.add.modal = true }, 'Add')),
     ]),
-    m(addGroupModal, vnode.state.add),
+    m(addModal, vnode.state.add),
     g.groups.map((g) => m('.card', {style:'padding: 10px;'}, [
       m('',[
         m('button.button.is-small',

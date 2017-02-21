@@ -1,62 +1,35 @@
 import {getSensors, addSensor, deleteSensor} from '/mithril/utils.js';
 import sensorDataList from '/mithril/components/sensorDataList.js';
+import {addModal, deleteModal} from '/mithril/components/modals.js';
+
+let addSensorModalBody = (vnode) => [
+  m('.label', 'Name'),
+  m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
+  m('.label', 'Units'),
+  m('input.input', {onchange:function(e){ vnode.state.data.unit = e.target.value; }}, ''),
+];
 
 export default {
-  oninit:function(vnode){ vnode.state = { delete:{name:''}, add:{}}; },
+  oninit:function(vnode){
+    vnode.state.add = {modal:false, type: 'sensor', func:addSensor, body:addSensorModalBody };
+    vnode.state.delete = {modal:false, type:'sensor', func: deleteSensor};
+   },
   oncreate:function(vnode){ getSensors(); },
   view: function(vnode){ return m('',[
     m('.level',[
       m('.level-left', m('.title','Sensors')),
       m('.level-right',m('button.button.is-primary',
-        {onclick:function(){ vnode.state.addModalOpen = true; }} ,'Add')),
+        {onclick:function(){ vnode.state.add.modal = true; }} ,'Add')),
     ]),
-    m('.modal',{class: vnode.state.addModalOpen ? 'is-active':''}, [
-      m('.modal-background',
-        {onclick:function(){vnode.state.addModalOpen = false;}}, ''),
-      m('.modal-card',[
-        m('header.modal-card-head',[
-          m('p.modal-card-title', 'Add Sensor'),
-          m('button.delete',
-            {onclick:function(){vnode.state.addModalOpen = false;}}, ''),
-        ]),
-        m('section.modal-card-body', [
-          m('.label', 'Name'),
-          m('input.input',
-            {onchange:function(e){ vnode.state.add.name = e.target.value; }},
-          ''),
-          m('.label', 'Units'),
-          m('input.input',
-            {onchange:function(e){ vnode.state.add.unit = e.target.value; }},
-          ''),
-        ]),
-        m('footer.modal-card-foot',[
-          m('a.button.is-success', {onclick:function(){addSensor(vnode);}}, 'Add'),
-          m('a.button', {onclick:function(){vnode.state.addModalOpen = false;}}, 'Cancel')
-        ])
-      ])
-    ]),
+    m(addModal, vnode.state.add),
     m('',g.sensors.map(function(v){ return m('', [
       m('span', v.name + "  " +v.unit),
       m('button', {onclick:function(){
-        vnode.state.delete = v; vnode.state.deleteModalOpen = true;
+        vnode.state.delete.modal = true;
+        vnode.state.delete.id = v.id;
+        vnode.state.delete.name = `${v.name}`;
       }}, 'Delete'),
-      m('.modal',{class: vnode.state.deleteModalOpen ? 'is-active':''}, [
-        m('.modal-background',
-          {onclick:function(){vnode.state.deleteModalOpen = false;}}, ''),
-        m('.modal-card',[
-          m('header.modal-card-head',[
-            m('p.modal-card-title', 'Delete Sensor'),
-            m('button.delete', {onclick:function(){ vnode.state.deleteModalOpen = false;}}, ''),
-          ]),
-          m('section.modal-card-body', [
-            m('p',"Are you sure you want to delete the '" + vnode.state.delete.name + "' sensor?")
-          ]),
-          m('footer.modal-card-foot',[
-            m('a.button.is-danger', {onclick:function(){deleteSensor(vnode);}}, 'Delete'),
-            m('a.button', {onclick:function(){vnode.state.deleteModalOpen = false;}}, 'Cancel')
-          ])
-        ])
-      ])
+      m(deleteModal, vnode.state.delete),
     ]); })),
     m(sensorDataList, vnode.state)
   ]);}
