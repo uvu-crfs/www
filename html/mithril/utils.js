@@ -19,6 +19,11 @@ export var unixToTime = (unix) => {
   return t.toString();
 };
 
+export var blankFirstOption = (options) => {
+  options.unshift(m('option', {style:'display:none;'}, ''));
+  return options;
+};
+
 export var sqlRequest = function(vnode){
   vnode.state.sql.last = vnode.state.sql.query;
   return m.request({method:'POST', url:'/login/sql.php', data:{query:vnode.state.sql.query}})
