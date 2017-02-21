@@ -1,4 +1,4 @@
-import {getSensors, addSensor, deleteSensor} from '/mithril/utils.js';
+import {getSensors, addSensor, deleteSensor, unixToTime} from '/mithril/utils.js';
 import {addModal, deleteModal} from '/mithril/components/modals.js';
 import addSensorData from '/mithril/components/addSensorData.js';
 
@@ -37,8 +37,10 @@ let sensorLine = {
     vnode.state.open ? m('',[
       //m(addSensorData,vnode.attrs),
       vnode.state.values.map((v) => m('', [
+        m('span' , unixToTime(v.timestamp) ),
+        m('span' , ' - ' ),
         m('span', `${v.quantity} ${vnode.attrs.unit}`),
-        m('span' , new Date(v.timestamp * 1000) )
+
       ]))
     ]) : null,
   ])
@@ -48,8 +50,8 @@ export default {
   oninit:function(vnode){
     vnode.state.add = {modal:false, type: 'sensor', func:addSensor, body:addSensorModalBody };
     vnode.state.delete = deleteData;
+    if (g.sensors.length === 0) getSensors();
    },
-  oncreate:function(vnode){ getSensors(); },
   view: function(vnode){ return m('',[
     m('.level',[
       m('.level-left', m('.title','Sensors')),

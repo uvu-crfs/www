@@ -4,6 +4,21 @@ export var addNotification = function(text){
 };
 export var clearNotifications = _ => notifications = [];
 
+export var unixToDate = (unix) => {
+  if (!unix) return 'Date Unknown';
+  console.log(unix);
+  var t = new Date();
+  t.setUTCMilliseconds(unix);
+  return t.toDateString();
+};
+
+export var unixToTime = (unix) => {
+  if (!unix) return 'Date Unknown';
+  var t = new Date();
+  t.setUTCMilliseconds(unix);
+  return t.toString();
+};
+
 export var sqlRequest = function(vnode){
   vnode.state.sql.last = vnode.state.sql.query;
   return m.request({method:'POST', url:'/login/sql.php', data:{query:vnode.state.sql.query}})
@@ -56,9 +71,13 @@ export var addSensorData = function(data){
 export var getGroups = function(){
   return m.request({url: '/api/admin/groups.php'})
   .then(
-    function(r){ g.groups = r; },
+    function(r){ g.groups = r; createGroupsLookup(r); },
     function(r){ console.log("Could not request groups", r);
   });
+};
+
+let createGroupsLookup = (groups) => {
+  for (var i in groups){ g.groupLookup[groups[i].id] = groups[i]; }
 };
 
 export var addGroup = function(vnode){
@@ -74,4 +93,12 @@ export var deleteGroup = function(vnode){
     (r) => console.log("Could not delete sensors", vnode.attrs.name, r)
   )
   .then( _ => vnode.state.close() );
+};
+
+export var getVisits = function(){
+  return m.request({url: '/api/admin/visits.php'})
+  .then(
+    function(r){ g.visits = r; },
+    function(r){ console.log("Could not request visits", r);
+  });
 };

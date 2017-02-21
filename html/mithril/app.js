@@ -10,7 +10,9 @@ g.uvu.admin = g.uvu.entitlements.includes('services:crfs:admin');
 g.notifications = [];
 g.sensors = [];
 g.groups = [];
-g.groupDetails = {};
+g.groupLookup = {};
+g.visits = [];
+
 
 if (g.docker) console.log("globals", g);
 

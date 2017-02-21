@@ -19,7 +19,7 @@ export default {
   oninit: (vnode) => {
     vnode.state.add = {modal:false, type: 'group', func:addGroup, body:addGroupModalBody };
     vnode.state.delete = {modal:false, type:'group', func: deleteGroup};
-    getGroups();
+    if (g.groups.length === 0) getGroups();
     vnode.state.openDetails = (group) => {
       group.detailsOpen = !group.detailsOpen;
       group.contact = {name:'This will get update one day'};
