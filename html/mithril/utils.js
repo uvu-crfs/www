@@ -102,3 +102,10 @@ export var getVisits = function(){
     function(r){ console.log("Could not request visits", r);
   });
 };
+
+export var addVisit = function(vnode){
+  console.log(vnode.state.data);
+  return m.request({url: '/api/admin/visit.php', method:'POST', data:vnode.state.data})
+  .then( (r) => getVisits(), (r) => console.log("Could not add visit", r) )
+  .then( _ => vnode.state.close() );
+};

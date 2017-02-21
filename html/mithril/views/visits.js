@@ -1,5 +1,14 @@
-import {getGroups, getVisits, unixToTime} from '/mithril/utils.js';
+import {getGroups, getVisits, addVisit, unixToTime} from '/mithril/utils.js';
+import {addModal, deleteModal} from '/mithril/components/modals.js';
 //let deleteData = {modal:false, type:'sensor', func: deleteVisit};
+
+let addVisitModalBody = (vnode) => [
+  m('.label', 'Group'),
+  m('select', {onchange:(e) => vnode.state.data.group_id = e.target.value},
+    g.groups.map( (v) => m('option', {value:v.id}, v.name) )
+  ),
+  m('button', {disabled:true}, 'Add')
+];
 
 let visitCard = {
   oninit:(vnode) => {
@@ -33,14 +42,16 @@ let visitCard = {
 
 export default {
   oninit:(vnode) => {
-    getVisits();
+    vnode.state.add = {modal:false, type: 'sensor', func:addVisit, body:addVisitModalBody };
+    if (g.visits.length === 0) getVisits();
     if (g.groups.length === 0) getGroups();
   },
   view:(vnode) => m('',[
     m('.level',[
       m('.level-left', m('.title','Visits')),
-      //m('.level-right',m('button.button.is-primary', {onclick:function(){ vnode.state.add.modal = true; }} ,'Add')),
+      m('.level-right',m('button.button.is-primary', {onclick:function(){ vnode.state.add.modal = true; }} ,'Add')),
     ]),
+    m(addModal, vnode.state.add),
     g.visits.map((v)=> m(visitCard, v)),
   ])
 };
