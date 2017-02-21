@@ -32,6 +32,7 @@ export default {
         {onclick:_ => vnode.state.add.modal = true }, 'Add')),
     ]),
     m(addModal, vnode.state.add),
+    m(deleteModal, vnode.state.delete),
     g.groups.map((g) => m('.card', {style:'padding: 10px;'}, [
       m('',[
         m('button.button.is-small',
@@ -49,7 +50,6 @@ export default {
         'Delete') : null,
       ]),
       m(groupDetails, g),
-      m(deleteModal, vnode.state.delete),
     ]))
   ])
 };

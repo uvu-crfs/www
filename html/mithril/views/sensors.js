@@ -1,6 +1,6 @@
 import {getSensors, addSensor, deleteSensor} from '/mithril/utils.js';
-import sensorDataList from '/mithril/components/sensorDataList.js';
 import {addModal, deleteModal} from '/mithril/components/modals.js';
+import AddSensorData from '/mithril/components/addSensorData.js';
 
 let addSensorModalBody = (vnode) => [
   m('.label', 'Name'),
@@ -9,10 +9,45 @@ let addSensorModalBody = (vnode) => [
   m('input.input', {onchange:function(e){ vnode.state.data.unit = e.target.value; }}, ''),
 ];
 
+let deleteData = {modal:false, type:'sensor', func: deleteSensor};
+
+let sensorLine = {
+  oninit:(vnode) => {
+    vnode.state.open = false;
+    vnode.state.values = [];
+    vnode.state.openDetails = _ => {
+      vnode.state.open = !vnode.state.open;
+      m.request({url:`/api/admin/sensor/values.php?sensor=${vnode.attrs.id}`})
+      .then((r) => vnode.state.values = r, (r) => console.log('Error', r));
+    };
+  },
+  view:(vnode) => m('.card', {style:'padding: 10px;'}, [
+    m('button.button.is-small',
+      {style:'margin:0 10px 0 0;', onclick:(e) => vnode.state.openDetails() },[
+      m('', {style:'padding:0 2px;'}, 'Details'),
+      m('.fa', {class:vnode.state.open?'fa-angle-down':'fa-angle-up'}, ''),
+    ]),
+    m('span', vnode.attrs.name),
+    vnode.state.open ? m('button.button.is-danger.is-small.is-pulled-right',
+      {onclick:_ => {
+        deleteData.modal = true;
+        deleteData.id = vnode.attrs.id;
+        deleteData.name = `${vnode.attrs.name}`;
+      }}, 'Delete') : null,
+    vnode.state.open ? m('',[
+      //m(AddSensorData,vnode.attrs),
+      vnode.state.values.map((v) => m('', [
+        m('span', `${v.quantity} ${vnode.attrs.unit}`),
+        m('span' , new Date(v.timestamp * 1000) )
+      ]))
+    ]) : null,
+  ])
+};
+
 export default {
   oninit:function(vnode){
     vnode.state.add = {modal:false, type: 'sensor', func:addSensor, body:addSensorModalBody };
-    vnode.state.delete = {modal:false, type:'sensor', func: deleteSensor};
+    vnode.state.delete = deleteData;
    },
   oncreate:function(vnode){ getSensors(); },
   view: function(vnode){ return m('',[
@@ -22,15 +57,7 @@ export default {
         {onclick:function(){ vnode.state.add.modal = true; }} ,'Add')),
     ]),
     m(addModal, vnode.state.add),
-    m('',g.sensors.map(function(v){ return m('', [
-      m('span', v.name + "  " +v.unit),
-      m('button', {onclick:function(){
-        vnode.state.delete.modal = true;
-        vnode.state.delete.id = v.id;
-        vnode.state.delete.name = `${v.name}`;
-      }}, 'Delete'),
-      m(deleteModal, vnode.state.delete),
-    ]); })),
-    m(sensorDataList, vnode.state)
+    m(deleteModal, vnode.state.delete),
+    m('',g.sensors.map((v) => m(sensorLine, v) )),
   ]);}
 };
