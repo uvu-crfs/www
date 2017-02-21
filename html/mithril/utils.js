@@ -1,5 +1,3 @@
-//TODO Fix notifications
-
 export var addNotification = function(text){
   g.notifications.push(text); m.redraw();
   setTimeout(function () {g.notifications.shift(); m.redraw(); }, 4000);
@@ -76,4 +74,24 @@ export var getGroups = function(){
     function(r){ g.groups = r; },
     function(r){ console.log("Could not request groups", r);
   });
+};
+
+export var addGroup = function(vnode){
+  return m.request({url: '/api/admin/group.php', method:'POST', data:vnode.state.data})
+  .then( (r) => getGroups(), (r) => console.log("Could not add group", r) )
+  .then( _ => vnode.state.close() );
+};
+
+export var deleteGroup = function(vnode){
+  console.log(vnode);
+  return m.request({ method: 'DELETE', url: '/api/admin/group.php', data: {id:vnode.attrs.id}})
+  .then(
+    function(r){
+      getGroups();
+      addNotification("Deleted group " + vnode.attrs.name);
+    },
+    (r) => console.log("Could not delete sensors", vnode.attrs.name, r)
+  )
+  .then( _ => vnode.state.close() )
+  ;
 };
