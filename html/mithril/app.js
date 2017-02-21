@@ -20,14 +20,14 @@ import home from '/mithril/views/home.js';
 import reportsView from '/mithril/views/reports.js';
 import sensorsView from '/mithril/views/sensors.js';
 import groupsView from '/mithril/views/groups.js';
+import visitsView from '/mithril/views/visits.js';
 import developerView from '/mithril/views/developer.js';
 
 m.route(document.body, "/home", {
   "/home": headerFooter(home),
   "/reports": headerFooter(reportsView),
-  // "/usage": headerFooter(''),
-  // "/visits": headerFooter(''),
-  "/groups": headerFooter(groupsView),
+  "/visits": headerFooter(g.uvu.loggedIn ? visitsView : ''),
+  "/groups": headerFooter(g.uvu.loggedIn ? groupsView : ''),
   "/sensors": headerFooter(g.uvu.loggedIn ? sensorsView : ''),
   "/developer": headerFooter(g.docker || g.uvu.admin ? developerView : '')
 });

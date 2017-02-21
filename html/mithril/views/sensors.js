@@ -1,6 +1,6 @@
 import {getSensors, addSensor, deleteSensor} from '/mithril/utils.js';
 import {addModal, deleteModal} from '/mithril/components/modals.js';
-import AddSensorData from '/mithril/components/addSensorData.js';
+import addSensorData from '/mithril/components/addSensorData.js';
 
 let addSensorModalBody = (vnode) => [
   m('.label', 'Name'),
@@ -35,7 +35,7 @@ let sensorLine = {
         deleteData.name = `${vnode.attrs.name}`;
       }}, 'Delete') : null,
     vnode.state.open ? m('',[
-      //m(AddSensorData,vnode.attrs),
+      //m(addSensorData,vnode.attrs),
       vnode.state.values.map((v) => m('', [
         m('span', `${v.quantity} ${vnode.attrs.unit}`),
         m('span' , new Date(v.timestamp * 1000) )

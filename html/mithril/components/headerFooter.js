@@ -8,16 +8,17 @@ var header = {
       m('.nav-left',[
         m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
         m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
+        g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/visits"),  "Visits") : null,
         g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/groups"),  "Groups") : null,
         g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
         g.docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
       ]),
-      m('.nav-center',[
-        m('.nav-item', g.uvu.displayName)
-      ]),
       m('.nav-right', [
         g.uvu.loggedIn ?
-          m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout'].nav-item", 'Logout') :
+          m('.nav-item', [
+            m('', {style:'padding:0 10px;'}, g.uvu.displayName),
+            m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout']", 'Logout')
+          ]) :
           m("a[href='/login'].nav-item",'Login') //TODO change this to /uvu when the route is protected
       ])
     ]);
