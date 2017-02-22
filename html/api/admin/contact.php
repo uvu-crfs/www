@@ -2,7 +2,7 @@
 
 require_once '/var/www/lib/database.php';
 
-$table_name = 'contact';
+$table_name = 'contacts';
 $columns = ['name'];
 
 switch ($_SERVER['REQUEST_METHOD']) {

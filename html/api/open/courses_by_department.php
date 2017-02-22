@@ -9,7 +9,7 @@ $id = $_GET['department_id'];
 if (!is_numeric($id)) {
     return http_response_code(400);
 }
-$query = 'select * from course where department_id=?';
+$query = 'select * from courses where department_id=?';
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);

@@ -9,7 +9,7 @@ $id = $_GET['affiliation_id'];
 if (!is_numeric($id)) {
     return http_response_code(400);
 }
-$query = 'select * from department where affiliation_id=?';
+$query = 'select * from departments where affiliation_id=?';
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);

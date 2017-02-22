@@ -11,14 +11,14 @@ if (!is_numeric($id)) {
 }
 
 $query = 'select
-  course.name as course_name, course.id as course_id,
-  department.name as department_name, department.id as department_id,
-  affiliation.name as affiliation_name, affiliation.id as affiliation_id,
-  concat(affiliation.name, "/",department.name,"/",course.name) AS "concat"
+  courses.name as course_name, courses.id as course_id,
+  departments.name as department_name, departments.id as department_id,
+  affiliations.name as affiliation_name, affiliations.id as affiliation_id,
+  concat(affiliations.name, "/",departments.name,"/",courses.name) AS "concat"
   from lookup_group_course
-  INNER JOIN course ON lookup_group_course.course_id=course.id
-  INNER JOIN department ON course.department_id=department.id
-  INNER JOIN affiliation ON department.affiliation_id=affiliation.id
+  INNER JOIN courses ON lookup_group_course.course_id=courses.id
+  INNER JOIN departments ON courses.department_id=departments.id
+  INNER JOIN affiliations ON departments.affiliation_id=affiliations.id
   where group_id=?
   ;';
 

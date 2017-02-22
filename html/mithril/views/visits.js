@@ -1,13 +1,18 @@
-import {getGroups, getVisits, addVisit, unixToTime} from '/mithril/utils.js';
+import {getGroups, getVisits, addVisit, unixToTime, blankFirstOption} from '/mithril/utils.js';
 import {addModal, deleteModal} from '/mithril/components/modals.js';
 //let deleteData = {modal:false, type:'sensor', func: deleteVisit};
 
 let addVisitModalBody = (vnode) => [
   m('.label', 'Group'),
   m('select', {onchange:(e) => vnode.state.data.group_id = e.target.value},
-    g.groups.map( (v) => m('option', {value:v.id}, v.name) )
+    blankFirstOption(g.groups.map( (v) => m('option', {value:v.id}, v.name) ))
   ),
-  m('button', {disabled:true}, 'Add')
+  //m('button', {disabled:true}, 'Add') //TODO this should add a group
+  m('.label', 'State Date'),
+  m('input[type="date"]', {onchange:(e) => vnode.state.data.start_date = new Date(e.target.value).getTime()}, ''),
+  m('.label', 'End Date'),
+  m('input[type="date"]', {onchange:(e) => vnode.state.data.end_date = new Date(e.target.value).getTime()}, ''),
+
 ];
 
 let visitCard = {
