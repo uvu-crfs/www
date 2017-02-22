@@ -2,7 +2,7 @@
 
 require_once '/var/www/lib/database.php';
 
-$table_name = 'lookup_group_departmnet';
+$table_name = 'lookup_group_department';
 $lookup_keys = ['group_id', 'department_id'];
 
 switch ($_SERVER['REQUEST_METHOD']) {
