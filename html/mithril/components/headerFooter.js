@@ -11,6 +11,7 @@ var header = {
         g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/visits"),  "Visits") : null,
         g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/groups"),  "Groups") : null,
         g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
+        g.uvu.loggedIn ? m("a.nav-item.is-tab", header.linkAttrs("/affiliations"),  "Affiliations") : null,
         g.docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
       ]),
       m('.nav-right', [
