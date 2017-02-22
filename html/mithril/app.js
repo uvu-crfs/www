@@ -12,10 +12,10 @@ g.sensors = [];
 g.groups = [];
 g.groupLookup = {};
 g.visits = [];
-
+g.affiliations = [];
+g.affiliationLookup = {};
 
 if (g.docker) console.log("globals", g);
-
 
 import headerFooter from '/mithril/components/headerFooter.js';
 import home from '/mithril/views/home.js';
@@ -23,6 +23,7 @@ import reportsView from '/mithril/views/reports.js';
 import sensorsView from '/mithril/views/sensors.js';
 import groupsView from '/mithril/views/groups.js';
 import visitsView from '/mithril/views/visits.js';
+import affiliationView from '/mithril/views/affiliation.js';
 import developerView from '/mithril/views/developer.js';
 
 m.route(document.body, "/home", {
@@ -31,5 +32,6 @@ m.route(document.body, "/home", {
   "/visits": headerFooter(g.uvu.loggedIn ? visitsView : ''),
   "/groups": headerFooter(g.uvu.loggedIn ? groupsView : ''),
   "/sensors": headerFooter(g.uvu.loggedIn ? sensorsView : ''),
+  "/affiliations": headerFooter(g.uvu.loggedIn ? affiliationView : ''),
   "/developer": headerFooter(g.docker || g.uvu.admin ? developerView : '')
 });

@@ -3,17 +3,17 @@
 require_once '/var/www/lib/database.php';
 
 $table_name = 'contact';
-$affiliation_keys = ['name'];
+$columns = ['name'];
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET':
     get_by_id($table_name);
     break;
   case 'POST':
-    post($table_name, $affiliation_keys);
+    post($table_name, $columns);
     break;
   case 'PUT':
-    put($table_name, $affiliation_keys);
+    put($table_name, $columns);
     break;
   case 'DELETE':
     delete_by_id($table_name);
