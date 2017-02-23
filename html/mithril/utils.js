@@ -209,9 +209,62 @@ export var addCourse = function(vnode){
 };
 
 export var getCourses = function(department){
-  return m.request({url: `api/open/courses_by_department.php?department_id=${department.id}`})
+  return m.request({url: `/api/open/courses_by_department.php?department_id=${department.id}`})
   .then(
     (r) => { department.courses = r; console.log(department); },
     (r) => console.log("Could not get courses", r)
+  );
+};
+
+export var attachCourseToGroup = function(vnode){
+  console.log(vnode);
+  return m.request({url: '/api/admin/lookup_group_course.php', method:'POST', data:vnode.state.data})
+  .then(
+    (r) => {getAttachedCourses(vnode.state.data.group_id); console.log('Attched course to group, TODO: Refresh something eventually', r);},
+    (r) => console.log("Could not attched course to group", r) )
+  .then( _ => vnode.state.close() );
+};
+
+export var attachAffiliationToGroup = function(vnode){
+  console.log(vnode);
+  return m.request({url: '/api/admin/lookup_group_affiliation.php', method:'POST', data:vnode.state.data})
+  .then(
+    (r) => {getAttachedAffiliations(vnode.state.data.group_id); console.log('Attched affiliation to group, TODO: Refresh something eventually', r);},
+    (r) => console.log("Could not attched affiliation to group", r) )
+  .then( _ => vnode.state.close() );
+};
+
+export var attachDepartmentToGroup = function(vnode){
+  console.log(vnode);
+  return m.request({url: '/api/admin/lookup_group_department.php', method:'POST', data:vnode.state.data})
+  .then(
+    (r) => {getAttachedDepartments(vnode.state.data.group_id); console.log('Attched department to group, TODO: Refresh something eventually', r);},
+    (r) => console.log("Could not attched department to group", r) )
+  .then( _ => vnode.state.close() );
+};
+
+export var getAttachedCourses = function(group_id){
+  //console.log(group_id);
+  return m.request({url: `/api/open/group_courses.php?group_id=${group_id}`})
+  .then(
+    (r) => { g.groupLookup[group_id].courses = r; /*console.log(g.groupLookup[group_id]);*/ },
+    (r) => console.log("Could not get courses attached to group", group_id, r)
+  );
+};
+
+export var getAttachedDepartments = function(group_id){
+  //console.log(group_id);
+  return m.request({url: `/api/open/group_departments.php?group_id=${group_id}`})
+  .then(
+    (r) => { g.groupLookup[group_id].departments = r; /*console.log(g.groupLookup[group_id]);*/ },
+    (r) => console.log("Could not get departments attached to group", group_id, r)
+  );
+};
+export var getAttachedAffiliations = function(group_id){
+  //console.log(group_id);
+  return m.request({url: `/api/open/group_affiliations.php?group_id=${group_id}`})
+  .then(
+    (r) => { g.groupLookup[group_id].affiliations = r; /*console.log(g.groupLookup[group_id]);*/ },
+    (r) => console.log("Could not get affiliations attached to group", group_id, r)
   );
 };

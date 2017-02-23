@@ -1,4 +1,4 @@
-import {getGroups, getVisits, addVisit, unixToTime} from '/mithril/utils.js';
+import {getGroups, getVisits, addVisit, unixToTime, blankFirstOption} from '/mithril/utils.js';
 import {addModal, deleteModal} from '/mithril/components/modals.js';
 import {s2Component} from '/mithril/components/s2Component.js';
 //let deleteData = {modal:false, type:'sensor', func: deleteVisit};
@@ -17,7 +17,6 @@ import {s2Component} from '/mithril/components/s2Component.js';
 
 let addVisitModalBody = (vnode) => [
   m('.label', 'Group'),
-  //m('input', {config:makeAutoComplete}),
   m(s2Component, {
     data: g.groups.map(function(obj) {
       let newObj = {};
@@ -26,7 +25,12 @@ let addVisitModalBody = (vnode) => [
       return newObj;
     })
   }), 
-  m('button', {disabled:true}, 'Add')
+  //m('button', {disabled:true}, 'Add') //TODO this should add a group
+  m('.label', 'State Date'),
+  m('input[type="date"]', {onchange:(e) => vnode.state.data.start_date = new Date(e.target.value).getTime()}, ''),
+  m('.label', 'End Date'),
+  m('input[type="date"]', {onchange:(e) => vnode.state.data.end_date = new Date(e.target.value).getTime()}, ''),
+
 ];
 
 // let addVisitModalBody = (vnode) => [

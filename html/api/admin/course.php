@@ -2,7 +2,7 @@
 
 require_once '/var/www/lib/database.php';
 
-$table_name = 'course';
+$table_name = 'courses';
 $course_keys = ['name', 'department_id'];
 
 switch ($_SERVER['REQUEST_METHOD']) {

@@ -5,11 +5,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 require_once '/var/www/lib/database.php';
 
-$id = $_GET['affiliation_id'];
+$id = $_GET['group_id'];
 if (!is_numeric($id)) {
     return http_response_code(400);
 }
-$query = 'select * from departments where affiliation_id=?';
+
+$query = 'select
+  lookup_group_affiliation.group_id,
+  lookup_group_affiliation.affiliation_id,
+  affiliations.name as affiliation_name
+  from lookup_group_affiliation
+  INNER JOIN affiliations ON lookup_group_affiliation.affiliation_id=affiliations.id
+  where group_id=?';
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);
