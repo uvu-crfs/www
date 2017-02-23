@@ -1,14 +1,41 @@
 import {getGroups, getVisits, addVisit, unixToTime} from '/mithril/utils.js';
 import {addModal, deleteModal} from '/mithril/components/modals.js';
+import {s2Component} from '/mithril/components/s2Component.js';
 //let deleteData = {modal:false, type:'sensor', func: deleteVisit};
+
+// var makeAutoComplete = function(element, isInitialized) {
+//   let groupNames = g.groups.map((v) => v.name);
+//   console.log(groupNames);
+//   if (!isInitialized) {
+//     $(element).autocomplete({
+//       source: groupNames
+//     });
+//   }
+// };
+
+//let groupNames = g.groups.map((v) => {id: v.id}, {name: v.name});
 
 let addVisitModalBody = (vnode) => [
   m('.label', 'Group'),
-  m('select', {onchange:(e) => vnode.state.data.group_id = e.target.value},
-    g.groups.map( (v) => m('option', {value:v.id}, v.name) )
-  ),
+  //m('input', {config:makeAutoComplete}),
+  m(s2Component, {
+    data: g.groups.map(function(obj) {
+      let newObj = {};
+      newObj.id = obj.id;
+      newObj.text = obj.name;
+      return newObj;
+    })
+  }), 
   m('button', {disabled:true}, 'Add')
 ];
+
+// let addVisitModalBody = (vnode) => [
+//   m('.label', 'Group'),
+//   m('select', {onchange:(e) => vnode.state.data.group_id = e.target.value},
+//     g.groups.map( (v) => m('option', {value:v.id}, v.name) )
+//   ),
+//   m('button', {disabled:true}, 'Add')
+// ];
 
 let visitCard = {
   oninit:(vnode) => {
