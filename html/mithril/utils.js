@@ -26,7 +26,7 @@ export var blankFirstOption = (options) => {
 
 export var sqlRequest = function(vnode){
   vnode.state.sql.last = vnode.state.sql.query;
-  return m.request({method:'POST', url:'/login/sql.php', data:{query:vnode.state.sql.query}})
+  return m.request({method:'POST', url:'/api/admin/sql.php', data:{query:vnode.state.sql.query}})
   .then(
     (r) => vnode.state.sql.response = r,
     (r) => { console.log('Error', r); vnode.state.sql.response = r; }

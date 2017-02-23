@@ -20,7 +20,7 @@ var header = {
             m('', {style:'padding:0 10px;'}, g.uvu.displayName),
             m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout']", 'Logout')
           ]) :
-          m("a[href='/login'].nav-item",'Login') //TODO change this to /uvu when the route is protected
+          m("a[href='/uvu'].nav-item",'Login')
       ])
     ]);
   }
