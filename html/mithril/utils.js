@@ -183,7 +183,7 @@ export var deleteDepartment = function(vnode){
 };
 
 export var getDepartments = function(affiliation_id){
-  return m.request({url: `api/open/departments_by_affiliation.php?affiliation_id=${affiliation_id}`})
+  return m.request({url: `/api/open/departments_by_affiliation.php?affiliation_id=${affiliation_id}`})
   .then(
     (r) => { g.affiliationLookup[affiliation_id].departments = r; console.log(g.affiliationLookup[affiliation_id]); },
     (r) => console.log("Could not get departments", r)
