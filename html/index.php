@@ -11,6 +11,9 @@
     <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
     <script src="https://google.github.io/traceur-compiler/bin/BrowserSystem.js"></script>
     <script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link href="/vendor/select2.css" rel="stylesheet" />
+    <script src="/vendor/select2.min.js"></script>
     <script src="/vendor/mithril.js"></script>
   </head>
   <body>
