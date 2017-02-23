@@ -9,7 +9,7 @@ let departmentDetails = {
         vnode.attrs.department.courses = [];
         getCourses(vnode.attrs.department);
     }
-    vnode.state.add = {modal:false, data:{department_id:vnode.attrs.department.id}};
+    vnode.state.add = {modal:false, data:{department_id:vnode.attrs.department.id, department:vnode.attrs.department}};
     vnode.state.delete = {modal:false, type:'course', func:deleteCourse};
   },
   view:(vnode) => m('',[
@@ -37,7 +37,6 @@ let affiliationDetails = {
         vnode.attrs.affiliation.departments = [];
         getDepartments(vnode.attrs.affiliation.id);
     }
-
     vnode.state.add = {modal:false, data:{affiliation_id:vnode.attrs.affiliation.id}};
     vnode.state.delete = {modal:false, type:'department', func:deleteDepartment};
   },

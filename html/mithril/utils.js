@@ -203,7 +203,7 @@ export var addCourse = function(vnode){
   console.log(vnode.state);
   return m.request({url: '/api/admin/course.php', method:'POST', data:vnode.state.data})
   .then(
-    (r) => console.log('Added course, TODO: Refresh something eventually', r),
+    (r) => {  getCourses(vnode.state.data.department); console.log('Added course, TODO: Refresh something eventually', r);},
     (r) => console.log("Could not add department", r) )
   .then( _ => vnode.state.close() );
 };
