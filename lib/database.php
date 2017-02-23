@@ -170,7 +170,7 @@ function get_all_affiliations()
       ON lookup_group_affiliation.affiliation_id=affiliations.id;');
     $stmt->execute();
     $array = get_all_rows($stmt);
-    $affiliations = array_map(('grabAffiliation'), $array);
+    $affiliations = array_map(('getName'), $array);
     echo json_encode(array_count_values($affiliations)); //returns associative array
 }
 
@@ -183,24 +183,16 @@ function get_all_departments()
   		ON lookup_group_department.department_id=departments.id;');
     $stmt->execute();
     $array = get_all_rows($stmt);
-    $depts = array_map(('grabDepartments'), $array);
+    $depts = array_map(('getName'), $array);
     echo json_encode(array_count_values($depts)); //returns associative array
 }
 
 /*
-Returns the 'affiliation' from the key/value pair
+Returns the 'name' from the key/value pair
 */
-function grabAffiliation($indexInArray)
+function getName($indexInArray)
 {
     return $indexInArray['name'];
-}
-
-/*
-Returns 'department' from the key/value pair
-*/
-function grabDepartments($indexInArray)
-{
-	return $indexInArray['name'];
 }
 
 function create_sensor_table($id)
