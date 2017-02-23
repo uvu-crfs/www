@@ -163,7 +163,12 @@ function get_all_rows_from_table($table_name)
 
 function get_all_affiliations_from_groups()
 {
-    $stmt = $GLOBALS['pdo']->prepare('select affiliation from groups');
+    // $stmt = $GLOBALS['pdo']->prepare('select affiliation from groups');
+    $stmt = $GLOBALS['pdo']->prepare('SELECT affiliations.name FROM lookup_group_affiliation
+      INNER JOIN groups
+      ON lookup_group_affiliation.group_id=groups.id
+      INNER JOIN affiliations
+      ON lookup_group_affiliation.affiliation_id=affiliations.id;');
     $stmt->execute();
     $array = get_all_rows($stmt);
     $affiliations = array_map(('grabAffiliation'), $array);
@@ -175,7 +180,7 @@ Returns the 'affiliation' from the key/value pair
 */
 function grabAffiliation($indexInArray)
 {
-    return $indexInArray['affiliation'];
+    return $indexInArray['name'];
 }
 
 function create_sensor_table($id)
