@@ -161,9 +161,8 @@ function get_all_rows_from_table($table_name)
     print_json(get_all_rows($stmt));
 }
 
-function get_all_affiliations_from_groups()
+function get_all_affiliations()
 {
-    // $stmt = $GLOBALS['pdo']->prepare('select affiliation from groups');
     $stmt = $GLOBALS['pdo']->prepare('SELECT affiliations.name FROM lookup_group_affiliation
       INNER JOIN groups
       ON lookup_group_affiliation.group_id=groups.id
@@ -175,12 +174,33 @@ function get_all_affiliations_from_groups()
     echo json_encode(array_count_values($affiliations)); //returns associative array
 }
 
+function get_all_departments()
+{
+    $stmt = $GLOBALS['pdo']->prepare('SELECT departments.name FROM lookup_group_department
+  		INNER JOIN groups
+  		ON lookup_group_department.group_id=groups.id
+  		INNER JOIN departments
+  		ON lookup_group_department.department_id=departments.id;');
+    $stmt->execute();
+    $array = get_all_rows($stmt);
+    $depts = array_map(('grabDepartments'), $array);
+    echo json_encode(array_count_values($depts)); //returns associative array
+}
+
 /*
 Returns the 'affiliation' from the key/value pair
 */
 function grabAffiliation($indexInArray)
 {
     return $indexInArray['name'];
+}
+
+/*
+Returns 'department' from the key/value pair
+*/
+function grabDepartments($indexInArray)
+{
+	return $indexInArray['name'];
 }
 
 function create_sensor_table($id)
