@@ -5,5 +5,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 require_once '/var/www/lib/database.php';
 // echo get_all_affiliations();
-echo get_all_departments();
+// echo get_all_departments();
+echo get_all_courses();
 ?>

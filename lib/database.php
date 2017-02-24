@@ -187,6 +187,19 @@ function get_all_departments()
     echo json_encode(array_count_values($depts)); //returns associative array
 }
 
+function get_all_courses()
+{
+  $stmt = $GLOBALS['pdo']->prepare('SELECT courses.name FROM lookup_group_course
+    INNER JOIN groups
+    ON lookup_group_course.group_id=groups.id
+    INNER JOIN courses
+    ON lookup_group_course.course_id=courses.id;');
+  $stmt->execute();
+  $array = get_all_rows($stmt);
+  $courses = array_map(('getName'), $array);
+  echo json_encode(array_count_values($courses));//returns associative array
+}
+
 /*
 Returns the 'name' from the key/value pair
 */
