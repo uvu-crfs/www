@@ -161,6 +161,9 @@ function get_all_rows_from_table($table_name)
     print_json(get_all_rows($stmt));
 }
 
+/*
+  Returns Associative Array of Affiliations from Database
+*/
 function get_all_affiliations()
 {
     $stmt = $GLOBALS['pdo']->prepare('SELECT affiliations.name FROM lookup_group_affiliation
@@ -171,35 +174,70 @@ function get_all_affiliations()
     $stmt->execute();
     $array = get_all_rows($stmt);
     $affiliations = array_map(('getName'), $array);
-    echo json_encode(array_count_values($affiliations)); //returns associative array
+    echo json_encode(array_count_values($affiliations));
 }
 
-function get_all_departments()
+/*
+  Returns Associative Array of Affiliations and Departments from Database
+*/
+function get_all_departments_and_affiliations()
 {
-    $stmt = $GLOBALS['pdo']->prepare('SELECT departments.name FROM lookup_group_department
-  		INNER JOIN groups
-  		ON lookup_group_department.group_id=groups.id
-  		INNER JOIN departments
-  		ON lookup_group_department.department_id=departments.id;');
-    $stmt->execute();
-    $array = get_all_rows($stmt);
-    $depts = array_map(('getName'), $array);
-    echo json_encode(array_count_values($depts)); //returns associative array
+  $stmt = $GLOBALS['pdo']->prepare('SELECT concat(affiliations.name, " ", departments.name) FROM lookup_group_department
+		INNER JOIN groups
+		ON lookup_group_department.group_id=groups.id
+		INNER JOIN departments
+		ON lookup_group_department.department_id=departments.id
+    INNER JOIN affiliations
+    ON departments.affiliation_id=affiliations.id;');
+  $stmt->execute();
+  $array = get_all_rows($stmt);
+  $deptsAndAffiliations = array_map(('getAffiliationsAndDepartments'), $array);
+  echo json_encode(array_count_values($deptsAndAffiliations));
 }
 
-function get_all_courses()
+/*
+  Returns Associative Array of Affiliations and Courses from Database
+*/
+function get_all_courses_and_affiliations()
 {
-  $stmt = $GLOBALS['pdo']->prepare('SELECT courses.name FROM lookup_group_course
+  $stmt = $GLOBALS['pdo']->prepare('SELECT concat(affiliations.name, " ", courses.name) FROM lookup_group_course
     INNER JOIN groups
     ON lookup_group_course.group_id=groups.id
     INNER JOIN courses
-    ON lookup_group_course.course_id=courses.id;');
+    ON lookup_group_course.course_id=courses.id
+    INNER JOIN departments
+    ON departments.id=courses.department_id
+    INNER JOIN affiliations
+    ON affiliations.id=departments.affiliation_id;');
   $stmt->execute();
   $array = get_all_rows($stmt);
-  $courses = array_map(('getName'), $array);
-  echo json_encode(array_count_values($courses));//returns associative array
+  $coursesAndAffiliations = array_map(('getAffiliationsAndCourses'), $array);
+  echo json_encode(array_count_values($coursesAndAffiliations));
 }
 
+/*
+  Returns Value of Key of Key/Value pair
+*/
+function getAffiliationsAndDepartments($indexInArray)
+{
+  return $indexInArray['concat(affiliations.name, " ", departments.name)'];
+}
+
+/*
+  Returns Value of Key of Key/Value pair
+*/
+function getAffiliationsAndCourses($indexInArray)
+{
+  return $indexInArray['concat(affiliations.name, " ", courses.name)'];
+}
+
+/*
+  Returns Value of Key of Key/Value pair
+*/
+function getValue($array, $key)
+{
+  return $array[$key];
+}
 /*
 Returns the 'name' from the key/value pair
 */
