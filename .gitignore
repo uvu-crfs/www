@@ -2,5 +2,5 @@ cgi-bin
 lib/*.json
 .phpintel
 .DS_Store
-docker-compose-secrets/auth/*
-!docker-compose-secrets/auth/pull.sh
+docker-secrets/auth/*
+!docker-secrets/auth/pull.sh

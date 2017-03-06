@@ -1,10 +1,10 @@
 crfs:
-  build: "./docker-compose-secrets"
+  build: "./docker-secrets"
   links:
     - maria
   volumes:
     - "./:/var/www"
-    - "./docker-compose-secrets:/var/secrets"
+    - "./docker-secrets:/var/secrets"
   ports:
     - "80:80"
     - "443:443"
@@ -17,6 +17,6 @@ maria:
   environment:
     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
   volumes:
-    - "./docker-compose-secrets:/var/secrets"
+    - "./docker-secrets:/var/secrets"
   ports:
     - "3306:3306"
