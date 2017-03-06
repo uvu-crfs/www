@@ -16,7 +16,7 @@ export default {
         },'UVU'),
         m('a',{
           onclick: _ => vnode.state.admin(),
-          class: g.uvu.admin ? "is-active" : "",
+          class: g.uvu.loggedIn && g.uvu.admin ? "is-active" : "",
         },'Admin'),
       ]),
       m('.panel-block',[

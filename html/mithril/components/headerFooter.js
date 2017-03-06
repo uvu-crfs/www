@@ -17,12 +17,20 @@ var header = {
         g.docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
       ]),
       m('.nav-right', [
+        g.docker ? m('.nav-item', [
+          g.uvu.loggedIn ?
+            m('.nav-item', [
+              m('', {style:'padding:0 10px;'}, g.uvu.displayName),
+              m("a", {onclick:_ => g.uvu.loggedIn = false}, 'Logout')
+            ]) :
+            m("a.nav-item", {onclick:_ => g.uvu.loggedIn = true}, 'Login')
+        ]) :
         g.uvu.loggedIn ?
           m('.nav-item', [
             m('', {style:'padding:0 10px;'}, g.uvu.displayName),
             m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout']", 'Logout')
           ]) :
-          m("a[href='/uvu'].nav-item",'Login')
+          m("a[href='https://stu-web4.uvu.edu/uvu'].nav-item",'Login')
       ])
     ]);
   }
