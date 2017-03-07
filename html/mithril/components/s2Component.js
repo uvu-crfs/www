@@ -2,7 +2,10 @@
 export var s2Component = {
 
   oncreate: (vnode) => s2Component._configure(vnode),
-
+  oninit:(vnode) => {
+    if (vnode.attrs.data && vnode.attrs.data.length > 0)
+      vnode.attrs.request_data[vnode.attrs.request_attr] = vnode.attrs.data[0].id;
+  },
   view: function(vnode) {
     var current = 0;
     return m('select', {
@@ -15,8 +18,8 @@ export var s2Component = {
 
   _configure: function(vnode) {
 
-    console.log("Inside configure");
-    console.log(vnode.dom);
+    // console.log("Inside configure");
+    // console.log(vnode.dom);
 
      	$(vnode.dom).select2({
         //tags: "true",
