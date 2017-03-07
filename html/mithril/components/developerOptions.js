@@ -35,7 +35,7 @@ export default {
       ]),
     ]) : null,
     m('p.panel-heading', [
-      m('a', {onclick:_ => vnode.state.active = !vnode.state.active},[
+      m('a', {style:"padding: 0 5px;", onclick:_ => vnode.state.active = !vnode.state.active},[
           m('span','Developer Options'),
           m('span.fa', {class:!vnode.state.active?'fa-angle-down':'fa-angle-up', style:"padding: 2px;"}, ''),
       ]),
