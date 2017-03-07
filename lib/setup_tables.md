@@ -36,5 +36,5 @@ create table sensors(id int not null AUTO_INCREMENT PRIMARY KEY, name varchar(25
 
 ## Data
 ```
-create table sensor_#(id int not null AUTO_INCREMENT PRIMARY KEY, quantity int, timestamp int);
+create table sensor_#(id int not null AUTO_INCREMENT PRIMARY KEY, quantity int, timestamp BIGINT);
 ```

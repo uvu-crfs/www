@@ -70,17 +70,17 @@ function insert($table_name, $available_keys, $required_keys)
         return http_response_code(400);
     }
 
-    if (in_array('timestamp', $available_keys) && !in_array('timestamp', $keys)) {
-        array_push($keys, 'timestamp');
-        array_push($values, time());
-        array_push($value_placeholders, '?');
-    }
+    // if (in_array('timestamp', $available_keys) && !in_array('timestamp', $keys)) {
+    //     array_push($keys, 'timestamp');
+    //     array_push($values, time());
+    //     array_push($value_placeholders, '?');
+    // }
 
     $keys_str = implode(',', $keys);
     $values_str = implode(',', $value_placeholders);
     $query = 'insert into '.$table_name.'('.$keys_str.') values ('.$values_str.')';
-    //echo 'Query: '.$query;
-    //var_dump($values);
+    echo 'Query: '.$query;
+    var_dump($values);
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
@@ -182,17 +182,17 @@ function get_all_affiliations()
 */
 function get_all_departments_and_affiliations()
 {
-  $stmt = $GLOBALS['pdo']->prepare('SELECT concat(affiliations.name, " ", departments.name) FROM lookup_group_department
+    $stmt = $GLOBALS['pdo']->prepare('SELECT concat(affiliations.name, " ", departments.name) FROM lookup_group_department
 		INNER JOIN groups
 		ON lookup_group_department.group_id=groups.id
 		INNER JOIN departments
 		ON lookup_group_department.department_id=departments.id
     INNER JOIN affiliations
     ON departments.affiliation_id=affiliations.id;');
-  $stmt->execute();
-  $array = get_all_rows($stmt);
-  $deptsAndAffiliations = array_map(('getAffiliationsAndDepartments'), $array);
-  echo json_encode(array_count_values($deptsAndAffiliations));
+    $stmt->execute();
+    $array = get_all_rows($stmt);
+    $deptsAndAffiliations = array_map(('getAffiliationsAndDepartments'), $array);
+    echo json_encode(array_count_values($deptsAndAffiliations));
 }
 
 /*
@@ -200,7 +200,7 @@ function get_all_departments_and_affiliations()
 */
 function get_all_courses_and_affiliations()
 {
-  $stmt = $GLOBALS['pdo']->prepare('SELECT concat(affiliations.name, " ", courses.name) FROM lookup_group_course
+    $stmt = $GLOBALS['pdo']->prepare('SELECT concat(affiliations.name, " ", courses.name) FROM lookup_group_course
     INNER JOIN groups
     ON lookup_group_course.group_id=groups.id
     INNER JOIN courses
@@ -209,10 +209,10 @@ function get_all_courses_and_affiliations()
     ON departments.id=courses.department_id
     INNER JOIN affiliations
     ON affiliations.id=departments.affiliation_id;');
-  $stmt->execute();
-  $array = get_all_rows($stmt);
-  $coursesAndAffiliations = array_map(('getAffiliationsAndCourses'), $array);
-  echo json_encode(array_count_values($coursesAndAffiliations));
+    $stmt->execute();
+    $array = get_all_rows($stmt);
+    $coursesAndAffiliations = array_map(('getAffiliationsAndCourses'), $array);
+    echo json_encode(array_count_values($coursesAndAffiliations));
 }
 
 /*
@@ -220,7 +220,7 @@ function get_all_courses_and_affiliations()
 */
 function getAffiliationsAndDepartments($indexInArray)
 {
-  return $indexInArray['concat(affiliations.name, " ", departments.name)'];
+    return $indexInArray['concat(affiliations.name, " ", departments.name)'];
 }
 
 /*
@@ -228,7 +228,7 @@ function getAffiliationsAndDepartments($indexInArray)
 */
 function getAffiliationsAndCourses($indexInArray)
 {
-  return $indexInArray['concat(affiliations.name, " ", courses.name)'];
+    return $indexInArray['concat(affiliations.name, " ", courses.name)'];
 }
 
 /*
@@ -236,7 +236,7 @@ function getAffiliationsAndCourses($indexInArray)
 */
 function getValue($array, $key)
 {
-  return $array[$key];
+    return $array[$key];
 }
 /*
 Returns the 'name' from the key/value pair

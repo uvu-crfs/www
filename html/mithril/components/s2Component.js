@@ -1,11 +1,16 @@
-// Component containing a Select that uses Select2 for functionality. 
+// Component containing a Select that uses Select2 for functionality.
 export var s2Component = {
 
-  oncreate: (vnode) => s2Component._configure(vnode), 
+  oncreate: (vnode) => s2Component._configure(vnode),
 
   view: function(vnode) {
     var current = 0;
-    return m('select', {class: 'select-field'})
+    return m('select', {
+      class: 'select-field',
+      onchange:(e) => {
+        vnode.attrs.request_data[vnode.attrs.request_attr] = parseInt(e.target.value, 10);
+      },
+    });
   },
 
   _configure: function(vnode) {
@@ -18,7 +23,7 @@ export var s2Component = {
         placeholder: "Select an option",
         allowClear: true,
         data: vnode.attrs.data
-      }); 
+      });
   }
-  
+
 };

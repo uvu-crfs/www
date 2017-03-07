@@ -4,19 +4,26 @@ export var addNotification = function(text){
 };
 export var clearNotifications = _ => notifications = [];
 
+export var getTimeStamp = function(){
+  return new Date().getTime();
+};
+
+export var htmlDateToUnix = function(date){
+  var d = new Date(date.split('-'));
+  return d.valueOf();
+};
+
 export var unixToDate = (unix) => {
   if (!unix) return 'Date Unknown';
-  console.log(unix);
-  var t = new Date();
-  t.setUTCMilliseconds(unix);
+  var t = new Date(parseInt(unix));
   return t.toDateString();
 };
 
 export var unixToTime = (unix) => {
   if (!unix) return 'Date Unknown';
-  var t = new Date();
-  t.setUTCMilliseconds(unix);
-  return t.toString();
+  var t = new Date(parseInt(unix));
+  return t.toString().split(' GMT')[0];
+  //return t.toString();
 };
 
 export var blankFirstOption = (options) => {

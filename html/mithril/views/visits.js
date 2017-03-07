@@ -1,4 +1,4 @@
-import {getGroups, getVisits, addVisit, unixToTime, blankFirstOption} from '/mithril/utils.js';
+import {getGroups, getVisits, htmlDateToUnix, addVisit, unixToDate, blankFirstOption, getTimeStamp} from '/mithril/utils.js';
 import {addModal, deleteModal} from '/mithril/components/modals.js';
 import {s2Component} from '/mithril/components/s2Component.js';
 //let deleteData = {modal:false, type:'sensor', func: deleteVisit};
@@ -18,19 +18,20 @@ import {s2Component} from '/mithril/components/s2Component.js';
 let addVisitModalBody = (vnode) => [
   m('.label', 'Group'),
   m(s2Component, {
+    request_data: vnode.state.data,
+    request_attr: 'group_id',
     data: g.groups.map(function(obj) {
       let newObj = {};
       newObj.id = obj.id;
       newObj.text = obj.name;
       return newObj;
     })
-  }), 
+  }),
   //m('button', {disabled:true}, 'Add') //TODO this should add a group
   m('.label', 'State Date'),
-  m('input[type="date"]', {onchange:(e) => vnode.state.data.start_date = new Date(e.target.value).getTime()}, ''),
+  m('input[type="date"]', {oninput:(e) => {vnode.state.data.start_date = htmlDateToUnix(e.target.value); console.log(vnode.state.data); }}, ''),
   m('.label', 'End Date'),
-  m('input[type="date"]', {onchange:(e) => vnode.state.data.end_date = new Date(e.target.value).getTime()}, ''),
-
+  m('input[type="date"]', {oninput:(e) => vnode.state.data.end_date = htmlDateToUnix(e.target.value) }, ''),
 ];
 
 // let addVisitModalBody = (vnode) => [
@@ -55,7 +56,10 @@ let visitCard = {
       m('', {style:'padding:0 2px;'}, 'Details'),
       m('.fa', {class:vnode.state.open?'fa-angle-down':'fa-angle-up'}, ''),
     ]),
-    m('span', {style:'padding:0 10px 0 0;'},`start: ${unixToTime(vnode.attrs.start_date)} | end: ${unixToTime(vnode.attrs.end_date)}`),
+    m('span', {style:'font-weight: bold;'},`Start:`),
+    m('span', {style:'padding:0 5px;'},`${unixToDate(vnode.attrs.start_date)}`),
+    m('span', {style:'font-weight: bold;'},`End:`),
+     m('span', {style:'padding:0 5px;'},`${unixToDate(vnode.attrs.end_date)}`),
     g.groupLookup[vnode.attrs.group_id] ? m('span', {style:"font-weight:bold;"}, g.groupLookup[vnode.attrs.group_id].name) : null,
     //m('span', vnode.attrs.name),
     vnode.state.open ? m('button.button.is-danger.is-small.is-pulled-right',
