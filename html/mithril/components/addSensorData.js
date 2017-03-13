@@ -2,20 +2,20 @@ import {addSensorData, getGroups, getVisits, unixToDate, blankFirstOption} from 
 
 export default {
   oninit:function(vnode){
-    vnode.state = {sensor: Number(vnode.attrs.id), quantity: 0};
+    vnode.state = {sensor: Number(vnode.attrs.sensor.id), quantity: 0};
     if (g.visits.length === 0) getVisits();
     if (g.groups.length === 0) getGroups();
   },
   view: function(vnode){
     return m('form',[
-      m('span',  vnode.attrs.name),
+      m('span',  vnode.attrs.sensor.name),
       m('input', {
         type:"number", min:'0', step:"0.1", value:vnode.state.quantity,
         onchange:function(e){ vnode.state.quantity = Number(e.target.value); }
       }, ''),
-      m('span', vnode.attrs.unit),
+      m('span', vnode.attrs.sensor.unit),
       m('select',{ onchange:function(e){ vnode.state.visit_id = e.target.value; }},
-        blankFirstOption(g.visits.map((v) => m('option', {value:v.id},
+        blankFirstOption((vnode.attrs.visits || g.visits).map((v) => m('option', {value:v.id},
         `${unixToDate(v.start_date)} - ${g.groupLookup[v.group_id] ? g.groupLookup[v.group_id].name : ''}`)))
       ),
       m('button[type="submit"]', {

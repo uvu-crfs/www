@@ -35,7 +35,7 @@ let sensorLine = {
         deleteData.name = `${vnode.attrs.name}`;
       }}, 'Delete') : null,
     vnode.state.open ? m('',[
-      //m(addSensorData,vnode.attrs),
+      m(addSensorData,{sensor:vnode.attrs}),
       vnode.state.values.map((v) => m('', [
         m('span' , unixToTime(v.timestamp) ),
         m('span' , ' - ' ),
