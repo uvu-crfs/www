@@ -15,6 +15,7 @@
     <link href="/vendor/select2.css" rel="stylesheet" />
     <script src="/vendor/select2.min.js"></script>
     <script src="/vendor/mithril.js"></script>
+    <link rel="stylesheet" href="/main.css">
   </head>
   <body>
     <script>

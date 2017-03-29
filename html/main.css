@@ -1,0 +1,23 @@
+/*
+UVU Colors - http://www.uvu.edu/web/standards/color.html
+CSS Variables Compatibility - http://caniuse.com/#feat=css-variables
+CSS Variables - https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables
+Styles - http://www.uvu.edu/marketing/docs/branding_guides/uvu_web_style_guide_logos.pdf
+*/
+
+:root {
+  --uvu-green: #275D38; /*UVU Green - Primary Color : 500*/
+  --link: #4BA23F; /*Accent Color 2: A500*/
+  --link-hover: #78BE20; /*Accent Color 3: A500*/
+  --link-active: #E15230; /*Accent Color 13: A500*/
+}
+
+.nav { background-color: var(--uvu-green); }
+
+.nav-item, .nav-item a, a.nav-item{
+  color:white;
+}
+
+
+a { color: var(--link); }
+a:hover { color: var(--link-hover); }
