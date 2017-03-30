@@ -40,7 +40,7 @@ export var addModal = {
       ]),
       m('section.modal-card-body', vnode.attrs.body(vnode)),
       m('footer.modal-card-foot',[
-        m('a.button.is-success', {onclick: _ => vnode.attrs.func(vnode) }, 'Add'),
+        m('a.button.is-primary', {onclick: _ => vnode.attrs.func(vnode) }, 'Add'),
         m('a.button',  {onclick:vnode.state.close }, 'Cancel')
       ])
     ])

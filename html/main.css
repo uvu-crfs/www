@@ -8,8 +8,10 @@ Styles - http://www.uvu.edu/marketing/docs/branding_guides/uvu_web_style_guide_l
 :root {
   --uvu-green: #275D38; /*UVU Green - Primary Color : 500*/
   --link: #4BA23F; /*Accent Color 2: A500*/
-  --link-hover: #78BE20; /*Accent Color 3: A500*/
-  --link-active: #E15230; /*Accent Color 13: A500*/
+  --link-hover: #A1D263; /*Accent Color 3: A500*/
+  --link-active: #78BE20; /*Accent Color 3: A500*/
+  --button-add: #0095C8;
+  --button-remove: #823B34;
 }
 
 .nav { background-color: var(--uvu-green); }
@@ -20,4 +22,17 @@ Styles - http://www.uvu.edu/marketing/docs/branding_guides/uvu_web_style_guide_l
 
 
 a { color: var(--link); }
-a:hover { color: var(--link-hover); }
+a:hover, a.nav-item:hover, .nav-item a:hover
+{ color: var(--link-hover); }
+a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
+  color: var(--link-active);
+  border-bottom-color: var(--link-active);
+}
+
+.button.is-danger, .button.is-danger:hover, .button.is-danger:active {
+  background-color: var(--button-remove);
+}
+
+.button.is-primary, .button.is-primary:hover, .button.is-primary:active {
+background-color: var(--button-add);
+}
