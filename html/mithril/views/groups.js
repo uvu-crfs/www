@@ -14,7 +14,7 @@ let groupDetails = {
     m(attachCourseToGroupModal, vnode.state.attachCourseModal),
     vnode.attrs.contact ? m('',[
       m('', `Contact Name: ${vnode.attrs.contact.name}`),
-      m('button', {onclick:_=> vnode.state.attachCourseModal.modal = true },'Attach affiliation/department/course'),
+      m('button.button.is-small', {onclick:_=> vnode.state.attachCourseModal.modal = true },'Attach affiliation/department/course'),
       m('',[
         (vnode.state.group.affiliations && vnode.state.group.affiliations.length > 0) ? m('',[
           m('span','Affiliations:'),

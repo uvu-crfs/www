@@ -95,6 +95,7 @@ export var attachCourseToGroupModal = {
     vnode.state = vnode.attrs;
     console.log(vnode.state);
     vnode.state.data = {group_id: vnode.state.group_id};
+    vnode.state.data.newAffil = {modal:false};
     vnode.state.type = 'course to group';
     //vnode.state.func = attachCourseToGroup;
     vnode.state.body = (vnode) => [
@@ -108,6 +109,8 @@ export var attachCourseToGroupModal = {
       }},
         blankFirstOption(g.affiliations.map((v,i) => m('option', {value:i} ,v.name)))
       ),
+      m('button.button.is-small', {onclick:() => vnode.state.data.newAffil.modal = true },"New"),
+      m(addAffiliationModal, vnode.state.data.newAffil),
       (vnode.state.data.affiliation && vnode.state.data.affiliation.departments) ? m('', [
         m('.label', 'Department'),
         m('select', {onchange:(e) => {
