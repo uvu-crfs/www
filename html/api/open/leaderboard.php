@@ -5,37 +5,50 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 require_once '/var/www/lib/database.php';
 
-//params sensor_id, start_from, end_from
-
 $id = $_GET['sensor_id'];
 if (!is_numeric($id)) {
     echo "Missing requried numeric param 'sendor_id'";
 
     return http_response_code(400);
 }
-// $sensor_table = 'sensor_'.$id;
-// $start = '0';
-// $end = '1600000000000';
-// $limit = '3';
+$sensor_table = 'sensor_'.$id;
+
+$start = '0';
+$tmp = $_GET['start'];
+if (is_numeric($tmp)) {
+    $start = $tmp;
+}
+
+$end = '3000000000000'; //01/24/2065
+$tmp = $_GET['end'];
+if (is_numeric($tmp)) {
+    $end = $tmp;
+}
+
+$limit = '3';
+$tmp = $_GET['limit'];
+if (is_numeric($tmp)) {
+    $limit = $tmp;
+}
 
 $query = '
   SELECT visit_id, total, name as group_name FROM (
     SELECT visit_id, total, group_id, start_date, end_date FROM (
       SELECT visit_id, SUM(quantity) AS total
-      FROM sensor_2
+      FROM '.$sensor_table.'
       GROUP BY visit_id
-      ORDER BY total LIMIT 3
+      ORDER BY total LIMIT ?
     ) AS tmp1
     INNER JOIN visits ON visits.id=tmp1.visit_id
-    WHERE start_date >= 1488524400000
-    AND end_date <= 1501251531830
+    WHERE start_date >= ?
+    AND end_date <= ?
   ) AS tmp2
   INNER JOIN groups ON groups.id=tmp2.group_id
 ';
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);
-    $stmt->execute();
+    $stmt->execute([$limit, $start, $end]);
 } catch (PDOException $e) {
     echo 'Database issue: '.$e->getMessage();
 
