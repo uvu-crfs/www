@@ -51,8 +51,8 @@ export default {
   view:(vnode) => m('',[
     m('.level',[
       m('.level-left', m('.title','Groups')),
-      m('.level-right',m('button.button.is-primary',
-        {onclick:_ => vnode.state.add.modal = true }, 'Add')),
+      m('.level-right', m('button.button.is-primary',
+        {onclick:_ => vnode.state.add.modal = true}, 'Add')),
     ]),
     m(addModal, vnode.state.add),
     m(deleteModal, vnode.state.delete),
