@@ -124,7 +124,7 @@ CREATE TABLE `groups` (
   `name` varchar(255) NOT NULL,
   `contact_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'Macro Invertebrate Research',NULL),(2,'Public and Community Health',NULL),(3,'Natural Resources Summer Camp',NULL),(4,'Art Dept. Photography',NULL),(5,'Physics Department Research',NULL),(6,'Utah Art Education Association',NULL),(7,'Creative Writing',NULL),(8,'Community Ed Night Photography',NULL),(9,'Community Ed Photography',NULL),(10,'Snow College Honors',NULL),(11,'Pleasant Creek Research',NULL),(12,'Science Association of Women',NULL),(13,'Community Ed Plein Air',NULL),(14,'Biology Department Botany Class',NULL),(15,'UVU Honors',NULL),(16,'Community Ed Natural History',NULL),(17,'ESL Program',NULL),(18,'Biology Department Plant Ecology Class',NULL),(19,'Space Plasma Physics',NULL),(20,'Wilderness Writing',NULL),(21,'Natural Resources Management',NULL),(22,'Open House',NULL),(23,'Native American Initiative Program',NULL),(24,'UVU Learning Communities',NULL),(25,'English as a Second Language',NULL),(26,'Geomorphology ',NULL),(27,'Nature to the Classroom',NULL),(28,'UVU Physics Class',NULL),(29,'Botany Club',NULL),(30,'Plein Air Watercolor',NULL),(31,'NPS Wayne High School',NULL),(32,'Communicating Environments ',NULL),(34,'Kansas University Geology',NULL),(35,'Community Health',NULL),(36,'USTA Astronomy',NULL),(37,'USTA Geology',NULL),(38,'Mt. SAC',NULL),(39,'Creative Writing',NULL),(40,'Art Dept. Photography',NULL),(42,'New Group',NULL),(43,'DGM',NULL),(44,'Historic Processes and Photographic Illustration',NULL),(45,'Special Topics in Landscape Photography',NULL),(46,'Accessibility Services',NULL),(47,'Digital Photography and Compositing',NULL),(48,'Editor\'s Workshop',NULL),(49,'Honors Astronomy',NULL),(50,'OAC WFA Course',NULL),(51,'CCE Astronomy',NULL),(52,'English Intermediate Courses',NULL),(53,'CCE Plein Air Watercolor',NULL),(54,'CCE Photography',NULL),(55,'NPS Leadership Team',NULL),(56,'Physics Workshop',NULL),(57,'English as a Second Language Classes',NULL),(58,'American Heritage',NULL),(59,'NPS NHA',NULL),(60,'Outdoor Recreation',NULL),(61,'UVU Photo Faculty',NULL),(62,'Environmental Stewardship',NULL),(63,'Snow College',NULL),(64,'Technology and Human Life',NULL),(65,'AJC Architects',NULL),(66,'Digital Media',NULL),(67,'Honors Colloquim',NULL),(68,'CCE Faculty',NULL),(69,'BYU Natural History',NULL),(70,'High Altitude Research',NULL),(71,'Snow College and Colombia',NULL),(72,'Provo STEM Endorsement',NULL);
+INSERT INTO `groups` VALUES (1,'Macro Invertebrate Research',NULL),(2,'Public and Community Health',NULL),(3,'Natural Resources Summer Camp',NULL),(4,'Art Dept. Photography',NULL),(5,'Physics Department Research',NULL),(6,'Utah Art Education Association',NULL),(7,'Creative Writing',NULL),(8,'Community Ed Night Photography',NULL),(9,'Community Ed Photography',NULL),(10,'Snow College Honors',NULL),(11,'Pleasant Creek Research',NULL),(12,'Science Association of Women',NULL),(13,'Community Ed Plein Air',NULL),(14,'Biology Department Botany Class',NULL),(15,'UVU Honors',NULL),(16,'Community Ed Natural History',NULL),(17,'ESL Program',NULL),(18,'Biology Department Plant Ecology Class',NULL),(19,'Space Plasma Physics',NULL),(20,'Wilderness Writing',NULL),(21,'Natural Resources Management',NULL),(22,'Open House',NULL),(23,'Native American Initiative Program',NULL),(24,'UVU Learning Communities',NULL),(25,'English as a Second Language',NULL),(26,'Geomorphology ',NULL),(27,'Nature to the Classroom',NULL),(28,'UVU Physics Class',NULL),(29,'Botany Club',NULL),(30,'Plein Air Watercolor',NULL),(31,'NPS Wayne High School',NULL),(32,'Communicating Environments ',NULL),(34,'Kansas University Geology',NULL),(35,'Community Health',NULL),(36,'USTA Astronomy',NULL),(37,'USTA Geology',NULL),(38,'Mt. SAC',NULL),(40,'Art Dept. Photography',NULL),(42,'New Group',NULL),(43,'DGM',NULL),(44,'Historic Processes and Photographic Illustration',NULL),(45,'Special Topics in Landscape Photography',NULL),(46,'Accessibility Services',NULL),(47,'Digital Photography and Compositing',NULL),(48,'Editor\'s Workshop',NULL),(49,'Honors Astronomy',NULL),(50,'OAC WFA Course',NULL),(51,'CCE Astronomy',NULL),(52,'English Intermediate Courses',NULL),(53,'CCE Plein Air Watercolor',NULL),(54,'CCE Photography',NULL),(55,'NPS Leadership Team',NULL),(56,'Physics Workshop',NULL),(58,'American Heritage',NULL),(59,'NPS NHA',NULL),(60,'Outdoor Recreation',NULL),(61,'UVU Photo Faculty',NULL),(62,'Environmental Stewardship',NULL),(63,'Snow College',NULL),(64,'Technology and Human Life',NULL),(65,'AJC Architects',NULL),(66,'Digital Media',NULL),(67,'Honors Colloquim',NULL),(68,'CCE Faculty',NULL),(69,'BYU Natural History',NULL),(70,'High Altitude Research',NULL),(71,'Snow College and Colombia',NULL),(72,'Provo STEM Endorsement',NULL),(73,'UVU Risk Management',NULL);
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +219,7 @@ CREATE TABLE `sensor_1` (
   `timestamp` int(11) NOT NULL,
   `visit_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,6 +228,7 @@ CREATE TABLE `sensor_1` (
 
 LOCK TABLES `sensor_1` WRITE;
 /*!40000 ALTER TABLE `sensor_1` DISABLE KEYS */;
+INSERT INTO `sensor_1` VALUES (1,44.000,2147483647,3);
 /*!40000 ALTER TABLE `sensor_1` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +245,7 @@ CREATE TABLE `sensor_2` (
   `timestamp` int(11) NOT NULL,
   `visit_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,6 +254,7 @@ CREATE TABLE `sensor_2` (
 
 LOCK TABLES `sensor_2` WRITE;
 /*!40000 ALTER TABLE `sensor_2` DISABLE KEYS */;
+INSERT INTO `sensor_2` VALUES (1,538.000,2147483647,3);
 /*!40000 ALTER TABLE `sensor_2` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,8 +293,8 @@ DROP TABLE IF EXISTS `visits`;
 CREATE TABLE `visits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group_id` int(11) NOT NULL,
-  `start_date` int(11) DEFAULT NULL,
-  `end_date` int(11) DEFAULT NULL,
+  `start_date` bigint(20) DEFAULT NULL,
+  `end_date` bigint(20) DEFAULT NULL,
   `days` int(11) DEFAULT NULL,
   `nights` int(11) DEFAULT NULL,
   `students_female` int(11) DEFAULT NULL,
@@ -303,7 +305,7 @@ CREATE TABLE `visits` (
   `darksky` int(11) DEFAULT NULL,
   `notes` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,6 +314,7 @@ CREATE TABLE `visits` (
 
 LOCK TABLES `visits` WRITE;
 /*!40000 ALTER TABLE `visits` DISABLE KEYS */;
+INSERT INTO `visits` VALUES (2,1,1404194400000,1404280800000,2,1,0,1,0,0,0,0,NULL),(3,2,1404972000000,1405231200000,4,3,7,1,2,1,1,0,'First visit from the department.'),(4,3,1405317600000,1405576800000,4,3,2,4,2,1,1,1,'First teacher left early.'),(5,1,1405404000000,1405490400000,2,1,0,1,0,0,0,0,NULL),(6,4,1405922400000,1406354400000,6,5,10,7,2,1,0,0,'One student left early for a day and a night.'),(7,5,1406268000000,1406440800000,3,2,2,3,0,0,0,0,'Five people on day one only, then four people.'),(8,4,1406527200000,1407477600000,12,11,11,4,3,1,0,1,'Fred White and his wife stayed two extra nights.'),(9,7,1408341600000,1408514400000,2,1,10,1,0,0,1,0,NULL),(10,6,1407477600000,1407564000000,3,2,5,5,4,1,1,0,'This was a retreat for the journal editors, value issue on the water nothing recorded.'),(11,5,1408600800000,1408687200000,2,1,0,1,0,0,0,0,NULL),(12,8,1408687200000,1408773600000,2,1,8,10,3,1,1,0,NULL),(13,9,1409810400000,1409983200000,3,2,5,6,4,1,1,0,NULL),(14,10,1410415200000,1410588000000,2,1,15,8,5,1,0,1,'Vol. ditch digging'),(15,11,1410588000000,1410674400000,2,1,2,1,1,0,0,0,'On going research, family was present as well.'),(16,12,1411106400000,1411192800000,2,1,6,2,2,1,1,0,'Heath brought his young daughter and didn\'t ask if it was okay.'),(17,5,1411106400000,1411624800000,2,1,1,1,0,0,0,0,'Optics equipment trip.'),(18,13,1411624800000,1411797600000,3,2,12,3,2,1,1,0,'The 15th person only stayed one day and night.'),(19,14,1412229600000,1412402400000,3,2,6,7,2,1,1,1,NULL),(20,15,1412834400000,1413093600000,4,3,12,8,7,1,1,1,'Good group of honor students.'),(21,16,1413352800000,1413612000000,4,3,14,0,1,1,1,1,'Great group lots of questions.'),(22,5,1413352800000,1413439200000,2,1,0,0,0,0,0,0,NULL),(23,17,1413784800000,1414044000000,4,3,9,10,4,1,0,1,'Korea, Japan, China, Mexico, Peru, Russia, and Guatamala, two extra day visitors.'),(24,18,1414130400000,1414216800000,2,1,5,11,1,1,0,0,'Double booked with physics research, trash not weighed water esitmated.'),(25,19,1414130400000,1414303200000,3,2,1,4,1,1,0,0,'Trash not weighed water not measurable.'),(26,20,1414648800000,1414821600000,3,2,2,5,1,1,0,1,NULL),(27,21,1414821600000,1414998000000,3,2,8,15,2,1,0,1,NULL),(28,22,1415343600000,1415430000000,2,1,12,9,0,0,0,0,'Eleven on the first day twenty-two on the second.'),(29,23,1416553200000,1416726000000,3,2,11,10,10,0,0,1,'Some left early and other arrived late.'),(30,24,1417762800000,1417849200000,2,1,9,4,3,1,0,0,'Honors program plug'),(31,19,1418367600000,1418540400000,3,2,1,5,2,0,0,0,'Didn\'t do an evaluations because this group was here a month ago.'),(32,25,1426485600000,1426744800000,4,3,9,6,5,1,1,1,'High water use'),(33,26,1426831200000,1427004000000,3,2,3,12,3,1,1,0,NULL),(34,27,1427436000000,1427608800000,3,2,15,8,7,1,1,1,NULL),(35,28,1428040800000,1428213600000,3,2,2,4,1,1,1,1,NULL),(38,29,1428300000000,1428472800000,3,2,10,2,1,1,1,1,NULL),(39,5,1429250400000,1429423200000,3,2,0,3,1,0,0,0,'Data not taken because of the small group size.'),(40,30,1430373600000,1430546400000,3,2,8,4,3,1,1,0,NULL),(41,9,1429768800000,1429941600000,3,2,4,12,4,1,1,1,NULL),(42,31,1430719200000,1430719200000,1,0,13,20,5,0,0,0,NULL),(43,32,1430805600000,1431064800000,4,3,13,9,3,1,1,1,NULL),(44,7,1431064800000,1431151200000,2,1,3,4,2,1,1,0,'Cloudy so no star gazing.'),(45,9,1431669600000,1431756000000,2,1,10,6,3,1,0,0,NULL),(46,34,1432274400000,1432792800000,7,6,6,18,3,1,0,1,'One student left on the second day.'),(47,14,1432792800000,1432965600000,3,2,4,8,2,1,0,1,NULL),(48,35,1433311200000,1433656800000,5,4,11,3,3,1,1,1,'Two came the second day, and one left early.'),(49,36,1434261600000,1434607200000,5,4,8,6,8,1,0,1,'The instructor brought his wife and four kids; one woman brought her daughter, and the two of them left a day early.'),(50,37,1434866400000,1435212000000,5,4,9,8,3,1,0,1,NULL),(51,38,1435212000000,1435471200000,4,3,8,9,2,1,0,1,'Extra instructor the first night, and the toilet was running, using insane amounts of water...so the water total isn\'t accurate.'),(52,73,1441951200000,1442037600000,2,1,2,0,0,0,0,0,'AED delivery and risk evaluation.');
 /*!40000 ALTER TABLE `visits` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -324,4 +327,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-03  6:22:01
+-- Dump completed on 2017-04-03 22:12:31
