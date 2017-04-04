@@ -162,22 +162,6 @@ function get_all_rows_from_table($table_name)
 }
 
 /*
-  Returns Associative Array of Affiliations from Database
-*/
-function get_all_affiliations()
-{
-    $stmt = $GLOBALS['pdo']->prepare('SELECT affiliations.name FROM lookup_group_affiliation
-      INNER JOIN groups
-      ON lookup_group_affiliation.group_id=groups.id
-      INNER JOIN affiliations
-      ON lookup_group_affiliation.affiliation_id=affiliations.id;');
-    $stmt->execute();
-    $array = get_all_rows($stmt);
-    $affiliations = array_map(('getName'), $array);
-    echo json_encode(array_count_values($affiliations));
-}
-
-/*
   Returns Associative Array of Affiliations and Departments from Database
 */
 function get_all_departments_and_affiliations()
@@ -193,26 +177,6 @@ function get_all_departments_and_affiliations()
     $array = get_all_rows($stmt);
     $deptsAndAffiliations = array_map(('getAffiliationsAndDepartments'), $array);
     echo json_encode(array_count_values($deptsAndAffiliations));
-}
-
-/*
-  Returns Associative Array of Affiliations and Courses from Database
-*/
-function get_all_courses_and_affiliations()
-{
-    $stmt = $GLOBALS['pdo']->prepare('SELECT concat(affiliations.name, " ", courses.name) FROM lookup_group_course
-    INNER JOIN groups
-    ON lookup_group_course.group_id=groups.id
-    INNER JOIN courses
-    ON lookup_group_course.course_id=courses.id
-    INNER JOIN departments
-    ON departments.id=courses.department_id
-    INNER JOIN affiliations
-    ON affiliations.id=departments.affiliation_id;');
-    $stmt->execute();
-    $array = get_all_rows($stmt);
-    $coursesAndAffiliations = array_map(('getAffiliationsAndCourses'), $array);
-    echo json_encode(array_count_values($coursesAndAffiliations));
 }
 
 /*
