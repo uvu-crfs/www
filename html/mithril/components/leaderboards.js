@@ -9,7 +9,7 @@ var leaderboard = {
       cols[0].push(e.group_name);
       let row = [e.group_name];
       for(var i=0; i < idx; i++){ row.push(null); }
-      row.push(e.total);
+      row.push(e.per_day);
       cols.push(row);
     });
     c3.generate({
@@ -52,5 +52,4 @@ export default {
     m('.title', `Leaderboard${Object.keys(vnode.state.leaderboards).length>1?'s':''}`),
     Object.keys(vnode.state.leaderboards).map((l) => m(leaderboard, vnode.state.leaderboards[l])),
   ]),
-
 };
