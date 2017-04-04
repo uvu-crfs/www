@@ -26,10 +26,13 @@ $query = 'SELECT affiliations.name FROM lookup_group_affiliation
 $stmt = $GLOBALS['pdo']->prepare($query);
 //$stmt->execute([$start, $end]);
 $stmt->execute();
-//echo print_json(get_all_rows($stmt));
 
 $array = get_all_rows($stmt);
-$affiliations = array_map(('getName'), $array);
-echo json_encode(array_count_values($affiliations));
+$affiliations = array_count_values(array_map(('getName'), $array));
+$output = [];
+foreach ($affiliations as $key => $value) {
+    array_push($output, [$key, $value]);
+}
+echo print_json($output);
 
-// output {"Snow College":2,"UAEA":1,"KU":1,"Mt. SAC":1}
+//expected output ~ [["Snow College",2],["UAEA",1],["KU",1],["Mt. SAC",1]]

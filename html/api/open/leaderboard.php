@@ -34,7 +34,7 @@ if (is_numeric($tmp)) {
 $query = '
   SELECT name as group_name, visit_id, ROUND(total/days,2) as per_day FROM (
     SELECT visit_id, total, group_id, start_date, end_date,
-      ((end_date - start_date)/86400000) as days
+      ((end_date - start_date)/86400000) AS days
     FROM (
       SELECT visit_id, SUM(quantity) AS total
       FROM '.$sensor_table.'
@@ -42,8 +42,7 @@ $query = '
       ORDER BY total LIMIT ?
     ) AS tmp1
     INNER JOIN visits ON visits.id=tmp1.visit_id
-    WHERE start_date >= ?
-    AND end_date <= ?
+    WHERE start_date >= ? AND end_date <= ?
   ) AS tmp2
   INNER JOIN groups ON groups.id=tmp2.group_id
   ORDER BY per_day

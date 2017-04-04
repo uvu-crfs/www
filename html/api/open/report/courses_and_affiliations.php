@@ -20,8 +20,7 @@ require_once '/var/www/lib/database.php';
 
 $query = '
   SELECT
-    lgc.group_id,
-    visit_count,
+    lgc.group_id, visit_count,
     CONCAT(affiliations.name, " ", courses.name) as name,
     affiliations.name AS affiliation_name,
     courses.name AS course_name
@@ -32,8 +31,7 @@ $query = '
     ) AS tmp
     GROUP BY group_id
   ) AS tmp2
-  JOIN lookup_group_course lgc
-  ON tmp2.group_id = lgc.group_id
+  JOIN lookup_group_course lgc ON tmp2.group_id = lgc.group_id
   JOIN courses ON courses.id = lgc.course_id
   JOIN departments ON departments.id = courses.department_id
   JOIN affiliations ON affiliations.id = departments.affiliation_id
@@ -43,10 +41,7 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$start, $end]);
 
 $output = [];
-$qout = get_all_rows($stmt);
-
-foreach ($qout as $row) {
-    $output[$row['name']] = $row['visit_count'];
+foreach (get_all_rows($stmt) as $row) {
+    array_push($output, [$row['name'], $row['visit_count']]);
 }
-
 echo print_json($output);

@@ -14,6 +14,9 @@ g.groupLookup = {};
 g.visits = [];
 g.affiliations = [];
 g.affiliationLookup = {};
+g.uvuColors = ['#00843D', '#4BA23F', '#78BE20', '#C5E86C', '#86C8BC', '#00BFB3',
+    '#0095C8', '#BDD6E6', '#595478', '#DDD0CE', '#BC8279', '#823B34', '#E15230',
+    '#D45D00', '#FFB500', '#FBD865', '#696158', '#A7A8AA'];
 
 if (g.docker) console.log("globals", g);
 
@@ -35,3 +38,5 @@ m.route(document.body, "/home", {
   "/affiliations": headerFooter(g.uvu.loggedIn ? affiliationView : ''),
   "/developer": headerFooter(g.docker || g.uvu.admin ? developerView : '')
 });
+
+window.requestError = (e) => console.log(e);
