@@ -19,6 +19,9 @@
   </head>
   <body>
     <script>
+      if (location.protocol !== 'https:') {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
       var g = {
         docker : "<?php echo getenv('docker'); ?>" == 'true',
         uvu : {

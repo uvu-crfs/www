@@ -30,7 +30,7 @@ var header = {
             m('', {style:'padding:0 10px;'}, g.uvu.displayName),
             m("a[href='https://my.uvu.edu/Shibboleth.sso/Logout']", 'Logout')
           ]) :
-          m("a[href='https://stu-web4.uvu.edu/uvu'].nav-item",'Login')
+          m("a[href='/uvu'].nav-item",'Login')
       ])
     ]);
   }
