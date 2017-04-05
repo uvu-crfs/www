@@ -162,24 +162,6 @@ function get_all_rows_from_table($table_name)
 }
 
 /*
-  Returns Associative Array of Affiliations and Departments from Database
-*/
-function get_all_departments_and_affiliations()
-{
-    $stmt = $GLOBALS['pdo']->prepare('SELECT concat(affiliations.name, " ", departments.name) FROM lookup_group_department
-		INNER JOIN groups
-		ON lookup_group_department.group_id=groups.id
-		INNER JOIN departments
-		ON lookup_group_department.department_id=departments.id
-    INNER JOIN affiliations
-    ON departments.affiliation_id=affiliations.id;');
-    $stmt->execute();
-    $array = get_all_rows($stmt);
-    $deptsAndAffiliations = array_map(('getAffiliationsAndDepartments'), $array);
-    echo json_encode(array_count_values($deptsAndAffiliations));
-}
-
-/*
   Returns Value of Key of Key/Value pair
 */
 function getAffiliationsAndDepartments($indexInArray)

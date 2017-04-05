@@ -5,14 +5,8 @@ export default {
       .then((r) => vnode.state.generatePieChart('#chart_affiliations', r), window.requestError);
     m.request({url:"/api/open/report/courses_and_affiliations.php"})
       .then((r) => vnode.state.generatePieChart('#chart_courses', r), window.requestError);
-    m.request({url:"/api/open/report/departments_and_affiliations.php"}).then(
-      function(r){//regular req
-        var temp = [];
-        for (var key in r) { temp.push([key,r[key]]); }
-        vnode.state.departments = temp;
-        vnode.state.generatePieChart('#chart_departments', temp);
-      }, window.requestError
-    );
+    m.request({url:"/api/open/report/departments_and_affiliations.php"})
+      .then((r) => vnode.state.generatePieChart('#chart_departments', r) , window.requestError);
   },//end oninit
   generatePieChart:(id, cols) => {
     c3.generate({
