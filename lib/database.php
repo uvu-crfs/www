@@ -161,37 +161,6 @@ function get_all_rows_from_table($table_name)
     print_json(get_all_rows($stmt));
 }
 
-/*
-  Returns Value of Key of Key/Value pair
-*/
-function getAffiliationsAndDepartments($indexInArray)
-{
-    return $indexInArray['concat(affiliations.name, " ", departments.name)'];
-}
-
-/*
-  Returns Value of Key of Key/Value pair
-*/
-function getAffiliationsAndCourses($indexInArray)
-{
-    return $indexInArray['concat(affiliations.name, " ", courses.name)'];
-}
-
-/*
-  Returns Value of Key of Key/Value pair
-*/
-function getValue($array, $key)
-{
-    return $array[$key];
-}
-/*
-Returns the 'name' from the key/value pair
-*/
-function getName($indexInArray)
-{
-    return $indexInArray['name'];
-}
-
 function create_sensor_table($id)
 {
     $query = 'create table sensor_'.$id.
