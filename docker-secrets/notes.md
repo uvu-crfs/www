@@ -18,7 +18,11 @@
 * Remove the database (to start fresh)
   * `docker rm www_maria_1`
 
-
 ## Setup mysql
 * `docker exec -i -t www_maria_1 /bin/bash -c "/var/secrets/setup_mysql.sh"`
+
+## Database
+* Save a backup
 * `docker exec -i -t www_maria_1 /bin/bash -c "mysqldump crfs > /var/secrets/mysql_dump.sql"`
+* Restore backup
+* `docker exec -i -t www_maria_1 /bin/bash -c "mysql crfs < mysql_dump.sql"`
