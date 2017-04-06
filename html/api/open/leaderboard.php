@@ -7,7 +7,7 @@ require_once '/var/www/lib/database.php';
 
 $id = $_GET['sensor_id'];
 if (!is_numeric($id)) {
-    echo "Missing requried numeric param 'sendor_id'";
+    echo "Missing requried numeric param 'sensor_id'";
 
     return http_response_code(400);
 }
@@ -30,7 +30,7 @@ $tmp = $_GET['limit'];
 if (is_numeric($tmp)) {
     $limit = $tmp;
 }
-
+$now = time() * 1000;
 $query = '
   SELECT name as group_name, visit_id, ROUND(total/days,2) as per_day FROM (
     SELECT visit_id, total, group_id, start_date, end_date,
@@ -39,10 +39,12 @@ $query = '
       SELECT visit_id, SUM(quantity) AS total
       FROM '.$sensor_table.'
       GROUP BY visit_id
-      ORDER BY total LIMIT ?
+      ORDER BY total
     ) AS tmp1
     INNER JOIN visits ON visits.id=tmp1.visit_id
     WHERE start_date >= ? AND end_date <= ?
+    AND end_date < ?
+    LIMIT ?
   ) AS tmp2
   INNER JOIN groups ON groups.id=tmp2.group_id
   ORDER BY per_day
@@ -50,7 +52,7 @@ $query = '
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);
-    $stmt->execute([$limit, $start, $end]);
+    $stmt->execute([$start, $end, $now, $limit]);
 } catch (PDOException $e) {
     echo 'Database issue: '.$e->getMessage();
 

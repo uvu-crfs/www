@@ -37,8 +37,14 @@ $query = '
   JOIN affiliations ON affiliations.id = departments.affiliation_id
 ';
 
-$stmt = $GLOBALS['pdo']->prepare($query);
-$stmt->execute([$start, $end]);
+try {
+    $stmt = $GLOBALS['pdo']->prepare($query);
+    $stmt->execute([$start, $end]);
+} catch (PDOException $e) {
+    echo 'Database issue: '.$e->getMessage();
+
+    return http_response_code(400);
+}
 
 $output = [];
 foreach (get_all_rows($stmt) as $row) {

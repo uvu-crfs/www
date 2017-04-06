@@ -1,17 +1,23 @@
 var leaderboard = {
-  data:[],
+  leaders:[], active:[],
   getLeaderboard:(vnode, sensor_info) => {
     //TODO limit to date range using &start=<dateTimestamp>&end=<dateTimestamp>,
-    m.request(`/api/open/leaderboard.php?sensor_id=${sensor_info.id}`).then(
-      (r) => { vnode.state.data = r; vnode.state.updateC3Columns(vnode); },
-      window.requestError
-    ).then(_ => vnode.state.updateChart(vnode))
+    Promise.all([
+      m.request(`/api/open/leaderboard.php?sensor_id=${sensor_info.id}`)
+        .then( (r) => vnode.state.leaders = r, window.requestError ),
+      m.request(`/api/open/active_usage.php?sensor_id=${sensor_info.id}`)
+        .then( (r) => vnode.state.active = r, window.requestError ),
+    ])
+    .then(_ => vnode.state.updateC3Columns(vnode))
+    .then(_ => vnode.state.updateChart(vnode))
     ;
   },
   columns: [],
+  concat: [],
   updateC3Columns:(vnode) => {
     let cols = [['x']];
-    vnode.state.data.forEach((e,idx) => {
+    vnode.state.concat = vnode.state.active.concat(vnode.state.leaders);
+    vnode.state.concat.forEach((e,idx) => {
       cols[0].push(e.group_name);
       let row = [e.group_name];
       for(var i=0; i < idx; i++){ row.push(null); }
@@ -27,7 +33,7 @@ var leaderboard = {
         x : 'x',
         columns: vnode.state.columns,
         type: 'bar',
-        groups : [vnode.state.data.map((e) => e.group_name)],
+        groups : [vnode.state.concat.map((e) => e.group_name)],
       },
       color: { pattern: g.uvuColors.sort(_ => 0.5 - Math.random()) },
       legend: { hide: true },
@@ -37,12 +43,12 @@ var leaderboard = {
     });
   },
   updateChart:(vnode) => {
-    vnode.state.chart.destroy();
+    if(vnode.state.chart) vnode.state.chart.destroy();
     vnode.state.generateChart(vnode);
   },
   view:(vnode)=> m(`#leaderboard${vnode.attrs.id}`, [
     m('', JSON.stringify(vnode.attrs)),
-    m('', JSON.stringify(vnode.state.data)),
+    m('', JSON.stringify(vnode.state.concat)),
   ]),
   oninit:(vnode) => vnode.state.getLeaderboard(vnode, vnode.attrs),
   oncreate:(vnode) => vnode.state.generateChart(vnode),
