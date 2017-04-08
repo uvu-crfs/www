@@ -13,7 +13,6 @@ export default {
   },
   view: function(vnode) {
     return m('',[
-      m('.title','Welcome Home'),
       g.uvu.admin && vnode.state.activeVisits.length > 0 ? m('',
         g.sensors.map(function(v){ return m(addSensorData,{sensor:v, visits: vnode.state.activeVisits}); }))
       : null,
