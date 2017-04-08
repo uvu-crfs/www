@@ -3,7 +3,7 @@
 require_once '/var/www/lib/database.php';
 
 $table_name = 'visits';
-$visit_keys = ['group_id', 'start_date', 'end_date', 'days', 'nights', 'advisors', 'students_female', 'students_male', 'evaluation', 'summary', 'darksky', 'notes'];
+$visit_keys = ['group_id', 'start_date', 'end_date', 'days', 'nights', 'advisors', 'students_female', 'students_male', 'evaluation', 'summary', 'darksky', 'notes', 'contact'];
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET':
