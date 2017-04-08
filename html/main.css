@@ -34,5 +34,10 @@ a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
 }
 
 .button.is-primary, .button.is-primary:hover, .button.is-primary:active {
-background-color: var(--button-add);
+  background-color: var(--button-add);
+}
+
+.add-button {
+  position: fixed;
+  z-index: 1000000;
 }
