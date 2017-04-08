@@ -84,7 +84,7 @@ export default {
   view:(vnode) => m('',[
     m('.level',[
       m('.level-left', m('.title','Visits')),
-      m('.level-right',m('button.button.is-primary.add-button', {onclick:function(){ vnode.state.add.modal = true; location.reload();}} ,'Add')),
+      m('.level-right',m('button.button.is-primary.add-button', {onclick:function(){ vnode.state.add.modal = true;}} ,'Add')),
     ]),
     m(addVisitModal, vnode.state.add),
     g.visits.map((v)=> m(visitCard, v)),
