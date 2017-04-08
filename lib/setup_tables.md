@@ -23,7 +23,7 @@ insert into groups(name) values ('temp1');
 
 # Visit
 ```
-create table visits(id int not null AUTO_INCREMENT PRIMARY KEY, group_id int, start_date int, end_date int, days int, nights int, students_female int, students_male int, advisors_female int, advisors_male int, evaluation_complete int, summary_complete int, notes varchar(255));
+create table visits(id int not null AUTO_INCREMENT PRIMARY KEY, group_id int, start_date int, end_date int, days int, nights int, students_female int, students_male int, advisors_female int, advisors_male int, evaluation_complete int, summary_complete int, notes, contact varchar(255));
 ```
 
 # Sensor
