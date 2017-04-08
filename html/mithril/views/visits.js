@@ -28,7 +28,7 @@ let addVisitModalBody = (vnode) => [
     })
   }),
   //m('button', {disabled:true}, 'Add') //TODO this should add a group
-  m('.label', 'State Date'),
+  m('.label', 'Start Date'),
   m('input[type="date"]', {oninput:(e) => {vnode.state.data.start_date = htmlDateToUnix(e.target.value); console.log(vnode.state.data); }}, ''),
   m('.label', 'End Date'),
   m('input[type="date"]', {oninput:(e) => vnode.state.data.end_date = htmlDateToUnix(e.target.value) }, ''),
