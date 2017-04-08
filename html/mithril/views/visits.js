@@ -1,5 +1,5 @@
 import {getGroups, getVisits, htmlDateToUnix, addVisit, unixToDate, blankFirstOption, getTimeStamp} from '/mithril/utils.js';
-import {addModal, deleteModal} from '/mithril/components/modals.js';
+import {addVisitModal, deleteModal} from '/mithril/components/modals.js';
 import {s2Component} from '/mithril/components/s2Component.js';
 //let deleteData = {modal:false, type:'sensor', func: deleteVisit};
 
@@ -86,7 +86,7 @@ export default {
       m('.level-left', m('.title','Visits')),
       m('.level-right',m('button.button.is-primary.add-button', {onclick:function(){ vnode.state.add.modal = true; }} ,'Add')),
     ]),
-    m(addModal, vnode.state.add),
+    m(addVisitModal, vnode.state.add),
     g.visits.map((v)=> m(visitCard, v)),
   ])
 };
