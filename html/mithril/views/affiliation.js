@@ -12,9 +12,9 @@ let departmentDetails = {
     vnode.state.add = {modal:false, data:{department_id:vnode.attrs.department.id, department:vnode.attrs.department}};
     vnode.state.delete = {modal:false, type:'course', func:deleteCourse};
   },
-  view:(vnode) => m('',[
-    m('.level',[
-      m('.level-left', m('.title.is-5',[
+  view:(vnode) => m('.padding-department',[
+    m('.level.department',[
+      m('.level-left.department', m('.title.is-5',[
         m('span', 'Courses'),
         m('button.button.is-small.is-light',
            {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add); } }, 'Add'),
