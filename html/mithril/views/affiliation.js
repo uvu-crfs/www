@@ -70,7 +70,7 @@ export default {
   view:(vnode) => m('',[
     m('.level',[
       m('.level-left', m('.title','Affiliations')),
-      m('.level-right',m('button.button.is-primary',
+      m('.level-right',m('button.button.is-primary.add-button',
         {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add);} }, 'Add')),
     ]),
     m(addAffiliationModal, vnode.state.add),
