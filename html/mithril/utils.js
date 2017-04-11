@@ -128,6 +128,14 @@ export var deleteGroup = function(vnode){
   .then( _ => vnode.state.close() );
 };
 
+export var getVisit = function(){
+  return m.request({ method: 'GET', url: '/api/admin/visit.php'})
+  .then(
+    function(r){ g.visit = r; },
+    function(r){ console.log("Could not request visit", r);
+  });
+};
+
 export var getVisits = function(){
   return m.request({url: '/api/admin/visits.php'})
   .then(
