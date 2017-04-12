@@ -8,6 +8,7 @@ var header = {
   view:function(){
     return m(".nav.has-shadow ", [
       m('.nav-left',[
+        m('img[src=/vendor/uvu_institutional_square/PNG/UVUSquareWhite-0003.png]', {style:'width:60px;height:60px'},''),
         m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
         m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
         g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/visits"),  "Visits") : null,
@@ -43,7 +44,7 @@ export default function headerFooter(content){
         m(header),
         m('',{style:'padding:1vh 1vw;'}, m(content, vnode.state)),
         m(developerOptions),
-        //m('h1','FOOTER')
+        m('[id="footer"]', ''),
         (g.notifications.length > 0) ? m('.message',
         {style:'position: absolute; top: 50px; right: 10px; z-index: 2;'} ,[
           m('.message-header',[
