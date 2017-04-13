@@ -6,9 +6,14 @@ var header = {
   },
   oninit: function(){},
   view:function(){
-    return m(".nav.has-shadow ", [
+    return m('',[
+    m('a#logo[href="http://www.uvu.edu/crfs/"]',
+      m('img[src=/vendor/uvu_institutional_square/PNG/UVUSquareGreen-0001.png];',
+        { style:'width:100%; height:100%;'}, '')
+    ),
+    m(".nav.has-shadow ", [
       m('.nav-left',[
-        m('img[src=/vendor/uvu_institutional_square/PNG/UVUSquareWhite-0003.png]', {style:'width:60px;height:60px'},''),
+        m('',{ style:'width:60px; height:60px; display:table;'},''),
         m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
         m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
         g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/visits"),  "Visits") : null,
@@ -17,7 +22,7 @@ var header = {
         g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/affiliations"),  "Affiliations") : null,
         g.docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
       ]),
-      m('.nav-right', [
+      m('.nav-right', {style:'flex-grow: 0;'}, [
         g.docker ? m('.nav-item', [
           g.uvu.loggedIn ?
             m('.nav-item', [
@@ -33,7 +38,7 @@ var header = {
           ]) :
           m("a[href='/uvu'].nav-item",'Login')
       ])
-    ]);
+    ])]);
   }
 };
 

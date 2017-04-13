@@ -3,7 +3,7 @@ export default {
   open:_ => {g.uvu.loggedIn = false; g.uvu.admin = false;},
   uvu:_ => {g.uvu.loggedIn = true; g.uvu.admin = false;},
   admin:_ => {g.uvu.loggedIn = true; g.uvu.admin = true;},
-  view:(vnode) => g.docker ? m('nav.panel', {style:"position:fixed; bottom:0; right:0;"},[
+  view:(vnode) => g.docker ? m('nav.panel', {style:"position:fixed; bottom: -18px; right:0;"},[
     vnode.state.active? m('span', [
       m('p.panel-tabs',[
         m('a',{

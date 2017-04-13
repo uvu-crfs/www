@@ -4,7 +4,8 @@
     <title>Capitol Reef</title>
     <style> body {margin: 0;} </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css" integrity="sha256-6ZFIKt0ohcBorQWIruhlYBoADBIFrJuXtEJsjFxb2Wk=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="/vendor/font-awesome.min.css"/>
+    <!-- <link rel="stylesheet" href="/vendor/font-awesome.min.css"/> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"></script>
   <!--  <link rel="stylesheet" href="//www.uvu.edu/_resources/css/style.css?v=3"></script>
     <link rel="stylesheet" href="//www.uvu.edu/_resources/css/styleMobile.css?v=3"></script>

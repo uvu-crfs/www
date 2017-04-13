@@ -59,3 +59,17 @@ a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
 .padding-department {
   padding: 10px;
 }
+
+.panel-block, .panel-tabs { background-color: white; }
+
+#logo{
+  background-color:white;
+  border-radius: 50px;
+  position: absolute;
+  z-index: 3;
+  width:60px;
+  height:60px;
+  border: 1px solid var(--uvu-green);
+}
+
+#logo:hover { width: 100px; height: 100px; }
