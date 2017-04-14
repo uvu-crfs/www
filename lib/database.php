@@ -164,7 +164,7 @@ function get_all_rows_from_table($table_name)
 function create_sensor_table($id)
 {
     $query = 'create table sensor_'.$id.
-      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL(10,3) not null, timestamp int not null, visit_id int not null)';
+      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL(10,3) not null, timestamp BIGINT not null, visit_id int not null)';
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
