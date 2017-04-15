@@ -79,12 +79,6 @@ let addVisitModalBody = (vnode) => [
 ];
 
 let editVisitModalBody = (vnode) => [
-  vnode.state.evaluation_checked = false,
-  vnode.state.summary_checked = false,
-  vnode.state.darksky_checked = false,
-  vnode.state.data.evaluation = vnode.state.evaluation_checked,
-  vnode.state.data.summary = vnode.state.summary_checked,
-  vnode.state.data.darksky = vnode.state.darksky_checked,
   m('.label', 'Group'),
   m(s2Component, {
     request_data: vnode.state.data,
@@ -102,7 +96,10 @@ let editVisitModalBody = (vnode) => [
   m('.label', 'End Date'),
   m('input[type="date"]', {oninput:(e) => vnode.state.data.end_date = htmlDateToUnix(e.target.value) }, ''),
   m('.label', 'Days'),
-  m('input.input', {onchange:(e) => vnode.state.data.days = e.target.value }, ''),
+  m('input.input[type=number]', {
+    value: vnode.attrs.data.days,
+    onchange:(e) => vnode.attrs.data.days = e.target.value
+  }, ''),
   m('.label', 'Nights'),
   m('input.input', {onchange:(e) => vnode.state.data.nights = e.target.value }, ''),
   m('.label', 'Female Students'),
@@ -180,7 +177,7 @@ let visitCard = {
       {onclick:_ => {
         //TODO display Edit Modal filled w/ value
         vnode.attrs.editModal.modal = true;
-
+        vnode.attrs.editModal.data = vnode.attrs.visit;
       }}, 'Edit') : null,
     vnode.state.open ? m('',[
       m('', JSON.stringify(vnode.attrs)),
