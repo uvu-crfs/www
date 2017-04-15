@@ -1,6 +1,7 @@
 import {getGroups, getVisit, getVisits, editVisit, htmlDateToUnix, addVisit, unixToDate, blankFirstOption, getTimeStamp} from '/mithril/utils.js';
 import {addVisitModal, editVisitModal, deleteModal} from '/mithril/components/modals.js';
 import {s2Component} from '/mithril/components/s2Component.js';
+import {pikaday} from '/mithril/components/pikaday.js';
 // let deleteData = {modal:false, type:'visit', func: deleteVisit};
 
 // var makeAutoComplete = function(element, isInitialized) {
@@ -29,9 +30,11 @@ let addVisitModalBody = (vnode) => [
   }),
   //m('button', {disabled:true}, 'Add') //TODO this should add a group
   m('.label', 'Start Date'),
-  m('input[type="date"]', {oninput:(e) => {vnode.state.data.start_date = htmlDateToUnix(e.target.value); console.log(vnode.state.data); }}, ''),
+  m(pikaday, {timestamp:vnode.state.data.start_date, htmlId: "startDate"}),
+  // m('input[type="date"]', {oninput:(e) => {vnode.state.data.start_date = htmlDateToUnix(e.target.value); console.log(vnode.state.data); }}, ''),
   m('.label', 'End Date'),
-  m('input[type="date"]', {oninput:(e) => vnode.state.data.end_date = htmlDateToUnix(e.target.value) }, ''),
+  m(pikaday, {timestamp:vnode.state.data.end_date, htmlId: "endDate"}),
+  // m('input[type="date"]', {oninput:(e) => vnode.state.data.end_date = htmlDateToUnix(e.target.value) }, ''),
   m('.label', 'Days'),
   m('input.input[type="number"]', {onchange:(e) => vnode.state.data.days = e.target.value }, ''),
   m('.label', 'Nights'),
@@ -74,24 +77,21 @@ let editVisitModalBody = (vnode) => [
   m(s2Component, {
     request_data: vnode.state.data,
     request_attr: 'group_id',
-    value: vnode.attrs.data.group,
     data: g.groups.map(function(obj) {
       let newObj = {};
       newObj.id = obj.id;
       newObj.text = obj.name;
       return newObj;
-    })
+    }),
   }),
   m('.label', 'Start Date'),
-  m('input[type="date"]', {
-    date: vnode.attrs.data.start_date,
-    oninput:(e) => vnode.state.data.start_date = htmlDateToUnix(e.target.value)
-    }, ''),
+  m(pikaday, {timestamp:vnode.attrs.data.start_date, htmlId: "startDate"}),
+  // m('input[type="date"]', {
+  //   date: vnode.attrs.data.start_date,
+  //   oninput:(e) => vnode.state.data.start_date = htmlDateToUnix(e.target.value)
+  //   }, ''),
   m('.label', 'End Date'),
-  m('input[type="date"]', {
-    value: vnode.attrs.data.end_date,
-    oninput:(e) => vnode.state.data.end_date = htmlDateToUnix(e.target.value)
-  }, ''),
+  m(pikaday, {timestamp:vnode.attrs.data.end_date, htmlId: "endDate"}),
   m('.label', 'Days'),
   m('input.input[type="number"]', {
     value: vnode.attrs.data.days,
