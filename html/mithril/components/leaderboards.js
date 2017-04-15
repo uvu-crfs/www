@@ -58,10 +58,7 @@ var leaderboard = {
     m('', JSON.stringify(vnode.attrs)),
     m('', JSON.stringify(vnode.state.concat)),
   ]),
-  oninit:(vnode) => {
-    vnode.state.getLeaderboard(vnode, vnode.attrs);
-    updateAble.push(_ => vnode.state.getLeaderboard(vnode, vnode.attrs));
-  },
+  oninit:(vnode) => vnode.state.getLeaderboard(vnode, vnode.attrs),
   oncreate:(vnode) => vnode.state.generateChart(vnode),
   onremove:(vnode) => vnode.state.chart.destroy(),
 };
@@ -76,8 +73,7 @@ export default {
     vnode.state.updateGraphs = _ =>  {
       let tmp = JSON.parse(JSON.stringify(vnode.state.leaderboards));
       vnode.state.leaderboards = [];
-      m.redraw();
-      vnode.state.leaderboards = tmp;
+      m.redraw(); vnode.state.leaderboards = tmp;
     };
   },
   oncreate:(vnode) => {
