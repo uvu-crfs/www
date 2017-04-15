@@ -25,7 +25,7 @@
 * Save a backup
 * `docker exec -i -t www_maria_1 /bin/bash -c "mysqldump crfs > /var/secrets/mysql_dump.sql"`
 * Restore backup
-* `docker exec -i -t www_maria_1 /bin/bash -c "mysql crfs < mysql_dump.sql"`
+* `docker exec -i -t www_maria_1 /bin/bash -c "mysql crfs < /var/secrets/mysql_dump.sql"`
 
 
 ## Trail PHP logs
