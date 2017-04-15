@@ -4,6 +4,10 @@ export var addNotification = function(text){
 };
 export var clearNotifications = _ => notifications = [];
 
+export var pikadayToTimeStamp = (pikaday) => {
+  return pikaday._d.valueOf();
+};
+
 export var getTimeStamp = function(){
   return new Date().getTime();
 };

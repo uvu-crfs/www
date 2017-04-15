@@ -14,6 +14,8 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <link href="/vendor/select2.css" rel="stylesheet" />
     <script src="/vendor/select2.min.js"></script>
+    <link rel="stylesheet" href="/vendor/pikaday.css">
+    <script src="/vendor/pikaday.js"></script>
     <script src="/vendor/mithril.js"></script>
     <link rel="stylesheet" href="/main.css">
   </head>

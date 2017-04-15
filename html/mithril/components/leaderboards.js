@@ -1,11 +1,19 @@
+import {pikadayToTimeStamp, unixToDate} from '/mithril/utils.js';
+
 var leaderboard = {
   leaders:[], active:[],
   getLeaderboard:(vnode, sensor_info) => {
-    //TODO limit to date range using &start=<dateTimestamp>&end=<dateTimestamp>,
+    let start = '', end = '';
+    if (localStorage.getItem("leaderboardStart") !== null) {
+      start = `&start=${localStorage.getItem("leaderboardStart")}`;
+    }
+    if (localStorage.getItem("leaderboardEnd") !== null) {
+      end = `&end=${localStorage.getItem("leaderboardEnd")}`;
+    }
     Promise.all([
-      m.request(`/api/open/leaderboard.php?sensor_id=${sensor_info.id}`)
+      m.request(`/api/open/leaderboard.php?sensor_id=${sensor_info.id}${start}${end}`)
         .then( (r) => vnode.state.leaders = r, window.requestError ),
-      m.request(`/api/open/active_usage.php?sensor_id=${sensor_info.id}`)
+      m.request(`/api/open/active_usage.php?sensor_id=${sensor_info.id}${start}${end}`)
         .then( (r) => vnode.state.active = r, window.requestError ),
     ])
     .then(_ => vnode.state.updateC3Columns(vnode))
@@ -50,19 +58,60 @@ var leaderboard = {
     m('', JSON.stringify(vnode.attrs)),
     m('', JSON.stringify(vnode.state.concat)),
   ]),
-  oninit:(vnode) => vnode.state.getLeaderboard(vnode, vnode.attrs),
+  oninit:(vnode) => {
+    vnode.state.getLeaderboard(vnode, vnode.attrs);
+    updateAble.push(_ => vnode.state.getLeaderboard(vnode, vnode.attrs));
+  },
   oncreate:(vnode) => vnode.state.generateChart(vnode),
   onremove:(vnode) => vnode.state.chart.destroy(),
 };
 
 export default {
   leaderboards:[],
+  startDate:{},
+  endDate:{},
   oninit:(vnode) => {
     m.request('/api/open/sensor/types.php')
       .then((r) => vnode.state.leaderboards = r, window.requestError );
+    vnode.state.updateGraphs = _ =>  {
+      let tmp = JSON.parse(JSON.stringify(vnode.state.leaderboards));
+      vnode.state.leaderboards = [];
+      m.redraw();
+      vnode.state.leaderboards = tmp;
+    };
+  },
+  oncreate:(vnode) => {
+    vnode.state.startDate = new Pikaday({ field: document.getElementById('startDate') });
+    if (localStorage.getItem("leaderboardStart") !== null) {
+      let date = unixToDate(localStorage.getItem('leaderboardStart'));
+      vnode.state.startDate.setDate(date);
+    }
+    vnode.state.endDate = new Pikaday({ field: document.getElementById('endDate') });
+    if (localStorage.getItem("leaderboardEnd") !== null) {
+      let date = unixToDate(localStorage.getItem('leaderboardEnd'));
+      vnode.state.endDate.setDate(date);
+    }
   },
   view:(vnode) => m('',[
     m('.title', `Leaderboard${vnode.state.leaderboards.length>1?'s':''}`),
+    m('',[
+      m('span', 'Start:'),
+      m('input#startDate', {
+        value: vnode.state.startDate.toString(),
+        onchange:_ => {
+          localStorage.setItem("leaderboardStart", pikadayToTimeStamp(vnode.state.startDate));
+          vnode.state.updateGraphs();
+        }
+      }),
+      m('span', 'End:'),
+      m('input#endDate', {
+        value: vnode.state.endDate.toString(),
+        onchange:_ => {
+          localStorage.setItem("leaderboardEnd", pikadayToTimeStamp(vnode.state.endDate));
+          vnode.state.updateGraphs();
+        }
+      }),
+    ]),
     vnode.state.leaderboards.map((l) => m(leaderboard, l)),
   ]),
 };
