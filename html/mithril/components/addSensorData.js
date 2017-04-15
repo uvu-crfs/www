@@ -19,7 +19,8 @@ export default {
           vnode.state.visit_id = value.id;
           if (!vnode.attrs.homePage) vnode.state.timestamp = value.start_date;
         }},
-        blankFirstOption((vnode.attrs.visits || g.visits).map((v) => m('option', {value:JSON.stringify({id:v.id,start_date:v.start_date+1})},
+        blankFirstOption((vnode.attrs.visits || g.visits).map((v) => m('option',
+          {value:JSON.stringify({id:v.id,start_date:parseInt(v.start_date)+1})},
         `${unixToDate(v.start_date)} - ${g.groupLookup[v.group_id] ? g.groupLookup[v.group_id].name : ''}`)))
       ),
       m('button[type="submit"]', {
