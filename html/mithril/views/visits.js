@@ -101,22 +101,22 @@ let editVisitModalBody = (vnode) => [
   m('.label', 'Nights'),
   m('input.input[type="number"]', {
     value: vnode.attrs.data.nights,
-    onchange:(e) => vnode.state.data.nights = e.target.value
+    onchange:(e) => vnode.attrs.data.nights = e.target.value
   }, ''),
   m('.label', 'Female Students'),
   m('input.input[type="number"]', {
     value: vnode.attrs.data.students_female,
-    onchange:(e) => vnode.state.data.students_female = e.target.value
+    onchange:(e) => vnode.attrs.data.students_female = e.target.value
   }, ''),
   m('.label', 'Male Students'),
   m('input.input[type="number"]', {
     value: vnode.attrs.data.students_male,
-    onchange:(e) => vnode.state.data.students_male = e.target.value
+    onchange:(e) => vnode.attrs.data.students_male = e.target.value
   }, ''),
   m('.label', 'Advisors'),
   m('input.input', {
     value: vnode.attrs.data.advisors,
-    onchange:(e) => vnode.state.data.advisors = e.target.value
+    onchange:(e) => vnode.attrs.data.advisors = e.target.value
   }, ''),
   m('.label', 'Evaluation Complete'),
   m('label.checkbox-inline',
