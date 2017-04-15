@@ -43,7 +43,7 @@ let groupDetails = {
                 console.log(v);
                 m.request({method:'DELETE', url:'api/admin/lookup_group_course.php',
                   data:{'group_id':v.group_id, 'course_id':v.course_id}})
-                .then( _ => getAttachedAffiliations(v.group_id), window.requestError );
+                .then( _ => getAttachedCourses(v.group_id), window.requestError );
             }})
           )),
         ]) : null,
