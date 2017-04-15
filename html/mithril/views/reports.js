@@ -1,3 +1,5 @@
+import {pikaday} from '/mithril/components/pikaday.js';
+
 export default {
   generatePieChart:(id, cols) => {
     c3.generate({
@@ -23,6 +25,7 @@ export default {
   view: function(vnode) {
       return m("", [
           m(".title", {class: "title"}, "Reports"),
+          m(pikaday, {timestamp:null}),
           m(".title.is-3", "Affiliations"),
           m("#chart_affiliations", ""),
           m(".title.is-3", "Departments"),
