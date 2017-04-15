@@ -1,32 +1,18 @@
 // Component containing a Select that uses Select2 for functionality.
 export var s2Component = {
-
-  oncreate: (vnode) => s2Component._configure(vnode),
   oninit:(vnode) => {
+    console.log(vnode.attrs);
     if (vnode.attrs.data && vnode.attrs.data.length > 0)
       vnode.attrs.request_data[vnode.attrs.request_attr] = vnode.attrs.data[0].id;
   },
+  oncreate: (vnode) => $(vnode.dom).select2({ placeholder: "Select an option", }),
   view: function(vnode) {
     var current = 0;
-    return m('select', {
-      class: 'select-field',
+    return m('select.select-field', {
+      value: vnode.attrs.value || '-1',
       onchange:(e) => {
         vnode.attrs.request_data[vnode.attrs.request_attr] = parseInt(e.target.value, 10);
       },
-    });
+    }, vnode.attrs.data.map((d) => m('option', {value:d.id} , d.text)));
   },
-
-  _configure: function(vnode) {
-
-    // console.log("Inside configure");
-    // console.log(vnode.dom);
-
-     	$(vnode.dom).select2({
-        //tags: "true",
-        placeholder: "Select an option",
-        allowClear: true,
-        data: vnode.attrs.data
-      });
-  }
-
 };

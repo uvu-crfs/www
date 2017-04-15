@@ -77,6 +77,7 @@ let editVisitModalBody = (vnode) => [
   m(s2Component, {
     request_data: vnode.state.data,
     request_attr: 'group_id',
+    value: vnode.attrs.data.group_id,
     data: g.groups.map(function(obj) {
       let newObj = {};
       newObj.id = obj.id;
