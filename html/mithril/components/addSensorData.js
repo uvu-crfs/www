@@ -14,8 +14,12 @@ export default {
         onchange:function(e){ vnode.state.quantity = Number(e.target.value); }
       }, ''),
       m('span', vnode.attrs.sensor.unit),
-      m('select',{ onchange:function(e){ vnode.state.visit_id = e.target.value; }},
-        blankFirstOption((vnode.attrs.visits || g.visits).map((v) => m('option', {value:v.id},
+      m('select',{ onchange:function(e){
+          let value = JSON.parse(e.target.value);
+          vnode.state.visit_id = value.id;
+          if (!vnode.attrs.homePage) vnode.state.timestamp = value.start_date;
+        }},
+        blankFirstOption((vnode.attrs.visits || g.visits).map((v) => m('option', {value:JSON.stringify({id:v.id,start_date:v.start_date+1})},
         `${unixToDate(v.start_date)} - ${g.groupLookup[v.group_id] ? g.groupLookup[v.group_id].name : ''}`)))
       ),
       m('button[type="submit"]', {

@@ -16,7 +16,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
     put($table_name, $lookup_keys);
     break;
   case 'DELETE':
-    delete_by_id($table_name);
+    $query='DELETE FROM '.$table_name.' WHERE group_id = ? AND course_id = ?';
+    $data = post_data();
+    $values = [$data['group_id'],$data['course_id']];
+    run_query($query,$values);
     break;
   default:
     http_response_code(404);

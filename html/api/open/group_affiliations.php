@@ -13,7 +13,8 @@ if (!is_numeric($id)) {
 $query = 'select
   lookup_group_affiliation.group_id,
   lookup_group_affiliation.affiliation_id,
-  affiliations.name as affiliation_name
+  affiliations.name as affiliation_name,
+  lookup_group_affiliation.group_id
   from lookup_group_affiliation
   INNER JOIN affiliations ON lookup_group_affiliation.affiliation_id=affiliations.id
   where group_id=?';

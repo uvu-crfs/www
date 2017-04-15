@@ -14,7 +14,8 @@ $query = 'select
   courses.name as course_name, courses.id as course_id,
   departments.name as department_name, departments.id as department_id,
   affiliations.name as affiliation_name, affiliations.id as affiliation_id,
-  concat(affiliations.name, "/",departments.name,"/",courses.name) AS "concat"
+  concat(affiliations.name, "/",departments.name,"/",courses.name) AS "concat",
+  lookup_group_course.group_id
   from lookup_group_course
   INNER JOIN courses ON lookup_group_course.course_id=courses.id
   INNER JOIN departments ON courses.department_id=departments.id

@@ -13,7 +13,8 @@ if (!is_numeric($id)) {
 $query = 'select
   departments.name as department_name, departments.id as department_id,
   affiliations.name as affiliation_name, affiliations.id as affiliation_id,
-  concat(affiliations.name, "/",departments.name) AS "concat"
+  concat(affiliations.name, "/",departments.name) AS "concat",
+  lookup_group_department.group_id
   from lookup_group_department
   INNER JOIN departments ON lookup_group_department.department_id=departments.id
   INNER JOIN affiliations ON departments.affiliation_id=affiliations.id

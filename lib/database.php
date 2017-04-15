@@ -164,7 +164,7 @@ function get_all_rows_from_table($table_name)
 function create_sensor_table($id)
 {
     $query = 'create table sensor_'.$id.
-      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL(10,3) not null, timestamp int not null, visit_id int not null)';
+      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL(10,3) not null, timestamp BIGINT not null, visit_id int not null)';
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
@@ -185,4 +185,15 @@ function delete_sensor_table($id)
     echo 'Query '.$query."\n";
     $stmt = $GLOBALS['pdo']->prepare($query);
     $stmt->execute();
+}
+
+function run_query($query,$values){
+  try {
+      $stmt = $GLOBALS['pdo']->prepare($query);
+      $stmt->execute($values);
+  } catch (PDOException $e) {
+      echo 'Database issue: '.$e->getMessage();
+
+      return http_response_code(500);
+  }
 }
