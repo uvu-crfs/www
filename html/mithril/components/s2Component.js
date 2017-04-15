@@ -1,7 +1,6 @@
 // Component containing a Select that uses Select2 for functionality.
 export var s2Component = {
   oninit:(vnode) => {
-    console.log(vnode.attrs);
     if (vnode.attrs.data && vnode.attrs.data.length > 0)
       vnode.attrs.request_data[vnode.attrs.request_attr] = vnode.attrs.data[0].id;
   },
