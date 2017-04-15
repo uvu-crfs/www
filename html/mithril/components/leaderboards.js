@@ -1,4 +1,4 @@
-import {pikadayToTimeStamp, unixToDate} from '/mithril/utils.js';
+import {pikaday} from '/mithril/components/pikaday.js';
 
 var leaderboard = {
   leaders:[], active:[],
@@ -76,36 +76,18 @@ export default {
       m.redraw(); vnode.state.leaderboards = tmp;
     };
   },
-  oncreate:(vnode) => {
-    vnode.state.startDate = new Pikaday({ field: document.getElementById('startDate') });
-    if (localStorage.getItem("leaderboardStart") !== null) {
-      let date = unixToDate(localStorage.getItem('leaderboardStart'));
-      vnode.state.startDate.setDate(date);
-    }
-    vnode.state.endDate = new Pikaday({ field: document.getElementById('endDate') });
-    if (localStorage.getItem("leaderboardEnd") !== null) {
-      let date = unixToDate(localStorage.getItem('leaderboardEnd'));
-      vnode.state.endDate.setDate(date);
-    }
-  },
   view:(vnode) => m('',[
     m('.title', `Leaderboard${vnode.state.leaderboards.length>1?'s':''}`),
     m('',[
       m('span', 'Start:'),
-      m('input#startDate', {
-        value: vnode.state.startDate.toString(),
-        onchange:_ => {
-          localStorage.setItem("leaderboardStart", pikadayToTimeStamp(vnode.state.startDate));
-          vnode.state.updateGraphs();
-        }
+      m(pikaday,{ htmlId:'leaderboardStart',
+        createFunc: _ => localStorage.getItem('leaderboardStart'),
+        changeFunc: (date) => {localStorage.setItem('leaderboardStart', date); vnode.state.updateGraphs();}
       }),
       m('span', 'End:'),
-      m('input#endDate', {
-        value: vnode.state.endDate.toString(),
-        onchange:_ => {
-          localStorage.setItem("leaderboardEnd", pikadayToTimeStamp(vnode.state.endDate));
-          vnode.state.updateGraphs();
-        }
+      m(pikaday,{ htmlId:'leaderboardEnd',
+        createFunc: _ => localStorage.getItem('leaderboardEnd'),
+        changeFunc: (date) => {localStorage.setItem('leaderboardEnd', date); vnode.state.updateGraphs();}
       }),
     ]),
     vnode.state.leaderboards.map((l) => m(leaderboard, l)),
