@@ -18,15 +18,34 @@ let groupDetails = {
       m('',[
         (vnode.state.group.affiliations && vnode.state.group.affiliations.length > 0) ? m('',[
           m('span','Affiliations:'),
-          vnode.state.group.affiliations.map((v) => m('span.tag', v.affiliation_name))
+          vnode.state.group.affiliations.map((v) => m('span.tag', v.affiliation_name,
+          m('button.delete.is-small', {onclick:_ => {
+              m.request({method:'DELETE', url:'api/admin/lookup_group_affiliation.php',
+                data:{'group_id':v.group_id, 'affiliation_id':v.affiliation_id}})
+              .then( _ => getAttachedAffiliations(v.group_id), window.requestError );
+          }})
+          ))
         ]):null,
         (vnode.state.group.departments && vnode.state.group.departments.length > 0) ? m('',[
           m('span','Departments:'),
-          vnode.state.group.departments.map((v) => m('span.tag', v.concat))
+          vnode.state.group.departments.map((v) => m('span.tag', v.concat,
+            m('button.delete.is-small', {onclick:_ => {
+                m.request({method:'DELETE', url:'api/admin/lookup_group_department.php',
+                  data:{'group_id':v.group_id, 'department_id':v.department_id}})
+                .then( _ => getAttachedDepartments(v.group_id), window.requestError );
+            }})
+          ))
         ]):null,
         (vnode.state.group.courses && vnode.state.group.courses.length > 0) ? m('',[
           m('span','Courses:'),
-          vnode.state.group.courses.map((v) => m('span.tag', v.concat)),
+          vnode.state.group.courses.map((v) => m('span.tag', v.concat,
+            m('button.delete.is-small', {onclick:_ => {
+                console.log(v);
+                m.request({method:'DELETE', url:'api/admin/lookup_group_course.php',
+                  data:{'group_id':v.group_id, 'course_id':v.course_id}})
+                .then( _ => getAttachedAffiliations(v.group_id), window.requestError );
+            }})
+          )),
         ]) : null,
       ]),
     ]) : null,

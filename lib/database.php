@@ -186,3 +186,14 @@ function delete_sensor_table($id)
     $stmt = $GLOBALS['pdo']->prepare($query);
     $stmt->execute();
 }
+
+function run_query($query,$values){
+  try {
+      $stmt = $GLOBALS['pdo']->prepare($query);
+      $stmt->execute($values);
+  } catch (PDOException $e) {
+      echo 'Database issue: '.$e->getMessage();
+
+      return http_response_code(500);
+  }
+}
