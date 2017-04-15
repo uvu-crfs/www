@@ -132,6 +132,8 @@ export var deleteGroup = function(vnode){
   .then( _ => vnode.state.close() );
 };
 
+
+//***** VISIT Fcts *****
 export var getVisit = function(){
   return m.request({ method: 'GET', url: '/api/admin/visit.php'})
   .then(
@@ -149,11 +151,19 @@ export var getVisits = function(){
 };
 
 export var addVisit = function(vnode){
-  console.log(vnode.state.data);
   return m.request({url: '/api/admin/visit.php', method:'POST', data:vnode.state.data})
   .then( (r) => getVisits(), (r) => console.log("Could not add visit", r) )
   .then( _ => vnode.state.close() );
 };
+
+export var editVisit = function(vnode){
+    return m.request({url: '/api/admin/visit.php', method:'PUT', data:vnode.attrs.data})
+    .then( (r) => getVisits(), (r) => console.log("Could not edit visit", r) )
+    .then( _ => vnode.state.close() );
+};
+//***** VISIT Fcts *****
+
+
 
 export var addAffiliation = function(vnode){
   return m.request({url: '/api/admin/affiliation.php', method:'POST', data:vnode.state.data})

@@ -96,8 +96,12 @@ export var addCourseModal = {
 
 export var addVisitModal = {
   oninit:(vnode) => {
-    vnode.state.close = _ => vnode.attrs.modal = false;
-    vnode.state.data = vnode.attrs.data || {};
+    vnode.state.close = _ => {
+      vnode.attrs.modal = false;
+      vnode.state.data = {};
+    };
+    // vnode.state.data = vnode.attrs.data || {};
+    vnode.state.data = {};
   },
   view:(vnode) => vnode.attrs.modal ? m('.modal.is-active', [
     m('.modal-background', {onclick:vnode.state.close }, ''),

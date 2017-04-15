@@ -1,3 +1,5 @@
+import {pikaday} from '/mithril/components/pikaday.js';
+
 export default {
   generatePieChart:(id, cols) => {
     c3.generate({
@@ -13,16 +15,35 @@ export default {
     });
   },
   oninit: function(vnode) {
-    m.request({url:"/api/open/report/affiliations.php"})
-      .then((r) => vnode.state.generatePieChart('#chart_affiliations', r), window.requestError);
-    m.request({url:"/api/open/report/courses_and_affiliations.php"})
-      .then((r) => vnode.state.generatePieChart('#chart_courses', r), window.requestError);
-    m.request({url:"/api/open/report/departments_and_affiliations.php"})
-      .then((r) => vnode.state.generatePieChart('#chart_departments', r) , window.requestError);
+    vnode.state.update = _ => {
+      let start = '', end = '';
+      if (localStorage.getItem("reportStart") !== null) start = `&start=${localStorage.getItem("reportStart")}`;
+      if (localStorage.getItem("reportEnd") !== null) end = `&end=${localStorage.getItem("reportEnd")}`;
+      m.request({url:`/api/open/report/affiliations.php?a${start}${end}`})
+        .then((r) => vnode.state.generatePieChart('#chart_affiliations', r), window.requestError);
+      m.request({url:`/api/open/report/courses_and_affiliations.php?a${start}${end}`})
+        .then((r) => vnode.state.generatePieChart('#chart_courses', r), window.requestError);
+      m.request({url:`/api/open/report/departments_and_affiliations.php?a${start}${end}`})
+        .then((r) => vnode.state.generatePieChart('#chart_departments', r) , window.requestError);
+    };
+    vnode.state.update();
   },
   view: function(vnode) {
       return m("", [
           m(".title", {class: "title"}, "Reports"),
+          m('',[
+            m('span', 'Start:'),
+            m(pikaday,{ htmlId:'reportStart',
+              createFunc: _ => localStorage.getItem('reportStart'),
+              changeFunc: (date) => {localStorage.setItem('reportStart', date); vnode.state.update();}
+            }),
+            m('span', 'End: '),
+            m(pikaday,{ htmlId:'reportEnd',
+              createFunc: _ => localStorage.getItem('reportEnd'),
+              changeFunc: (date) => {localStorage.setItem('reportEnd', date); vnode.state.update(); }
+            }),
+          ]),
+
           m(".title.is-3", "Affiliations"),
           m("#chart_affiliations", ""),
           m(".title.is-3", "Departments"),
