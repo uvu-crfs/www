@@ -14,7 +14,7 @@ export default {
   view: function(vnode) {
     return m('',[
       g.uvu.admin && vnode.state.activeVisits.length > 0 ? m('',
-        g.sensors.map(function(v){ return m(addSensorData,{sensor:v, visits: vnode.state.activeVisits}); }))
+        g.sensors.map(function(v){ return m(addSensorData,{sensor:v, visits: vnode.state.activeVisits, homePage:true}); }))
       : null,
       m(leaderboards),
       m("a[href='http://www.uvu.edu/crfs/']",
