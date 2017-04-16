@@ -134,7 +134,7 @@ export var addGroup = function(vnode){
 };
 
 export var editGroup = function(vnode){
-    .then( _ => vnode.state.close() );
+    // .then( _ => vnode.state.close() );
 };
 
 export var deleteGroup = function(vnode){
