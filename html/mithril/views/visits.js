@@ -211,7 +211,7 @@ export default {
   },
   view:(vnode) => m('',[
     m('.level',[
-      m('.level-left', m('.title','Visits')),
+      m('.level-left', m('h1.title','Visits')),
       m('.level-right',m('button.button.is-primary.add-button', {onclick:function(){ vnode.state.add.modal = true;}} ,'Add')),
     ]),
     m(addVisitModal, vnode.state.add),

@@ -77,7 +77,7 @@ export default {
     };
   },
   view:(vnode) => m('',[
-    m('.title', `Leaderboard${vnode.state.leaderboards.length>1?'s':''}`),
+    m('h2.title.is-4', `Leaderboard${vnode.state.leaderboards.length>1?'s':''}`),
     m('',[
       m('span', 'Start:'),
       m(pikaday,{ htmlId:'leaderboardStart',
