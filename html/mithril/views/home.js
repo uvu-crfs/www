@@ -8,7 +8,7 @@ export default {
     vnode.state.activeVisits = [];
     m.request({url: '/api/open/active_visits.php'}).then(
       (data) => vnode.state.activeVisits = data,
-      (error) => console.log(error)
+      window.requestError
     );
   },
   view: function(vnode) {

@@ -39,4 +39,8 @@ m.route(document.body, "/home", {
   "/developer": headerFooter(g.docker || g.uvu.admin ? developerView : '')
 });
 
-window.requestError = (e) => console.log(e);
+import {addNotification} from '/mithril/utils.js';
+window.requestError = (e) => {
+  addNotification(e);
+  console.log(e);
+};

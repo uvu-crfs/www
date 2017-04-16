@@ -40,7 +40,7 @@ export var sqlRequest = function(vnode){
   return m.request({method:'POST', url:'/api/admin/sql.php', data:{query:vnode.state.sql.query}})
   .then(
     (r) => vnode.state.sql.response = r,
-    (r) => { console.log('Error', r); vnode.state.sql.response = r; }
+    (r) => {window.requestError(r); vnode.state.sql.response = r; }
   )
   .then(function(){ vnode.state.sql.query = ''; m.redraw(); });
 };
@@ -70,15 +70,15 @@ export var getSensors = function(){
   return m.request({url: '/api/admin/sensor/types.php'})
   .then(
     function(r){ g.sensors = r; },
-    function(r){ console.log("Could not request sensors", r);
-  });
+    window.requestError
+  );
 };
 
 export var addSensor = function(vnode){
   return m.request({method: 'POST', url: '/api/admin/sensor/type.php', data:vnode.state.data })
   .then(
     (r) => { getSensors(); addNotification('New sensor "' + vnode.state.data.name + '" with units of "' + vnode.state.data.unit + '"'); },
-    (r) => console.log("Could not add sensor", r)
+    window.requestError
   )
   .then( _ => vnode.state.close() );
 };
@@ -87,7 +87,7 @@ export var deleteSensor = function(vnode){
   return m.request({ method: 'DELETE', url: '/api/admin/sensor/type.php', data: {id:vnode.attrs.id} })
   .then(
     function(r){ getSensors(); addNotification("Deleted sensor " + vnode.attrs.name); },
-    function(r){ console.log("Could not delete sensors", id, r); }
+    window.requestError
   )
   .then( _ => vnode.state.close() );
 };
@@ -99,7 +99,7 @@ export var addSensorData = function(data){
   return m.request({method: 'POST', url: '/api/admin/sensor/value.php', data: data})
   .then(
     function(r){ getSensors();  },
-    function(r){ console.log("Could not add sensor data", r); }
+    window.requestError
   )
   .then(function(){data.quantity = 0;})
   ;
@@ -109,8 +109,8 @@ export var getGroups = function(){
   return m.request({url: '/api/admin/groups.php'})
   .then(
     function(r){ g.groups = r; createGroupsLookup(r); },
-    function(r){ console.log("Could not request groups", r);
-  });
+    window.requestError
+  );
 };
 
 let createGroupsLookup = (groups) => {
@@ -119,7 +119,7 @@ let createGroupsLookup = (groups) => {
 
 export var addGroup = function(vnode){
   return m.request({url: '/api/admin/group.php', method:'POST', data:vnode.state.data})
-  .then( (r) => getGroups(), (r) => console.log("Could not add group", r) )
+  .then( (r) => getGroups(), window.requestError )
   .then( _ => vnode.state.close() );
 };
 
@@ -127,7 +127,7 @@ export var deleteGroup = function(vnode){
   return m.request({ method: 'DELETE', url: '/api/admin/group.php', data: {id:vnode.attrs.id}})
   .then(
     (r) => { getGroups(); addNotification("Deleted group " + vnode.attrs.name); },
-    (r) => console.log("Could not delete sensors", vnode.attrs.name, r)
+    window.requestError
   )
   .then( _ => vnode.state.close() );
 };
@@ -138,27 +138,27 @@ export var getVisit = function(){
   return m.request({ method: 'GET', url: '/api/admin/visit.php'})
   .then(
     function(r){ g.visit = r; },
-    function(r){ console.log("Could not request visit", r);
-  });
+    window.requestError
+  );
 };
 
 export var getVisits = function(){
   return m.request({url: '/api/admin/visits.php'})
   .then(
     function(r){ g.visits = r; },
-    function(r){ console.log("Could not request visits", r);
-  });
+    window.requestError
+  );
 };
 
 export var addVisit = function(vnode){
   return m.request({url: '/api/admin/visit.php', method:'POST', data:vnode.state.data})
-  .then( (r) => getVisits(), (r) => console.log("Could not add visit", r) )
+  .then( (r) => getVisits(), window.requestError )
   .then( _ => vnode.state.close() );
 };
 
 export var editVisit = function(vnode){
     return m.request({url: '/api/admin/visit.php', method:'PUT', data:vnode.attrs.data})
-    .then( (r) => getVisits(), (r) => console.log("Could not edit visit", r) )
+    .then( (r) => getVisits(), window.requestError )
     .then( _ => vnode.state.close() );
 };
 //***** VISIT Fcts *****
@@ -167,7 +167,7 @@ export var editVisit = function(vnode){
 
 export var addAffiliation = function(vnode){
   return m.request({url: '/api/admin/affiliation.php', method:'POST', data:vnode.state.data})
-  .then( (r) => getAffiliations(), (r) => console.log("Could not add visit", r) )
+  .then( (r) => getAffiliations(), window.requestError )
   .then( _ => vnode.state.close() );
 };
 
@@ -180,7 +180,7 @@ export var getAffiliations = function(vnode){
   return m.request({url: '/api/admin/affiliations.php'})
   .then(
     (r) => { g.affiliations = r; createAffiliationLookup(r); },
-    (r) => console.log("Could not get affiliations", r)
+    window.requestError
   );
 };
 
@@ -188,17 +188,17 @@ export var deleteAffiliation = function(vnode){
   return m.request({ method: 'DELETE', url: '/api/admin/affiliation.php', data: {id:vnode.attrs.id}})
   .then(
     (r) => { getAffiliations(); addNotification("Deleted affiliation " + vnode.attrs.name); },
-    (r) => console.log("Could not delete affiliation", vnode.attrs.name, r)
+    window.requestError
   )
   .then( _ => vnode.state.close() );
 };
 
 export var addDepartment = function(vnode){
-  console.log(vnode.state);
+  // console.log(vnode.state);
   return m.request({url: '/api/admin/department.php', method:'POST', data:vnode.state.data})
   .then(
     (r) => getDepartments(vnode.state.data.affiliation_id ),//console.log('Added department, TODO: Refresh something eventually', r),
-    (r) => console.log("Could not add department", r) )
+    window.requestError )
   .then( _ => vnode.state.close() );
 };
 
@@ -206,7 +206,7 @@ export var deleteDepartment = function(vnode){
   return m.request({ method: 'DELETE', url: '/api/admin/department.php', data: {id:vnode.attrs.id}})
   .then(
     (r) => { console.log('Deleted department, TODO: Refresh something eventually', r); addNotification("Deleted department " + vnode.attrs.name); },
-    (r) => console.log("Could not delete department", vnode.attrs.name, r)
+    window.requestError
   )
   .then( _ => vnode.state.close() );
 };
@@ -215,7 +215,7 @@ export var getDepartments = function(affiliation_id){
   return m.request({url: `/api/open/departments_by_affiliation.php?affiliation_id=${affiliation_id}`})
   .then(
     (r) => { g.affiliationLookup[affiliation_id].departments = r; console.log(g.affiliationLookup[affiliation_id]); },
-    (r) => console.log("Could not get departments", r)
+    window.requestError
   );
 };
 
@@ -223,7 +223,7 @@ export var deleteCourse = function(vnode){
   return m.request({ method: 'DELETE', url: '/api/admin/course.php', data: {id:vnode.attrs.id}})
   .then(
     (r) => { console.log('Deleted course, TODO: Refresh something eventually', r); addNotification("Deleted course " + vnode.attrs.name); },
-    (r) => console.log("Could not delete course", vnode.attrs.name, r)
+    window.requestError
   )
   .then( _ => vnode.state.close() );
 };
@@ -233,42 +233,42 @@ export var addCourse = function(vnode){
   return m.request({url: '/api/admin/course.php', method:'POST', data:vnode.state.data})
   .then(
     (r) => {  getCourses(vnode.state.data.department); console.log('Added course, TODO: Refresh something eventually', r);},
-    (r) => console.log("Could not add department", r) )
-  .then( _ => vnode.state.close() );
+    window.requestError
+  ).then( _ => vnode.state.close() );
 };
 
 export var getCourses = function(department){
   return m.request({url: `/api/open/courses_by_department.php?department_id=${department.id}`})
   .then(
     (r) => { department.courses = r; console.log(department); },
-    (r) => console.log("Could not get courses", r)
+    window.requestError
   );
 };
 
 export var attachCourseToGroup = function(vnode){
-  console.log(vnode);
+  // console.log(vnode);
   return m.request({url: '/api/admin/lookup_group_course.php', method:'POST', data:vnode.state.data})
   .then(
     (r) => {getAttachedCourses(vnode.state.data.group_id); console.log('Attched course to group, TODO: Refresh something eventually', r);},
-    (r) => console.log("Could not attched course to group", r) )
+    window.requestError )
   .then( _ => vnode.state.close() );
 };
 
 export var attachAffiliationToGroup = function(vnode){
-  console.log(vnode);
+  // console.log(vnode);
   return m.request({url: '/api/admin/lookup_group_affiliation.php', method:'POST', data:vnode.state.data})
   .then(
     (r) => {getAttachedAffiliations(vnode.state.data.group_id); console.log('Attched affiliation to group, TODO: Refresh something eventually', r);},
-    (r) => console.log("Could not attched affiliation to group", r) )
+    window.requestError )
   .then( _ => vnode.state.close() );
 };
 
 export var attachDepartmentToGroup = function(vnode){
-  console.log(vnode);
+  // console.log(vnode);
   return m.request({url: '/api/admin/lookup_group_department.php', method:'POST', data:vnode.state.data})
   .then(
     (r) => {getAttachedDepartments(vnode.state.data.group_id); console.log('Attched department to group, TODO: Refresh something eventually', r);},
-    (r) => console.log("Could not attched department to group", r) )
+    window.requestError )
   .then( _ => vnode.state.close() );
 };
 
@@ -277,7 +277,7 @@ export var getAttachedCourses = function(group_id){
   return m.request({url: `/api/open/group_courses.php?group_id=${group_id}`})
   .then(
     (r) => { g.groupLookup[group_id].courses = r; /*console.log(g.groupLookup[group_id]);*/ },
-    (r) => console.log("Could not get courses attached to group", group_id, r)
+    window.requestError
   );
 };
 
@@ -286,7 +286,7 @@ export var getAttachedDepartments = function(group_id){
   return m.request({url: `/api/open/group_departments.php?group_id=${group_id}`})
   .then(
     (r) => { g.groupLookup[group_id].departments = r; /*console.log(g.groupLookup[group_id]);*/ },
-    (r) => console.log("Could not get departments attached to group", group_id, r)
+    window.requestError
   );
 };
 export var getAttachedAffiliations = function(group_id){
@@ -294,6 +294,6 @@ export var getAttachedAffiliations = function(group_id){
   return m.request({url: `/api/open/group_affiliations.php?group_id=${group_id}`})
   .then(
     (r) => { g.groupLookup[group_id].affiliations = r; /*console.log(g.groupLookup[group_id]);*/ },
-    (r) => console.log("Could not get affiliations attached to group", group_id, r)
+    window.requestError
   );
 };

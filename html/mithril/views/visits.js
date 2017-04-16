@@ -195,6 +195,7 @@ let visitCard = {
       }}, 'Edit') : null,
     vnode.state.open ? m('',[
       m('p',`Contact ${vnode.attrs.visit.contact}`),
+      //TODO show survey completion
       //m('', JSON.stringify(vnode.attrs)),
     ]) : null,
   ])

@@ -18,7 +18,7 @@ let sensorLine = {
     vnode.state.openDetails = _ => {
       vnode.state.open = !vnode.state.open;
       m.request({url:`/api/admin/sensor/values.php?sensor=${vnode.attrs.id}`})
-      .then((r) => vnode.state.values = r, (r) => console.log('Error', r));
+      .then((r) => vnode.state.values = r, window.requestError);
     };
   },
   view:(vnode) => m('.card', {style:'padding: 10px;'}, [
