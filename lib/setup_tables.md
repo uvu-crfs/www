@@ -6,35 +6,107 @@ show tables;
 
 
 ```
-CREATE TABLE groups(id int not null AUTO_INCREMENT PRIMARY KEY, name varchar (255), contact_name varchar (255), affiliation varchar (255), course_num varchar (255), notes varchar (255));
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)
 ```
 
 ```
 describe groups;
 ```
-```
-select * from groups;
-```
-
-```
-insert into groups(name) values ('temp0');
-insert into groups(name) values ('temp1');
-```
 
 # Visit
 ```
-create table visits(id int not null AUTO_INCREMENT PRIMARY KEY, group_id int, start_date bigint, end_date bigint, days int, nights int, students_female int, students_male int, advisors_female int, advisors_male int, evaluation_complete int, summary_complete int, darksky int, notes, contact varchar(255));
+CREATE TABLE `visits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `start_date` bigint(20) DEFAULT NULL,
+  `end_date` bigint(20) DEFAULT NULL,
+  `days` int(11) DEFAULT NULL,
+  `nights` int(11) DEFAULT NULL,
+  `students_female` int(11) DEFAULT NULL,
+  `students_male` int(11) DEFAULT NULL,
+  `advisors` int(11) DEFAULT NULL,
+  `evaluation` int(11) DEFAULT NULL,
+  `summary` int(11) DEFAULT NULL,
+  `darksky` int(11) DEFAULT NULL,
+  `notes` varchar(255) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_id` (`group_id`),
+  CONSTRAINT `visits_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+)
 ```
 
 # Sensor
-
-## Types
-
-```
-create table sensors(id int not null AUTO_INCREMENT PRIMARY KEY, name varchar(255) not null, unit varchar(255) not null);
-```
+CREATE TABLE `sensors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)
 
 ## Data
 ```
-create table sensor_#(id int not null AUTO_INCREMENT PRIMARY KEY, quantity int, timestamp BIGINT);
+CREATE TABLE `sensor_#` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quantity` decimal(10,3) NOT NULL,
+  `timestamp` bigint(20) DEFAULT NULL,
+  `visit_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `visit_id` (`visit_id`),
+  CONSTRAINT `sensor_1_ibfk_1` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
+)
 ```
+
+CREATE TABLE `affiliations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)
+
+CREATE TABLE `courses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)
+
+CREATE TABLE `departments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+)
+
+CREATE TABLE `lookup_group_affiliation` (
+  `group_id` int(11) NOT NULL,
+  `affiliation_id` int(11) NOT NULL,
+  KEY `group_id` (`group_id`),
+  KEY `affiliation_id` (`affiliation_id`),
+  CONSTRAINT `lookup_group_affiliation_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
+  CONSTRAINT `lookup_group_affiliation_ibfk_2` FOREIGN KEY (`affiliation_id`) REFERENCES `affiliations` (`id`)
+)
+
+CREATE TABLE `lookup_group_course` (
+  `group_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  KEY `group_id` (`group_id`),
+  KEY `course_id` (`course_id`),
+  CONSTRAINT `lookup_group_course_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  CONSTRAINT `lookup_group_course_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+)
+
+CREATE TABLE `lookup_group_department` (
+  `group_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  KEY `group_id` (`group_id`),
+  KEY `department_id` (`department_id`),
+  CONSTRAINT `lookup_group_department_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`),
+  CONSTRAINT `lookup_group_department_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+)
