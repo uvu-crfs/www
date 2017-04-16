@@ -145,12 +145,12 @@ let editVisitModalBody = (vnode) => [
   m('.label', 'Notes'),
   m('input.input', {
     value: vnode.attrs.data.notes,
-    onchange:(e) => vnode.state.data.notes = e.target.value
+    onchange:(e) => vnode.attrs.data.notes = e.target.value
   }, ''),
   m('.label', 'Contact'),
   m('input.input', {
     value: vnode.attrs.data.contact,
-    onchange:(e) => vnode.state.data.contact = e.target.value
+    onchange:(e) => vnode.attrs.data.contact = e.target.value
   }, ''),
 ];
 
