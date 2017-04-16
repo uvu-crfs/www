@@ -6,6 +6,7 @@ export default {
     if (g.visits.length === 0) getVisits();
     if (g.groups.length === 0) getGroups();
   },
+  oncreate: (vnode) => $(`#sensor_${vnode.attrs.sensor.name}`).select2({ placeholder: "Choose a visit", width : '340px'}),
   view: function(vnode){
     return m('form',[
       m('span',  vnode.attrs.sensor.name),
@@ -14,7 +15,7 @@ export default {
         onchange:function(e){ vnode.state.quantity = Number(e.target.value); }
       }, ''),
       m('span', vnode.attrs.sensor.unit),
-      m('select',{ onchange:function(e){
+      m(`select#sensor_${vnode.attrs.sensor.name}`,{ onchange:function(e){
           let value = JSON.parse(e.target.value);
           vnode.state.visit_id = value.id;
           if (!vnode.attrs.homePage) vnode.state.timestamp = value.start_date;
