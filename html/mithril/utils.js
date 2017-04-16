@@ -95,7 +95,7 @@ export var deleteSensor = function(vnode){
 export var addSensorData = function(data){
   if (!data.timestamp) data.timestamp = Date.now();
   //TODO needs visit
-  console.log(data);
+  //console.log(data);
   return m.request({method: 'POST', url: '/api/admin/sensor/value.php', data: data})
   .then(
     function(r){ getSensors();  },
@@ -214,7 +214,7 @@ export var deleteDepartment = function(vnode){
 export var getDepartments = function(affiliation_id){
   return m.request({url: `/api/open/departments_by_affiliation.php?affiliation_id=${affiliation_id}`})
   .then(
-    (r) => { g.affiliationLookup[affiliation_id].departments = r; console.log(g.affiliationLookup[affiliation_id]); },
+    (r) => { g.affiliationLookup[affiliation_id].departments = r; },
     window.requestError
   );
 };
