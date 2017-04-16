@@ -23,12 +23,12 @@ let departmentDetails = {
     m(addCourseModal, vnode.state.add),
     m(deleteModal, vnode.state.delete),
     //vnode.attrs.department.courses.map((v) => JSON.stringify(v)),
-    vnode.attrs.department.courses.map((v) => m(card, {
+    vnode.attrs.department.courses ? vnode.attrs.department.courses.map((v) => m(card, {
       id: v.id,
       name: v.name,
       details:'', //TODO if there are course details ever add them here
       delete:vnode.state.delete,
-    })),
+    })) : null,
   ])
 };
 
@@ -53,13 +53,13 @@ let affiliationDetails = {
     m(addDepartmentModal, vnode.state.add),
     m(deleteModal, vnode.state.delete),
     //vnode.attrs.affiliation.departments.map((v) => JSON.stringify(v)),
-    vnode.attrs.affiliation.departments.map((v) => m(card, {
+    vnode.attrs.affiliation.departments ? vnode.attrs.affiliation.departments.map((v) => m(card, {
       id: v.id,
       name: v.name,
       department: v,
       details:departmentDetails,
       delete:vnode.state.delete,
-    })),
+    })) : null,
   ])
 };
 

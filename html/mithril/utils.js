@@ -46,7 +46,7 @@ export var sqlRequest = function(vnode){
 };
 
 export var card = {
-  view:(vnode) => m('.card', {style:'padding: 10px;'}, [
+  view:(vnode) => m('.card', {style:'padding: 10px;', key: vnode.attrs.id}, [
     m('',[
       m('button.button.is-small',
         {style:'margin:0 10px 0 0;', onclick:(e) => vnode.state.detailsOpen = !vnode.state.detailsOpen },[
