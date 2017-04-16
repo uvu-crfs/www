@@ -31,22 +31,23 @@ export var addModal = {
     vnode.state.close = _ => vnode.attrs.modal = false;
     vnode.state.data = vnode.attrs.data || {};
   },
-  view:(vnode) => vnode.attrs.modal ? m('.modal.is-active', [
+  view:(vnode) => vnode.attrs.modal ? m('modal.is-active', {
+    onkeyup:(e) => { if (e.keyCode === 27 /*esc*/)  vnode.state.close(); }
+  },[
     m('.modal-background', {onclick:vnode.state.close }, ''),
-    m('.modal-card',[
+    m('form.modal-card', {onsubmit:e => {
+      e.preventDefault();
+      vnode.attrs.func(vnode);
+      vnode.state.close();
+    }}, [
       m('header.modal-card-head',[
         m('p.modal-card-title', `Add ${vnode.attrs.type}`),
-        m('button.delete', {onclick:vnode.state.close }, ''),
+        m('.delete', {onclick:vnode.state.close }, ''),
       ]),
       m('section.modal-card-body', vnode.attrs.body(vnode)),
       m('footer.modal-card-foot',[
-        m('a.button.is-primary', {
-          onclick: _ => {
-            vnode.attrs.func(vnode);
-            location.reload();
-          }
-         }, 'Add'),
-        m('a.button',  {onclick:vnode.state.close }, 'Cancel')
+        m('input.button.is-primary[type=submit][value="Add"]'),
+        m('a.button',  {onclick: _ => {console.log('canceling'); vnode.state.close();} }, 'Cancel')
       ])
     ])
   ]) : null

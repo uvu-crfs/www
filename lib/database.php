@@ -4,7 +4,6 @@ require_once '/var/www/lib/helper_functions.php';
 
 function connect_to_databse()
 {
-    //$db_json = file_get_contents('/var/www/lib/database.json');
     $db_json = file_get_contents('/var/secrets/database.json');
     $db = json_decode($db_json, true);
     $servername = $db['host']; //.':'.$db['port'];
@@ -70,17 +69,9 @@ function insert($table_name, $available_keys, $required_keys)
         return http_response_code(400);
     }
 
-    // if (in_array('timestamp', $available_keys) && !in_array('timestamp', $keys)) {
-    //     array_push($keys, 'timestamp');
-    //     array_push($values, time());
-    //     array_push($value_placeholders, '?');
-    // }
-
     $keys_str = implode(',', $keys);
     $values_str = implode(',', $value_placeholders);
     $query = 'insert into '.$table_name.'('.$keys_str.') values ('.$values_str.')';
-    echo 'Query: '.$query;
-    var_dump($values);
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
