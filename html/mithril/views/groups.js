@@ -1,6 +1,6 @@
-import {getGroups, addGroup, deleteGroup, getAttachedCourses,
+import {getGroup, getGroups, addGroup, editGroup, deleteGroup, getAttachedCourses,
   getAttachedDepartments, getAttachedAffiliations} from '/mithril/utils.js';
-import {addModal, deleteModal, attachCourseToGroupModal} from '/mithril/components/modals.js';
+import {addModal, deleteModal, editGroupModal, attachCourseToGroupModal} from '/mithril/components/modals.js';
 
 let groupDetails = {
   oninit:(vnode) => {
@@ -18,6 +18,8 @@ let groupDetails = {
         (vnode.state.group.affiliations && vnode.state.group.affiliations.length > 0) ? m('',[
           m('span','Affiliations:'),
           vnode.state.group.affiliations.map((v) => m('span.tag', v.affiliation_name,
+
+          //Delete Affiliation
           m('button.delete.is-small', {onclick:_ => {
               m.request({method:'DELETE', url:'api/admin/lookup_group_affiliation.php',
                 data:{'group_id':v.group_id, 'affiliation_id':v.affiliation_id}})
@@ -28,6 +30,8 @@ let groupDetails = {
         (vnode.state.group.departments && vnode.state.group.departments.length > 0) ? m('',[
           m('span','Departments:'),
           vnode.state.group.departments.map((v) => m('span.tag', v.concat,
+
+          //Delete Department
             m('button.delete.is-small', {onclick:_ => {
                 m.request({method:'DELETE', url:'api/admin/lookup_group_department.php',
                   data:{'group_id':v.group_id, 'department_id':v.department_id}})
@@ -38,8 +42,9 @@ let groupDetails = {
         (vnode.state.group.courses && vnode.state.group.courses.length > 0) ? m('',[
           m('span','Courses:'),
           vnode.state.group.courses.map((v) => m('span.tag', v.concat,
+
+          //Delete Course
             m('button.delete.is-small', {onclick:_ => {
-                //console.log(v);
                 m.request({method:'DELETE', url:'api/admin/lookup_group_course.php',
                   data:{'group_id':v.group_id, 'course_id':v.course_id}})
                 .then( _ => getAttachedCourses(v.group_id), window.requestError );
@@ -56,10 +61,18 @@ let addGroupModalBody = (vnode) => [
   m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
 ];
 
+let editGroupModalBody = (vnode) => [
+  m('.label', 'Name'),
+  m('input.input', {
+    value: vnode.attrs.data,
+    onchange:(e) => vnode.attrs.data.name = e.target.value}, ''), //vnode.state.data = e.target.value
+];
+
 export default {
   oninit: (vnode) => {
-    vnode.state.add = {modal:false, type: 'group', func:addGroup, body:addGroupModalBody };
-    vnode.state.delete = {modal:false, type:'group', func: deleteGroup};
+    vnode.state.add = {modal:false, type: 'group', func: addGroup, body: addGroupModalBody };
+    vnode.state.delete = {modal:false, type: 'group', func: deleteGroup};
+    vnode.state.edit = {modal:false, type: 'group', func: editGroup, body: editGroupModalBody};
     if (g.groups.length === 0) getGroups();
     vnode.state.openDetails = (group) => {
       group.detailsOpen = !group.detailsOpen;
@@ -73,7 +86,8 @@ export default {
     ]),
     m(addModal, vnode.state.add),
     m(deleteModal, vnode.state.delete),
-    g.groups.map((g) => m('.card', {style:'padding: 10px;'}, [
+    m(editGroupModal, vnode.state.edit),
+    g.groups.map((g) => m('.card', {group:g, editModal:vnode.state.edit, style:'padding: 10px;'}, [
       m('',[
         m('button.button.is-small',
           {style:'margin:0 10px 0 0;', onclick:(e) => vnode.state.openDetails(g) },[
@@ -81,6 +95,7 @@ export default {
           m('.fa', {class:g.detailsOpen?'fa-angle-down':'fa-angle-up'}, ''),
         ]),
         m('span', g.name),
+        //Delete Btn
         g.detailsOpen ? m('button.button.is-danger.is-small.is-pulled-right',
         {onclick:_ => {
           vnode.state.delete.modal = true;
@@ -88,6 +103,13 @@ export default {
           vnode.state.delete.name = `${g.name}`;
         }},
         'Delete') : null,
+        //Edit Btn
+        g.detailsOpen ? m('button.button.is-primary.is-small.is-pulled-right',
+          {onclick:_ => {
+            vnode.state.edit.modal = true;
+            vnode.state.edit.data = `${g.name}`;
+            // console.log(vnode.attrs);
+          }}, 'Edit') : null,
       ]),
       m(groupDetails, g),
     ]))

@@ -120,6 +120,29 @@ export var addVisitModal = {
   ]) : null
 };
 
+export var editGroupModal = {
+  oninit:(vnode) => {
+    vnode.state.close = _ => vnode.attrs.modal = false;
+    vnode.state.data = vnode.attrs.data || {};
+  },
+  view:(vnode) => vnode.attrs.modal ? m('modal.is-active', {
+    onkeyup:(e) => { if (e.keyCode === 27 /*esc*/)  vnode.state.close(); }
+  },[
+    m('.modal-background', {onclick:vnode.state.close }, ''),
+    m('form.modal-card', [
+      m('header.modal-card-head',[
+        m('p.modal-card-title', `Update ${vnode.attrs.type}`),
+        m('.delete', {onclick:vnode.state.close }, ''),
+      ]),
+      m('section.modal-card-body', vnode.attrs.body(vnode)),
+      m('footer.modal-card-foot',[
+        m('a.button.is-primary[type=submit]', {onclick: _ => vnode.attrs.func(vnode) }, 'Update'),
+        m('a.button',  {onclick:vnode.state.close }, 'Cancel')
+      ])
+    ])
+  ]) : null
+};
+
 export var editVisitModal = {
   oninit:(vnode) => {
     vnode.state.close = _ => vnode.attrs.modal = false;

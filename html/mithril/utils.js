@@ -105,6 +105,16 @@ export var addSensorData = function(data){
   ;
 };
 
+
+//***** GROUPS Fcts *****
+export var getGroup = function() {
+  return m.request({url: '/api/admin/group.php'})
+  .then(
+    function(r){ g.groupLookup[groups[r].id] = groups[r];},
+    window.requestError
+  );
+};
+
 export var getGroups = function(){
   return m.request({url: '/api/admin/groups.php'})
   .then(
@@ -123,6 +133,10 @@ export var addGroup = function(vnode){
   .then( _ => vnode.state.close() );
 };
 
+export var editGroup = function(vnode){
+    .then( _ => vnode.state.close() );
+};
+
 export var deleteGroup = function(vnode){
   return m.request({ method: 'DELETE', url: '/api/admin/group.php', data: {id:vnode.attrs.id}})
   .then(
@@ -131,6 +145,8 @@ export var deleteGroup = function(vnode){
   )
   .then( _ => vnode.state.close() );
 };
+//***** GROUP Fcts *****
+
 
 
 //***** VISIT Fcts *****
