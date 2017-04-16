@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `affiliations`;
 CREATE TABLE `affiliations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -35,7 +36,7 @@ CREATE TABLE `affiliations` (
 
 LOCK TABLES `affiliations` WRITE;
 /*!40000 ALTER TABLE `affiliations` DISABLE KEYS */;
-INSERT INTO `affiliations` VALUES (1,'UVU'),(2,'Snow College'),(3,'UAEA'),(4,'USTA'),(5,'Mt. SAC'),(6,'KU'),(8,'OAC'),(9,'NPS'),(10,'BYU'),(11,'New Affiliation');
+INSERT INTO `affiliations` VALUES (10,'BYU'),(6,'KU'),(5,'Mt. SAC'),(11,'New Affiliation'),(9,'NPS'),(8,'OAC'),(2,'Snow College'),(3,'UAEA'),(4,'USTA'),(1,'UVU');
 /*!40000 ALTER TABLE `affiliations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,8 +50,8 @@ DROP TABLE IF EXISTS `courses`;
 CREATE TABLE `courses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `department_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -60,7 +61,7 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-INSERT INTO `courses` VALUES (1,'HLTH 482R',1),(2,'ART 300R',2),(3,'ART 371R',2),(4,'ART 300',2),(5,'ENG 3050',3),(6,'ENG 3460',3),(7,'BOT 4300',1),(8,'HONR 100R',5),(9,'ESL 2110',6),(10,'ESL 2120',6),(11,'ESL 2130',6),(12,'ESL 2140',6),(13,'BOT 3700',1),(14,'BOT 3705',1),(15,'CRN 23970',1),(16,'REC 4400',1),(18,'ENGL 201H',6),(19,'GEO 3500',1),(20,'Physics 1800',1),(21,'COMM 350R',3),(22,'HLTH 4140',1),(23,'PHYS 525R',8),(24,'GEO 525R',8),(25,'DGM 3540',9),(26,'ART 471R',2),(27,'DGM 3320',9),(28,'ENGL 2050',3),(29,'ENG 2010',3),(30,'ENG 3010',3),(31,'POLS 1000',3),(32,'TECH 200',9),(33,'EDUC 5750',12);
+INSERT INTO `courses` VALUES (4,'ART 300'),(2,'ART 300R'),(3,'ART 371R'),(26,'ART 471R'),(13,'BOT 3700'),(14,'BOT 3705'),(7,'BOT 4300'),(21,'COMM 350R'),(15,'CRN 23970'),(27,'DGM 3320'),(25,'DGM 3540'),(33,'EDUC 5750'),(29,'ENG 2010'),(30,'ENG 3010'),(5,'ENG 3050'),(6,'ENG 3460'),(18,'ENGL 201H'),(28,'ENGL 2050'),(9,'ESL 2110'),(10,'ESL 2120'),(11,'ESL 2130'),(12,'ESL 2140'),(19,'GEO 3500'),(24,'GEO 525R'),(22,'HLTH 4140'),(1,'HLTH 482R'),(8,'HONR 100R'),(23,'PHYS 525R'),(20,'Physics 1800'),(31,'POLS 1000'),(16,'REC 4400'),(32,'TECH 200');
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,8 +75,8 @@ DROP TABLE IF EXISTS `departments`;
 CREATE TABLE `departments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `affiliation_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -85,7 +86,7 @@ CREATE TABLE `departments` (
 
 LOCK TABLES `departments` WRITE;
 /*!40000 ALTER TABLE `departments` DISABLE KEYS */;
-INSERT INTO `departments` VALUES (1,'College of Science and Health',1),(2,'School of the Arts',1),(3,'College of Humanities and Social Sciences',1),(4,'Community and Continuing Education',1),(5,'Honors',1),(6,'University College',1),(7,'Multicultural Student Services',1),(8,'USTA',4),(9,'College of Technology and Computing',1),(10,'Accessibility Services',1),(11,'OEL',1),(12,'School of Education',1);
+INSERT INTO `departments` VALUES (10,'Accessibility Services'),(3,'College of Humanities and Social Sciences'),(1,'College of Science and Health'),(9,'College of Technology and Computing'),(4,'Community and Continuing Education'),(5,'Honors'),(7,'Multicultural Student Services'),(11,'OEL'),(12,'School of Education'),(2,'School of the Arts'),(6,'University College'),(8,'USTA');
 /*!40000 ALTER TABLE `departments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,8 +100,8 @@ DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `contact_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -110,7 +111,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'Macro Invertebrate Research',NULL),(2,'Public and Community Health',NULL),(3,'Natural Resources Summer Camp',NULL),(4,'Art Dept. Photography',NULL),(5,'Physics Department Research',NULL),(6,'Utah Art Education Association',NULL),(7,'Creative Writing',NULL),(8,'Community Ed Night Photography',NULL),(9,'Community Ed Photography',NULL),(10,'Snow College Honors',NULL),(11,'Pleasant Creek Research',NULL),(12,'Science Association of Women',NULL),(13,'Community Ed Plein Air',NULL),(14,'Biology Department Botany Class',NULL),(15,'UVU Honors',NULL),(16,'Community Ed Natural History',NULL),(17,'ESL Program',NULL),(18,'Biology Department Plant Ecology Class',NULL),(19,'Space Plasma Physics',NULL),(20,'Wilderness Writing',NULL),(21,'Natural Resources Management',NULL),(22,'Open House',NULL),(23,'Native American Initiative Program',NULL),(24,'UVU Learning Communities',NULL),(25,'English as a Second Language',NULL),(26,'Geomorphology ',NULL),(27,'Nature to the Classroom',NULL),(28,'UVU Physics Class',NULL),(29,'Botany Club',NULL),(30,'Plein Air Watercolor',NULL),(31,'NPS Wayne High School',NULL),(32,'Communicating Environments ',NULL),(34,'Kansas University Geology',NULL),(35,'Community Health',NULL),(36,'USTA Astronomy',NULL),(37,'USTA Geology',NULL),(38,'Mt. SAC',NULL),(42,'New Group',NULL),(43,'DGM',NULL),(44,'Historic Processes and Photographic Illustration',NULL),(45,'Special Topics in Landscape Photography',NULL),(46,'Accessibility Services',NULL),(47,'Digital Photography and Compositing',NULL),(48,'Editor\'s Workshop',NULL),(49,'Honors Astronomy',NULL),(50,'OAC WFA Course',NULL),(51,'CCE Astronomy',NULL),(52,'English Intermediate Courses',NULL),(53,'CCE Plein Air Watercolor',NULL),(54,'CCE Photography',NULL),(55,'NPS Leadership Team',NULL),(56,'Physics Workshop',NULL),(58,'American Heritage',NULL),(59,'NPS NHA',NULL),(60,'Outdoor Recreation',NULL),(61,'UVU Photo Faculty',NULL),(62,'Environmental Stewardship',NULL),(63,'Snow College',NULL),(64,'Technology and Human Life',NULL),(65,'AJC Architects',NULL),(66,'Digital Media',NULL),(67,'Honors Colloquim',NULL),(68,'CCE Faculty',NULL),(69,'BYU Natural History',NULL),(70,'High Altitude Research',NULL),(71,'Snow College and Colombia',NULL),(72,'Provo STEM Endorsement',NULL),(73,'UVU Risk Management',NULL),(74,'Project Development',NULL),(75,'U-NP Conference',NULL),(76,'OEL Retreat',NULL),(77,'Outdoor Adventure Center',NULL),(78,'ELL Group',NULL),(79,'Consulting Group',NULL),(80,'UVU Photography',NULL),(81,'ELL Level 5',NULL),(82,'Natural History of Utah',NULL),(83,'ELL Level 6',NULL),(84,'Environmental Writing',NULL),(85,'Research Writing',NULL),(86,'Spanish Class',NULL),(87,'Maeser Prep',NULL),(88,'Test Group',NULL);
+INSERT INTO `groups` VALUES (46,'Accessibility Services'),(65,'AJC Architects'),(58,'American Heritage'),(4,'Art Dept. Photography'),(14,'Biology Department Botany Class'),(18,'Biology Department Plant Ecology Class'),(29,'Botany Club'),(69,'BYU Natural History'),(51,'CCE Astronomy'),(68,'CCE Faculty'),(54,'CCE Photography'),(53,'CCE Plein Air Watercolor'),(32,'Communicating Environments '),(16,'Community Ed Natural History'),(8,'Community Ed Night Photography'),(9,'Community Ed Photography'),(13,'Community Ed Plein Air'),(35,'Community Health'),(79,'Consulting Group'),(7,'Creative Writing'),(43,'DGM'),(66,'Digital Media'),(47,'Digital Photography and Compositing'),(48,'Editor\'s Workshop'),(78,'ELL Group'),(81,'ELL Level 5'),(83,'ELL Level 6'),(25,'English as a Second Language'),(52,'English Intermediate Courses'),(62,'Environmental Stewardship'),(84,'Environmental Writing'),(17,'ESL Program'),(26,'Geomorphology '),(70,'High Altitude Research'),(44,'Historic Processes and Photographic Illustration'),(49,'Honors Astronomy'),(67,'Honors Colloquim'),(34,'Kansas University Geology'),(1,'Macro Invertebrate Research'),(87,'Maeser Prep'),(38,'Mt. SAC'),(23,'Native American Initiative Program'),(82,'Natural History of Utah'),(21,'Natural Resources Management'),(3,'Natural Resources Summer Camp'),(27,'Nature to the Classroom'),(42,'New Group'),(55,'NPS Leadership Team'),(59,'NPS NHA'),(31,'NPS Wayne High School'),(50,'OAC WFA Course'),(76,'OEL Retreat'),(22,'Open House'),(77,'Outdoor Adventure Center'),(60,'Outdoor Recreation'),(5,'Physics Department Research'),(56,'Physics Workshop'),(11,'Pleasant Creek Research'),(30,'Plein Air Watercolor'),(74,'Project Development'),(72,'Provo STEM Endorsement'),(2,'Public and Community Health'),(85,'Research Writing'),(12,'Science Association of Women'),(63,'Snow College'),(71,'Snow College and Colombia'),(10,'Snow College Honors'),(19,'Space Plasma Physics'),(86,'Spanish Class'),(45,'Special Topics in Landscape Photography'),(64,'Technology and Human Life'),(88,'Test Group'),(75,'U-NP Conference'),(36,'USTA Astronomy'),(37,'USTA Geology'),(6,'Utah Art Education Association'),(15,'UVU Honors'),(24,'UVU Learning Communities'),(61,'UVU Photo Faculty'),(80,'UVU Photography'),(28,'UVU Physics Class'),(73,'UVU Risk Management'),(20,'Wilderness Writing');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +124,11 @@ DROP TABLE IF EXISTS `lookup_group_affiliation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lookup_group_affiliation` (
   `group_id` int(11) NOT NULL,
-  `affiliation_id` int(11) NOT NULL
+  `affiliation_id` int(11) NOT NULL,
+  KEY `group_id` (`group_id`),
+  KEY `affiliation_id` (`affiliation_id`),
+  CONSTRAINT `lookup_group_affiliation_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
+  CONSTRAINT `lookup_group_affiliation_ibfk_2` FOREIGN KEY (`affiliation_id`) REFERENCES `affiliations` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -146,7 +151,10 @@ DROP TABLE IF EXISTS `lookup_group_course`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lookup_group_course` (
   `group_id` int(11) NOT NULL,
-  `course_id` int(11) NOT NULL
+  `course_id` int(11) NOT NULL,
+  KEY `group_id` (`group_id`),
+  KEY `course_id` (`course_id`),
+  CONSTRAINT `lookup_group_course_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -169,7 +177,10 @@ DROP TABLE IF EXISTS `lookup_group_department`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lookup_group_department` (
   `group_id` int(11) NOT NULL,
-  `department_id` int(11) NOT NULL
+  `department_id` int(11) NOT NULL,
+  KEY `group_id` (`group_id`),
+  KEY `department_id` (`department_id`),
+  CONSTRAINT `lookup_group_department_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -195,7 +206,9 @@ CREATE TABLE `sensor_1` (
   `quantity` decimal(10,3) NOT NULL,
   `timestamp` bigint(20) DEFAULT NULL,
   `visit_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `visit_id` (`visit_id`),
+  CONSTRAINT `sensor_1_ibfk_1` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -221,7 +234,9 @@ CREATE TABLE `sensor_2` (
   `quantity` decimal(10,3) NOT NULL,
   `timestamp` bigint(20) DEFAULT NULL,
   `visit_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `visit_id` (`visit_id`),
+  CONSTRAINT `sensor_2_ibfk_1` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -246,7 +261,8 @@ CREATE TABLE `sensors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `unit` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -282,7 +298,9 @@ CREATE TABLE `visits` (
   `darksky` int(11) DEFAULT NULL,
   `notes` varchar(255) DEFAULT NULL,
   `contact` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `group_id` (`group_id`),
+  CONSTRAINT `visits_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -305,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-15 23:25:58
+-- Dump completed on 2017-04-16  7:26:30

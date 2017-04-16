@@ -155,7 +155,15 @@ function get_all_rows_from_table($table_name)
 function create_sensor_table($id)
 {
     $query = 'create table sensor_'.$id.
-      '(id int not null AUTO_INCREMENT PRIMARY KEY, quantity DECIMAL(10,3) not null, timestamp BIGINT not null, visit_id int not null)';
+      '(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quantity` decimal(10,3) NOT NULL,
+  `timestamp` bigint(20) DEFAULT NULL,
+  `visit_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `visit_id` (`visit_id`),
+  CONSTRAINT `sensor_1_ibfk_1` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
+)';
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
