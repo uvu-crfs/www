@@ -194,7 +194,8 @@ let visitCard = {
         vnode.attrs.editModal.data = vnode.attrs.visit;
       }}, 'Edit') : null,
     vnode.state.open ? m('',[
-      m('', JSON.stringify(vnode.attrs)),
+      m('p',`Contact ${vnode.attrs.visit.contact}`),
+      //m('', JSON.stringify(vnode.attrs)),
     ]) : null,
   ])
 };

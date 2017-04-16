@@ -12,8 +12,7 @@ let groupDetails = {
   },
   view:(vnode) => vnode.attrs.detailsOpen ? m('',[
     m(attachCourseToGroupModal, vnode.state.attachCourseModal),
-    vnode.attrs.contact ? m('',[
-      m('', `Contact Name: ${vnode.attrs.contact.name}`),
+    m('',[
       m('button.button.is-small', {onclick:_=> vnode.state.attachCourseModal.modal = true },'Attach affiliation/department/course'),
       m('',[
         (vnode.state.group.affiliations && vnode.state.group.affiliations.length > 0) ? m('',[
@@ -40,7 +39,7 @@ let groupDetails = {
           m('span','Courses:'),
           vnode.state.group.courses.map((v) => m('span.tag', v.concat,
             m('button.delete.is-small', {onclick:_ => {
-                console.log(v);
+                //console.log(v);
                 m.request({method:'DELETE', url:'api/admin/lookup_group_course.php',
                   data:{'group_id':v.group_id, 'course_id':v.course_id}})
                 .then( _ => getAttachedCourses(v.group_id), window.requestError );
@@ -48,7 +47,7 @@ let groupDetails = {
           )),
         ]) : null,
       ]),
-    ]) : null,
+    ]),
   ]) : null,
 };
 
@@ -64,7 +63,6 @@ export default {
     if (g.groups.length === 0) getGroups();
     vnode.state.openDetails = (group) => {
       group.detailsOpen = !group.detailsOpen;
-      group.contact = {name:'This will get update one day'};
     };
   },
   view:(vnode) => m('',[
