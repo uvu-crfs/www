@@ -14,7 +14,7 @@ let departmentDetails = {
   },
   view:(vnode) => m('.padding-department',[
     m('.level.department',[
-      m('.level-left.department', m('.title.is-5',[
+      m('.level-left.department', m('h3.title.is-5',[
         m('span', 'Courses'),
         m('button.button.is-small.is-light',
            {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add); } }, 'Add'),
@@ -24,6 +24,7 @@ let departmentDetails = {
     m(deleteModal, vnode.state.delete),
     //vnode.attrs.department.courses.map((v) => JSON.stringify(v)),
     vnode.attrs.department.courses.map((v) => m(card, {
+      id: v.id,
       name: v.name,
       details:'', //TODO if there are course details ever add them here
       delete:vnode.state.delete,
@@ -43,7 +44,7 @@ let affiliationDetails = {
   onchange:(vnode) => console.log(vnode.attrs),
   view:(vnode) => m('',[
     m('.level',[
-      m('.level-left', m('.title.is-4',[
+      m('.level-left', m('h2.title.is-4',[
         m('span', 'Departments'),
         m('button.button.is-small.is-light',
            {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add); } }, 'Add'),
@@ -53,6 +54,7 @@ let affiliationDetails = {
     m(deleteModal, vnode.state.delete),
     //vnode.attrs.affiliation.departments.map((v) => JSON.stringify(v)),
     vnode.attrs.affiliation.departments.map((v) => m(card, {
+      id: v.id,
       name: v.name,
       department: v,
       details:departmentDetails,
@@ -69,7 +71,7 @@ export default {
   },
   view:(vnode) => m('',[
     m('.level',[
-      m('.level-left', m('.title','Affiliations')),
+      m('.level-left', m('h1.title','Affiliations')),
       m('.level-right',m('button.button.is-primary.add-button',
         {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add);} }, 'Add')),
     ]),
@@ -77,6 +79,7 @@ export default {
     m(deleteModal, vnode.state.delete),
     //g.affiliations.map((v) => m('', JSON.stringify(v))),
     g.affiliations.map((v) => m(card, {
+      id: v.id,
       name: v.name,
       affiliation: v,
       details:affiliationDetails,

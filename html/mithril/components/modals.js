@@ -145,7 +145,7 @@ export var attachCourseToGroupModal = {
   oninit:(vnode) => {
     if (g.affiliations.length === 0) getAffiliations();
     vnode.state = vnode.attrs;
-    console.log(vnode.state);
+    // console.log(vnode.state);
     vnode.state.data = {group_id: vnode.state.group_id};
     vnode.state.data.newAffil = {modal:false};
     vnode.state.type = 'course to group';

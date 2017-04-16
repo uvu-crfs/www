@@ -8,7 +8,7 @@ export default {
   },
   view: function(vnode){ return m('',[
     m('a[href="phpinfo.php"]', 'PHP info'),
-    m('.title', "Developer Tools"),
+    m('h1.title', "Developer Tools"),
     m('',[
       m('.subtitle', 'Notifications'),
       m('form',[

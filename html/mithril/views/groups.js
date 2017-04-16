@@ -67,7 +67,7 @@ export default {
   },
   view:(vnode) => m('',[
     m('.level',[
-      m('.level-left', m('.title','Groups')),
+      m('.level-left', m('h1.title','Groups')),
       m('.level-right', m('button.button.is-primary.add-button',
         {onclick:_ => vnode.state.add.modal = true}, 'Add')),
     ]),

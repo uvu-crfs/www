@@ -30,7 +30,7 @@ export default {
   },
   view: function(vnode) {
       return m("", [
-          m(".title", {class: "title"}, "Reports"),
+          m("h1.title", {class: "title"}, "Reports"),
           m('',[
             m('span', 'Start:'),
             m(pikaday,{ htmlId:'reportStart',
@@ -44,11 +44,11 @@ export default {
             }),
           ]),
 
-          m(".title.is-3", "Affiliations"),
+          m("h2.title.is-4", "Affiliations"),
           m("#chart_affiliations", ""),
-          m(".title.is-3", "Departments"),
+          m("h2.title.is-4", "Departments"),
           m("#chart_departments", ""),
-          m(".title.is-3", "Courses"),
+          m("h2.title.is-4", "Courses"),
           m("#chart_courses", ""),
       ]);
   }

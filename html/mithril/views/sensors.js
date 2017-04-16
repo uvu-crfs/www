@@ -54,7 +54,7 @@ export default {
    },
   view: function(vnode){ return m('',[
     m('.level',[
-      m('.level-left', m('.title','Sensors')),
+      m('.level-left', m('h1.title','Sensors')),
       m('.level-right',m('button.button.is-primary.add-button',
         {onclick:function(){ vnode.state.add.modal = true; }} ,'Add')),
     ]),

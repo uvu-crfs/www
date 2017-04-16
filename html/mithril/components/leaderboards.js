@@ -37,6 +37,7 @@ var leaderboard = {
   generateChart:(vnode) => {
     vnode.state.chart = c3.generate({
       bindto: `#leaderboard${vnode.attrs.id}`,
+      tooltip: { format: {value:(value, ratio, id) => `${value} ${vnode.attrs.unit} per day` } },
       data: {
         x : 'x',
         columns: vnode.state.columns,
@@ -45,7 +46,7 @@ var leaderboard = {
       },
       color: { pattern: g.uvuColors.sort(_ => 0.5 - Math.random()) },
       legend: { hide: true },
-      axis: { x: { type: 'category' },  y: { label: vnode.attrs.unit }, },
+      axis: { x: { type: 'category' },  y: { label: `${vnode.attrs.unit} \\ day` }, },
       title: { text: `${vnode.attrs.name}` },
       bar: { width: { ratio: 0.5 } }
     });
@@ -77,7 +78,7 @@ export default {
     };
   },
   view:(vnode) => m('',[
-    m('.title', `Leaderboard${vnode.state.leaderboards.length>1?'s':''}`),
+    m('h2.title.is-4', `Leaderboard${vnode.state.leaderboards.length>1?'s':''}`),
     m('',[
       m('span', 'Start:'),
       m(pikaday,{ htmlId:'leaderboardStart',
