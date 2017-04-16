@@ -24,6 +24,7 @@ let departmentDetails = {
     m(deleteModal, vnode.state.delete),
     //vnode.attrs.department.courses.map((v) => JSON.stringify(v)),
     vnode.attrs.department.courses.map((v) => m(card, {
+      id: v.id,
       name: v.name,
       details:'', //TODO if there are course details ever add them here
       delete:vnode.state.delete,
@@ -53,6 +54,7 @@ let affiliationDetails = {
     m(deleteModal, vnode.state.delete),
     //vnode.attrs.affiliation.departments.map((v) => JSON.stringify(v)),
     vnode.attrs.affiliation.departments.map((v) => m(card, {
+      id: v.id,
       name: v.name,
       department: v,
       details:departmentDetails,
@@ -77,6 +79,7 @@ export default {
     m(deleteModal, vnode.state.delete),
     //g.affiliations.map((v) => m('', JSON.stringify(v))),
     g.affiliations.map((v) => m(card, {
+      id: v.id,
       name: v.name,
       affiliation: v,
       details:affiliationDetails,

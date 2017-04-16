@@ -69,7 +69,7 @@ export var card = {
 export var getSensors = function(){
   return m.request({url: '/api/admin/sensor/types.php'})
   .then(
-    function(r){ g.sensors = r; },
+    function(r){ g.sensors = r.reverse(); },
     window.requestError
   );
 };
@@ -108,7 +108,7 @@ export var addSensorData = function(data){
 export var getGroups = function(){
   return m.request({url: '/api/admin/groups.php'})
   .then(
-    function(r){ g.groups = r; createGroupsLookup(r); },
+    function(r){ g.groups = r.reverse(); createGroupsLookup(r); },
     window.requestError
   );
 };
@@ -145,7 +145,7 @@ export var getVisit = function(){
 export var getVisits = function(){
   return m.request({url: '/api/admin/visits.php'})
   .then(
-    function(r){ g.visits = r; },
+    function(r){ g.visits = r.reverse(); },
     window.requestError
   );
 };
@@ -179,7 +179,7 @@ let createAffiliationLookup = (affiliations) => {
 export var getAffiliations = function(vnode){
   return m.request({url: '/api/admin/affiliations.php'})
   .then(
-    (r) => { g.affiliations = r; createAffiliationLookup(r); },
+    (r) => { g.affiliations = r.reverse(); createAffiliationLookup(r); },
     window.requestError
   );
 };
@@ -229,7 +229,7 @@ export var deleteCourse = function(vnode){
 };
 
 export var addCourse = function(vnode){
-  console.log(vnode.state);
+  //console.log(vnode.state);
   return m.request({url: '/api/admin/course.php', method:'POST', data:vnode.state.data})
   .then(
     (r) => {  getCourses(vnode.state.data.department); console.log('Added course, TODO: Refresh something eventually', r);},
@@ -240,7 +240,7 @@ export var addCourse = function(vnode){
 export var getCourses = function(department){
   return m.request({url: `/api/open/courses_by_department.php?department_id=${department.id}`})
   .then(
-    (r) => { department.courses = r; console.log(department); },
+    (r) => { department.courses = r.reverse(); },
     window.requestError
   );
 };
