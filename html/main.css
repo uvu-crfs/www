@@ -16,34 +16,40 @@ Styles - http://www.uvu.edu/marketing/docs/branding_guides/uvu_web_style_guide_l
   --button-remove-hover: #823B34;
 }
 
-.nav { background-color: var(--uvu-green); }
+.nav { background-color: #275D38; background-color: var(--uvu-green); }
 
 .nav-item, .nav-item a, a.nav-item{
   color:white;
 }
 
 
-a { color: var(--link); }
+a { color: #4BA23F; color: var(--link); }
 a:hover, a.nav-item:hover, .nav-item a:hover
-{ color: var(--link-hover); }
+{ color: #A1D263; color: var(--link-hover); }
 a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
+  color: #78BE20;
   color: var(--link-active);
+  border-bottom-color: #78BE20;
   border-bottom-color: var(--link-active);
 }
 
 .button.is-danger, .button.is-danger:active {
+  background-color: #B5534A;
   background-color: var(--button-remove);
 }
 
 .button.is-danger:hover {
+  background-color: #823B34;
   background-color: var(--button-remove-hover);
 }
 
 .button.is-primary, .button.is-primary:active {
+  background-color: #0095C8;
   background-color: var(--button-add);
 }
 
 .button.is-primary:hover {
+  background-color: #0379A2;
   background-color: var(--button-add-hover);
 }
 
@@ -69,7 +75,54 @@ a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
   z-index: 3;
   width:60px;
   height:60px;
+  border: 1px solid #275D38;
   border: 1px solid var(--uvu-green);
 }
 
 #logo:hover { width: 100px; height: 100px; }
+
+#content {
+  /*Hight - header - footer*/
+  min-height: calc(100vh - 60px - 90px);
+  padding: 10px;
+}
+
+#footer{
+  text-align: center;
+  width: 100%;
+  background-color: #275D38;
+  background-color: var(--uvu-green);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: bold;
+  padding: 25px 0;
+  margin-top: 10px;
+}
+
+#footer a { color: white; }
+#footer .addressText{ padding: 0 10px;}
+#footer h4 {padding: 10px 0 0 0 ;
+  font-family: stratum-1-web, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  height: auto;
+  letter-spacing: 3px;
+  line-height: 15px;
+}
+
+@media only screen and (min-width: 850px) {
+  #footer #ob { position: relative; }
+  #footer #ob a{
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    background: url(/vendor/hpob.png) no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 16px;
+    text-decoration: none;
+    width: 51px;
+  }
+}

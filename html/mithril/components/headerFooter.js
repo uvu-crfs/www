@@ -86,14 +86,30 @@ let desktopView = {
   ])
 };
 
+var footer = {
+  view:_=> m('#footer',[
+    m('#footerSchool', m('.footerAddress', m('.footinfowrap',[
+      m('a[title="Utah Valley University"][href="http://maps.google.com/?ll=40.278969,-111.717825&amp;spn=0.019579,0.033388&amp;t=m&amp;z=15"]', m('span.addressText', '800 West University Parkway, Orem, UT 84058')),
+      m('span', '|'),
+      m('span.addressText','(801) 863-INFO (4636)'),
+      m('span', '|'),
+      m('a[href="http://www.uvu.edu/copyright/"]', m('span.addressText', `Copyright © ${new Date().getFullYear()}`)),
+      m('span', '|'),
+      m('a[href="http://www.uvu.edu/legal/"]', m('span.addressText.disclaimer', 'Disclaimers & Legal')),
+      m('h4', 'UTAH VALLEY UNIVERSITY')
+    ]))),
+    m('#ob', m('a[href="http://a.cms.omniupdate.com/10?skin=uvu&amp;account=UVU-WWW&amp;site=UVU_Public_Site&amp;action=de&amp;path=/index.pcf"]'))
+  ])
+};
+
 export default function headerFooter(content){
   return {
     view: function(vnode) {
       return m('',  [
         m(header),
-        m('',{style:'padding:1vh 1vw;'}, m(content, vnode.state)),
+        m('#content', m(content, vnode.state)),
         m(developerOptions),
-        m('[id="footer"]', ''),
+        m(footer),
         (g.notifications.length > 0) ? m('.message',
         {style:'position: absolute; top: 50px; right: 10px; z-index: 2;'} ,[
           m('.message-header',[
