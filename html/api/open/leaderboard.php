@@ -44,10 +44,9 @@ $query = '
     INNER JOIN visits ON visits.id=tmp1.visit_id
     WHERE start_date >= ? AND end_date <= ?
     AND end_date < ?
-    LIMIT ?
   ) AS tmp2
   INNER JOIN groups ON groups.id=tmp2.group_id
-  ORDER BY per_day
+  ORDER BY per_day LIMIT ?
 ';
 
 try {
