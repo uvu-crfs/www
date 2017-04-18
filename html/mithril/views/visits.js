@@ -28,7 +28,7 @@ let addVisitModalBody = (vnode) => [
       return newObj;
     })
   }),
-  //m('button', {disabled:true}, 'Add') //TODO this should add a group
+  // m('button', {disabled:true}, 'Add Group'), //TODO this should add a group,
   m('.label', 'Start Date'),
   m(pikaday, {timestamp:vnode.state.data.start_date, htmlId: "startDate"}),
   // m('input[type="date"]', {oninput:(e) => {vnode.state.data.start_date = htmlDateToUnix(e.target.value); console.log(vnode.state.data); }}, ''),
@@ -212,7 +212,7 @@ export default {
   view:(vnode) => m('',[
     m('.level',[
       m('.level-left', m('h1.title','Visits')),
-      m('.level-right',m('button.button.is-primary.add-button', {onclick:function(){ vnode.state.add.modal = true;}} ,'Add')),
+      m('.level-right',m('button.button.is-primary.add-button', {onclick:function(){ vnode.state.add.modal = true;}} ,'Add Visit')),
     ]),
     m(addVisitModal, vnode.state.add),
     m(editVisitModal, vnode.state.edit),

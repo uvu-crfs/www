@@ -73,7 +73,7 @@ export default {
     m('.level',[
       m('.level-left', m('h1.title','Affiliations')),
       m('.level-right',m('button.button.is-primary.add-button',
-        {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add);} }, 'Add')),
+        {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add);} }, 'Add Affiliation')),
     ]),
     m(addAffiliationModal, vnode.state.add),
     m(deleteModal, vnode.state.delete),

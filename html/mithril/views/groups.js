@@ -83,7 +83,7 @@ export default {
     m('.level',[
       m('.level-left', m('h1.title','Groups')),
       m('.level-right', m('button.button.is-primary.add-button',
-        {onclick:_ => vnode.state.add.modal = true}, 'Add')),
+        {onclick:_ => vnode.state.add.modal = true}, 'Add Group')),
     ]),
     m(addModal, vnode.state.add),
     m(deleteModal, vnode.state.delete),
