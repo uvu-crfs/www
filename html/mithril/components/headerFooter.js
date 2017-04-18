@@ -111,7 +111,7 @@ export default function headerFooter(content){
         m(developerOptions),
         m(footer),
         (g.notifications.length > 0) ? m('.message',
-        {style:'position: absolute; top: 50px; right: 10px; z-index: 2;'} ,[
+          {style:'position: absolute; top: 50px; right: 10px;'} ,[
           m('.message-header',[
             m('p',''),
             m('.delete',{onclick:function(){g.notifications = []; }},''),

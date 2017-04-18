@@ -55,7 +55,17 @@ a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
 
 .add-button {
   position: fixed;
-  z-index: 1000000;
+  z-index: 49;
+}
+.modal-background {
+  position: fixed;
+  z-index: 50;
+}
+.modal-card {
+  z-index: 60;
+}
+.message {
+  z-index: 70;
 }
 
 .level .department {
