@@ -22,8 +22,7 @@ export default {
       ])
       : null,
       m(leaderboards),
-      m("a[href='http://www.uvu.edu/crfs/']",
-        'Capitol Reef Field Station Home'),
+      // m("a[href='http://www.uvu.edu/crfs/']", 'Capitol Reef Field Station Home'),
     ]);
   }
 };

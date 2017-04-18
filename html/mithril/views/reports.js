@@ -33,12 +33,12 @@ export default {
           m("h1.title", {class: "title"}, "Reports"),
           m('',[
             m('span', 'Start:'),
-            m(pikaday,{ htmlId:'reportStart',
+            m(pikaday,{ htmlId:'reportStart', obj:{}, key:'start_date',
               createFunc: _ => localStorage.getItem('reportStart'),
               changeFunc: (date) => {localStorage.setItem('reportStart', date); vnode.state.update();}
             }),
             m('span', 'End: '),
-            m(pikaday,{ htmlId:'reportEnd',
+            m(pikaday,{ htmlId:'reportEnd', obj:{}, key:'end_date',
               createFunc: _ => localStorage.getItem('reportEnd'),
               changeFunc: (date) => {localStorage.setItem('reportEnd', date); vnode.state.update(); }
             }),

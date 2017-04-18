@@ -81,12 +81,12 @@ export default {
     m('h2.title.is-4', `Leaderboard${vnode.state.leaderboards.length>1?'s':''}`),
     m('',[
       m('span', 'Start:'),
-      m(pikaday,{ htmlId:'leaderboardStart',
+      m(pikaday,{ htmlId:'leaderboardStart', obj:{}, key:'start_date',
         createFunc: _ => localStorage.getItem('leaderboardStart'),
         changeFunc: (date) => {localStorage.setItem('leaderboardStart', date); vnode.state.updateGraphs();}
       }),
       m('span', 'End:'),
-      m(pikaday,{ htmlId:'leaderboardEnd',
+      m(pikaday,{ htmlId:'leaderboardEnd', obj:{}, key:'end_date',
         createFunc: _ => localStorage.getItem('leaderboardEnd'),
         changeFunc: (date) => {localStorage.setItem('leaderboardEnd', date); vnode.state.updateGraphs();}
       }),
