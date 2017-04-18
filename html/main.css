@@ -62,6 +62,9 @@ a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
   z-index: 50;
 }
 .modal-card {
+  position:absolute;
+  left:0;
+  right:0;
   z-index: 60;
 }
 .message {
