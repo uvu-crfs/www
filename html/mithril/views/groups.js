@@ -6,32 +6,29 @@ let groupDetails = {
   oninit:(vnode) => {
     vnode.state.group = vnode.attrs;
     vnode.state.attachCourseModal = {group_id:vnode.state.group.id};
-    if(!vnode.state.group.courses) getAttachedCourses(vnode.state.group.id);
-    if(!vnode.state.group.departments) getAttachedDepartments(vnode.state.group.id);
-    if(!vnode.state.group.affiliations) getAttachedAffiliations(vnode.state.group.id);
+  },
+  onredraw:(vnode) => {
   },
   view:(vnode) => vnode.attrs.detailsOpen ? m('',[
     m(attachCourseToGroupModal, vnode.state.attachCourseModal),
     m('',[
       m('button.button.is-small', {onclick:_=> vnode.state.attachCourseModal.modal = true },'Attach affiliation/department/course'),
       m('',[
-        (vnode.state.group.affiliations && vnode.state.group.affiliations.length > 0) ? m('',[
+        (g.groupLookup[vnode.state.group.id].affiliations &&
+          g.groupLookup[vnode.state.group.id].affiliations.length > 0) ? m('',[
           m('span','Affiliations:'),
-          vnode.state.group.affiliations.map((v) => m('span.tag', v.affiliation_name,
-
-          //Delete Affiliation
-          m('button.delete.is-small', {onclick:_ => {
-              m.request({method:'DELETE', url:'api/admin/lookup_group_affiliation.php',
-                data:{'group_id':v.group_id, 'affiliation_id':v.affiliation_id}})
-              .then( _ => getAttachedAffiliations(v.group_id), window.requestError );
-          }})
+          g.groupLookup[vnode.state.group.id].affiliations.map((v) => m('span.tag', v.affiliation_name,
+            m('button.delete.is-small', {onclick:_ => {
+                m.request({method:'DELETE', url:'api/admin/lookup_group_affiliation.php',
+                  data:{'group_id':v.group_id, 'affiliation_id':v.affiliation_id}})
+                .then( _ => getAttachedAffiliations(v.group_id), window.requestError );
+            }})
           ))
         ]):null,
-        (vnode.state.group.departments && vnode.state.group.departments.length > 0) ? m('',[
+        (g.groupLookup[vnode.state.group.id].departments &&
+          g.groupLookup[vnode.state.group.id].departments.length > 0) ? m('',[
           m('span','Departments:'),
-          vnode.state.group.departments.map((v) => m('span.tag', v.concat,
-
-          //Delete Department
+          g.groupLookup[vnode.state.group.id].departments.map((v) => m('span.tag', v.concat,
             m('button.delete.is-small', {onclick:_ => {
                 m.request({method:'DELETE', url:'api/admin/lookup_group_department.php',
                   data:{'group_id':v.group_id, 'department_id':v.department_id}})
@@ -39,11 +36,10 @@ let groupDetails = {
             }})
           ))
         ]):null,
-        (vnode.state.group.courses && vnode.state.group.courses.length > 0) ? m('',[
+        (g.groupLookup[vnode.state.group.id].courses &&
+          g.groupLookup[vnode.state.group.id].courses.length > 0) ? m('',[
           m('span','Courses:'),
-          vnode.state.group.courses.map((v) => m('span.tag', v.concat,
-
-          //Delete Course
+          g.groupLookup[vnode.state.group.id].courses.map((v) => m('span.tag', v.concat,
             m('button.delete.is-small', {onclick:_ => {
                 m.request({method:'DELETE', url:'api/admin/lookup_group_course.php',
                   data:{'group_id':v.group_id, 'course_id':v.course_id}})
@@ -76,6 +72,11 @@ export default {
     if (g.groups.length === 0) getGroups();
     vnode.state.openDetails = (group) => {
       group.detailsOpen = !group.detailsOpen;
+      if (g.groupLookup[group.id]){
+        if(!g.groupLookup[group.id].courses) getAttachedCourses(group.id);
+        if(!g.groupLookup[group.id].departments) getAttachedDepartments(group.id);
+        if(!g.groupLookup[group.id].affiliations) getAttachedAffiliations(group.id);
+      }
     };
   },
   view:(vnode) => m('',[
