@@ -27,10 +27,7 @@ export var deleteModal = {
 };
 
 export var addModal = {
-  oninit:(vnode) => {
-    vnode.state.close = _ => vnode.attrs.modal = false;
-    vnode.state.data = vnode.attrs.data || {};
-  },
+  oninit:(vnode) => vnode.state.close = _ => vnode.attrs.modal = false,
   view:(vnode) => vnode.attrs.modal ? m('modal.is-active', {
     onkeyup:(e) => { if (e.keyCode === 27 /*esc*/)  vnode.state.close(); }
   },[
@@ -44,7 +41,8 @@ export var addModal = {
         m('p.modal-card-title', `Add ${vnode.attrs.type}`),
         m('.delete', {onclick:vnode.state.close }, ''),
       ]),
-      m('section.modal-card-body', vnode.attrs.body(vnode)),
+      vnode.children.length === 0 ? m('section.modal-card-body', vnode.attrs.body(vnode)) : null,
+      vnode.children.length !== 0 ? m('section.modal-card-body', vnode.children) : null,
       m('footer.modal-card-foot',[
         m('input.button.is-primary[type=submit][value="Add"]'),
         m('a.button',  {onclick:vnode.state.close }, 'Cancel')
@@ -168,47 +166,43 @@ export var attachCourseToGroupModal = {
   oninit:(vnode) => {
     if (g.affiliations.length === 0) getAffiliations();
     vnode.state = vnode.attrs;
-    // console.log(vnode.state);
     vnode.state.data = {group_id: vnode.state.group_id};
     vnode.state.data.newAffil = {modal:false};
     vnode.state.type = 'course to group';
-    //vnode.state.func = attachCourseToGroup;
-    vnode.state.body = (vnode) => [
-      m('.label', 'Affiliation'),
-      m('select', {onchange:(e) => {
-        vnode.state.data.affiliation = g.affiliations[e.target.value];
-        console.log(vnode.state.data.affiliation);
-        vnode.state.data.affiliation_id = vnode.state.data.affiliation.id;
-        vnode.attrs.func = attachAffiliationToGroup;
-        getDepartments(vnode.state.data.affiliation.id);
-      }},
-        blankFirstOption(g.affiliations.map((v,i) => m('option', {value:i} ,v.name)))
-      ),
-      m('button.button.is-small', {onclick:() => vnode.state.data.newAffil.modal = true },"New"),
-      m(addAffiliationModal, vnode.state.data.newAffil),
-      (vnode.state.data.affiliation && vnode.state.data.affiliation.departments) ? m('', [
-        m('.label', 'Department'),
-        m('select', {onchange:(e) => {
-            vnode.state.department = vnode.state.data.affiliation.departments[e.target.value];
-            vnode.state.data.department_id = vnode.state.department.id;
-            vnode.attrs.func = attachDepartmentToGroup;
-            getCourses(vnode.state.department);
-        }},
-          blankFirstOption(vnode.state.data.affiliation.departments.map((v, i) => m('option', {value:i}, v.name)))
-        ),
-        (vnode.state.department && vnode.state.department.courses) ? m('', [
-          m('.label', 'Course'),
-          m('select', {onchange:(e) => {
-              vnode.state.course = vnode.state.department.courses[e.target.value];
-              console.log(vnode.state.course);
-              vnode.state.data.course_id = vnode.state.course.id;
-              vnode.attrs.func = attachCourseToGroup;
-          }},
-            blankFirstOption(vnode.state.department.courses.map((v, i) => m('option', {value:i}, v.name)))
-          ),
-        ]) : null,
-      ]) : null,
-    ];
   },
-  view:(vnode) => m(addModal, vnode.state),
+  view:(vnode) => m(addModal, vnode.state, [
+    m('.label', 'Affiliation'),
+    m('select', {onchange:(e) => {
+      vnode.state.data.affiliation = g.affiliations[e.target.value];
+      vnode.state.data.affiliation_id = vnode.state.data.affiliation.id;
+      vnode.attrs.func = attachAffiliationToGroup;
+      getDepartments(vnode.state.data.affiliation.id);
+    }},
+      blankFirstOption(g.affiliations.map((v,i) => m('option', {value:i} ,v.name)))
+    ),
+    m('button.button.is-small', {onclick:() => vnode.state.data.newAffil.modal = true },"New"),
+    m(addAffiliationModal, vnode.state.data.newAffil),
+    (vnode.state.data.affiliation && vnode.state.data.affiliation.departments) ? m('', [
+      m('.label', 'Department'),
+      m('select', {onchange:(e) => {
+          vnode.state.department = vnode.state.data.affiliation.departments[e.target.value];
+          vnode.state.data.department_id = vnode.state.department.id;
+          vnode.attrs.func = attachDepartmentToGroup;
+          getCourses(vnode.state.department);
+      }},
+        blankFirstOption(vnode.state.data.affiliation.departments.map((v, i) => m('option', {value:i}, v.name)))
+      ),
+      (vnode.state.department && vnode.state.department.courses) ? m('', [
+        m('.label', 'Course'),
+        m('select', {onchange:(e) => {
+            vnode.state.course = vnode.state.department.courses[e.target.value];
+            // console.log(vnode.state.course);
+            vnode.state.data.course_id = vnode.state.course.id;
+            vnode.attrs.func = attachCourseToGroup;
+        }},
+          blankFirstOption(vnode.state.department.courses.map((v, i) => m('option', {value:i}, v.name)))
+        ),
+      ]) : null,
+    ]) : null,
+  ]),
 };

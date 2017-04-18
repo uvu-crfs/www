@@ -278,28 +278,25 @@ export var getCourses = function(department){
 };
 
 export var attachCourseToGroup = function(vnode){
-  // console.log(vnode);
-  return m.request({url: '/api/admin/lookup_group_course.php', method:'POST', data:vnode.state.data})
+  return m.request({url: '/api/admin/lookup_group_course.php', method:'POST', data:vnode.attrs.data})
   .then(
-    (r) => {getAttachedCourses(vnode.state.data.group_id); console.log('Attched course to group, TODO: Refresh something eventually', r);},
+    (r) => {getAttachedCourses(vnode.attrs.data.group_id); console.log('Attched course to group', r);},
     window.requestError )
   .then( _ => vnode.state.close() );
 };
 
 export var attachAffiliationToGroup = function(vnode){
-  // console.log(vnode);
-  return m.request({url: '/api/admin/lookup_group_affiliation.php', method:'POST', data:vnode.state.data})
+  return m.request({url: '/api/admin/lookup_group_affiliation.php', method:'POST', data:vnode.attrs.data})
   .then(
-    (r) => {getAttachedAffiliations(vnode.state.data.group_id); console.log('Attched affiliation to group, TODO: Refresh something eventually', r);},
+    (r) => {getAttachedAffiliations(vnode.attrs.data.group_id); console.log('Attched affiliation to group', r);},
     window.requestError )
   .then( _ => vnode.state.close() );
 };
 
 export var attachDepartmentToGroup = function(vnode){
-  // console.log(vnode);
-  return m.request({url: '/api/admin/lookup_group_department.php', method:'POST', data:vnode.state.data})
+  return m.request({url: '/api/admin/lookup_group_department.php', method:'POST', data:vnode.attrs.data})
   .then(
-    (r) => {getAttachedDepartments(vnode.state.data.group_id); console.log('Attched department to group, TODO: Refresh something eventually', r);},
+    (r) => {getAttachedDepartments(vnode.attrs.data.group_id); console.log('Attched department to group', r);},
     window.requestError )
   .then( _ => vnode.state.close() );
 };
