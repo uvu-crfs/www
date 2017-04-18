@@ -194,9 +194,17 @@ export var editVisit = function(vnode){
     .then( (r) => getVisits(), window.requestError )
     .then( _ => vnode.state.close() );
 };
+
+export var deleteVisit = function(vnode){
+  return m.request({ method: 'DELETE', url: '/api/admin/visit.php', data: {id:vnode.attrs.id} })
+  .then(
+    function(r){ getVisits(); addNotification("Deleted visit " + vnode.attrs.name); },
+    window.requestError
+  )
+  .then( _ => vnode.state.close() );
+};
+
 //***** VISIT Fcts *****
-
-
 
 export var addAffiliation = function(vnode){
   return m.request({url: '/api/admin/affiliation.php', method:'POST', data:vnode.attrs.data})

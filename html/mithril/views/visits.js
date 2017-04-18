@@ -1,20 +1,8 @@
-import {getGroups, getVisit, getVisits, editVisit, htmlDateToUnix, addVisit, unixToDate, blankFirstOption, getTimeStamp} from '/mithril/utils.js';
+import {getGroups, getVisit, getVisits, editVisit, htmlDateToUnix, addVisit,
+    unixToDate, blankFirstOption, getTimeStamp, deleteVisit} from '/mithril/utils.js';
 import {addVisitModal, editVisitModal, deleteModal} from '/mithril/components/modals.js';
 import {s2Component} from '/mithril/components/s2Component.js';
 import {pikaday} from '/mithril/components/pikaday.js';
-// let deleteData = {modal:false, type:'visit', func: deleteVisit};
-
-// var makeAutoComplete = function(element, isInitialized) {
-//   let groupNames = g.groups.map((v) => v.name);
-//   console.log(groupNames);
-//   if (!isInitialized) {
-//     $(element).autocomplete({
-//       source: groupNames
-//     });
-//   }
-// };
-
-//let groupNames = g.groups.map((v) => {id: v.id}, {name: v.name});
 
 let addVisitModalBody = (vnode) => [
   m('.label', 'Group'),
@@ -87,10 +75,6 @@ let editVisitModalBody = (vnode) => [
   }),
   m('.label', 'Start Date'),
   m(pikaday, {timestamp:vnode.attrs.data.start_date, htmlId: "startDate"}),
-  // m('input[type="date"]', {
-  //   date: vnode.attrs.data.start_date,
-  //   oninput:(e) => vnode.state.data.start_date = htmlDateToUnix(e.target.value)
-  //   }, ''),
   m('.label', 'End Date'),
   m(pikaday, {timestamp:vnode.attrs.data.end_date, htmlId: "endDate"}),
   m('.label', 'Days'),
@@ -154,15 +138,8 @@ let editVisitModalBody = (vnode) => [
   }, ''),
 ];
 
-// let addVisitModalBody = (vnode) => [
-//   m('.label', 'Group'),
-//   m('select', {onchange:(e) => vnode.state.data.group_id = e.target.value},
-//     g.groups.map( (v) => m('option', {value:v.id}, v.name) )
-//   ),
-//   m('button', {disabled:true}, 'Add')
-// ];
-
 let visitCard = {
+  delete: {modal:false, type:'visit', func: deleteVisit},
   oninit:(vnode) => {
     vnode.state.open = false;
     vnode.state.values = [];
@@ -183,9 +160,9 @@ let visitCard = {
     g.groupLookup[vnode.attrs.visit.group_id] ? m('span', {style:"font-weight:bold;"}, g.groupLookup[vnode.attrs.visit.group_id].name) : null,
     vnode.state.open ? m('button.button.is-danger.is-small.is-pulled-right',
       {onclick:_ => {
-        deleteData.modal = true;
-        deleteData.id = vnode.attrs.visit.id;
-        deleteData.name = `${vnode.attrs.visit.name}`;
+        vnode.state.delete.modal = true;
+        vnode.state.delete.id = vnode.attrs.visit.id;
+        vnode.state.delete.name = g.groupLookup[vnode.attrs.visit.group_id].name;
       }}, 'Delete') : null,
     vnode.state.open ? m('button.button.is-primary.is-small.is-pulled-right',
       {onclick:_ => {
@@ -195,12 +172,10 @@ let visitCard = {
       }}, 'Edit') : null,
     vnode.state.open ? m('',[
       m('p',`Contact ${vnode.attrs.visit.contact}`),
-      //TODO show survey completion
-      //m('', JSON.stringify(vnode.attrs)),
     ]) : null,
+    vnode.state.delete.modal ? m(deleteModal, vnode.state.delete) : null
   ])
 };
-
 
 export default {
   oninit:(vnode) => {
