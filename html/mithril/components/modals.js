@@ -57,12 +57,11 @@ export var addAffiliationModal = {
     vnode.state.data = {};
     vnode.state.type = 'affiliation';
     vnode.state.func = addAffiliation;
-    vnode.state.body = (vnode) => [
-      m('.label', 'Name'),
-      m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
-    ];
   },
-  view:(vnode) => m(addModal, vnode.state),
+  view:(vnode) => m(addModal, vnode.state, [
+    m('.label', 'Name'),
+    m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
+  ]),
 };
 
 export var addDepartmentModal = {
@@ -71,12 +70,11 @@ export var addDepartmentModal = {
     vnode.state.data = vnode.attrs.data || {};
     vnode.state.type = 'department';
     vnode.state.func = addDepartment;
-    vnode.state.body = (vnode) => [
-      m('.label', 'Name'),
-      m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
-    ];
   },
-  view:(vnode) => m(addModal, vnode.state),
+  view:(vnode) => m(addModal, vnode.state, [
+    m('.label', 'Name'),
+    m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
+  ]),
 };
 
 export var addCourseModal = {
@@ -85,12 +83,11 @@ export var addCourseModal = {
     vnode.state.data = vnode.attrs.data || {};
     vnode.state.type = 'course';
     vnode.state.func = addCourse;
-    vnode.state.body = (vnode) => [
-      m('.label', 'Name'),
-      m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
-    ];
   },
-  view:(vnode) => m(addModal, vnode.state),
+  view:(vnode) => m(addModal, vnode.state, [
+    m('.label', 'Name'),
+    m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
+  ]),
 };
 
 export var addVisitModal = {
@@ -99,7 +96,6 @@ export var addVisitModal = {
       vnode.attrs.modal = false;
       vnode.state.data = {};
     };
-    // vnode.state.data = vnode.attrs.data || {};
     vnode.state.data = {};
   },
   view:(vnode) => vnode.attrs.modal ? m('.modal.is-active', [
@@ -166,7 +162,7 @@ export var attachCourseToGroupModal = {
   oninit:(vnode) => {
     if (g.affiliations.length === 0) getAffiliations();
     vnode.state = vnode.attrs;
-    vnode.state.data = {group_id: vnode.state.group_id};
+    vnode.state.data = {group_id: vnode.attrs.group_id};
     vnode.state.data.newAffil = {modal:false};
     vnode.state.type = 'course to group';
   },
@@ -196,7 +192,6 @@ export var attachCourseToGroupModal = {
         m('.label', 'Course'),
         m('select', {onchange:(e) => {
             vnode.state.course = vnode.state.department.courses[e.target.value];
-            // console.log(vnode.state.course);
             vnode.state.data.course_id = vnode.state.course.id;
             vnode.attrs.func = attachCourseToGroup;
         }},

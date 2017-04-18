@@ -52,11 +52,6 @@ let groupDetails = {
   ]) : null,
 };
 
-let addGroupModalBody = (vnode) => [
-  m('.label', 'Name'),
-  m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
-];
-
 let editGroupModalBody = (vnode) => [
   m('.label', 'Name'),
   m('input.input', {
@@ -66,7 +61,7 @@ let editGroupModalBody = (vnode) => [
 
 export default {
   oninit: (vnode) => {
-    vnode.state.add = {modal:false, type: 'group', func: addGroup, body: addGroupModalBody };
+    vnode.state.add = {modal:false, type: 'group', func: addGroup, data:{}};
     vnode.state.delete = {modal:false, type: 'group', func: deleteGroup};
     vnode.state.edit = {modal:false, type: 'group', func: editGroup, body: editGroupModalBody};
     if (g.groups.length === 0) getGroups();
@@ -85,7 +80,10 @@ export default {
       m('.level-right', m('button.button.is-primary.add-button',
         {onclick:_ => vnode.state.add.modal = true}, 'Add Group')),
     ]),
-    m(addModal, vnode.state.add),
+    m(addModal, vnode.state.add, [
+      m('.label', 'Name'),
+      m('input.input', {onchange:(e) => vnode.state.add.data.name = e.target.value}, ''),
+    ]),
     m(deleteModal, vnode.state.delete),
     m(editGroupModal, vnode.state.edit),
     g.groups.map((g) => m('.card', {group:g, editModal:vnode.state.edit, style:'padding: 10px;'}, [

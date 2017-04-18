@@ -75,9 +75,10 @@ export var getSensors = function(){
 };
 
 export var addSensor = function(vnode){
-  return m.request({method: 'POST', url: '/api/admin/sensor/type.php', data:vnode.state.data })
+  console.log(vnode);
+  return m.request({method: 'POST', url: '/api/admin/sensor/type.php', data:vnode.attrs.data })
   .then(
-    (r) => { getSensors(); addNotification('New sensor "' + vnode.state.data.name + '" with units of "' + vnode.state.data.unit + '"'); },
+    (r) => { getSensors(); addNotification('New sensor "' + vnode.attrs.data.name + '" with units of "' + vnode.attrs.data.unit + '"'); },
     window.requestError
   )
   .then( _ => vnode.state.close() );
@@ -142,7 +143,7 @@ let createGroupsLookup = (groups) => {
 };
 
 export var addGroup = function(vnode){
-  return m.request({url: '/api/admin/group.php', method:'POST', data:vnode.state.data})
+  return m.request({url: '/api/admin/group.php', method:'POST', data:vnode.attrs.data})
   .then( (r) => getGroups(), window.requestError )
   .then( _ => vnode.state.close() );
 };
@@ -198,7 +199,7 @@ export var editVisit = function(vnode){
 
 
 export var addAffiliation = function(vnode){
-  return m.request({url: '/api/admin/affiliation.php', method:'POST', data:vnode.state.data})
+  return m.request({url: '/api/admin/affiliation.php', method:'POST', data:vnode.attrs.data})
   .then( (r) => getAffiliations(), window.requestError )
   .then( _ => vnode.state.close() );
 };
@@ -226,11 +227,8 @@ export var deleteAffiliation = function(vnode){
 };
 
 export var addDepartment = function(vnode){
-  // console.log(vnode.state);
-  return m.request({url: '/api/admin/department.php', method:'POST', data:vnode.state.data})
-  .then(
-    (r) => getDepartments(vnode.state.data.affiliation_id ),//console.log('Added department, TODO: Refresh something eventually', r),
-    window.requestError )
+  return m.request({url: '/api/admin/department.php', method:'POST', data:vnode.attrs.data})
+  .then( (r) => getDepartments(vnode.attrs.data.affiliation_id ), window.requestError )
   .then( _ => vnode.state.close() );
 };
 
@@ -261,12 +259,9 @@ export var deleteCourse = function(vnode){
 };
 
 export var addCourse = function(vnode){
-  //console.log(vnode.state);
-  return m.request({url: '/api/admin/course.php', method:'POST', data:vnode.state.data})
-  .then(
-    (r) => {  getCourses(vnode.state.data.department); console.log('Added course, TODO: Refresh something eventually', r);},
-    window.requestError
-  ).then( _ => vnode.state.close() );
+  return m.request({url: '/api/admin/course.php', method:'POST', data:vnode.attrs.data})
+  .then((r) =>  getCourses(vnode.attrs.data.department), window.requestError )
+  .then( _ => vnode.state.close() );
 };
 
 export var getCourses = function(department){

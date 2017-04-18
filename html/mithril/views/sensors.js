@@ -2,13 +2,6 @@ import {getSensors, getSensorData, addSensor, deleteSensor, deleteSensorData, un
 import {addModal, deleteModal} from '/mithril/components/modals.js';
 import addSensorData from '/mithril/components/addSensorData.js';
 
-let addSensorModalBody = (vnode) => [
-  m('.label', 'Name'),
-  m('input.input', {onchange:(e) => vnode.state.data.name = e.target.value}, ''),
-  m('.label', 'Units'),
-  m('input.input', {onchange:function(e){ vnode.state.data.unit = e.target.value; }}, ''),
-];
-
 let deleteData = {modal:false, type:'sensor', func: deleteSensor};
 
 let sensorLine = {
@@ -58,7 +51,7 @@ let sensorLine = {
 
 export default {
   oninit:function(vnode){
-    vnode.state.add = {modal:false, type: 'sensor', func:addSensor, body:addSensorModalBody };
+    vnode.state.add = {modal:false, type: 'sensor', func:addSensor, data:{}};
     vnode.state.delete = deleteData;
     if (g.sensors.length === 0) getSensors();
    },
@@ -68,7 +61,12 @@ export default {
       m('.level-right',m('button.button.is-primary.add-button',
         {onclick:function(){ vnode.state.add.modal = true; }} ,'Add Sensor')),
     ]),
-    m(addModal, vnode.state.add),
+    m(addModal, vnode.state.add, [
+      m('.label', 'Name'),
+      m('input.input', {onchange:(e) => vnode.state.add.data.name = e.target.value}, ''),
+      m('.label', 'Units'),
+      m('input.input', {onchange:function(e){ vnode.state.add.data.unit = e.target.value; }}, ''),
+    ]),
     m(deleteModal, vnode.state.delete),
     m('',g.sensors.map((v) => m(sensorLine, v) )),
   ]);}
