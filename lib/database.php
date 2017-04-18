@@ -181,7 +181,6 @@ function delete_sensor_table($id)
         bad_request("Must send a number under key 'id'");
     }
     $query = 'drop table sensor_'.$id;
-    echo 'Query '.$query."\n";
     $stmt = $GLOBALS['pdo']->prepare($query);
     $stmt->execute();
 }

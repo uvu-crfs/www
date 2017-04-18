@@ -26,7 +26,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $data = post_data();
     $sensor = $data['sensor'];
     if (!is_numeric($sensor)) {
-        echo '"sensor" is not numeric:'.$id;
+        echo '"sensor" is not numeric:'.$sensor;
 
         return http_response_code(400);
     }
@@ -45,9 +45,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function get_sensor_id()
 {
-    var_dump(post_data());
     $sensor = post_data()['sensor'];
-    echo 'sensor: '.$sensor."\n";
     if (!is_numeric($sensor)) {
         bad_request("Must send a number under key 'sensor'");
     }

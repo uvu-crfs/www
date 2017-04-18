@@ -29,7 +29,7 @@ export default {
         onclick:function(e){
           e.preventDefault();
           if(vnode.state.quantity > 0) addSensorData(vnode.state); },
-      }, 'Add')
+      }, 'Add Data')
     ]);
   }
 };

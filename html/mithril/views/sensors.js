@@ -1,4 +1,4 @@
-import {getSensors, addSensor, deleteSensor, unixToTime} from '/mithril/utils.js';
+import {getSensors, getSensorData, addSensor, deleteSensor, deleteSensorData, unixToTime} from '/mithril/utils.js';
 import {addModal, deleteModal} from '/mithril/components/modals.js';
 import addSensorData from '/mithril/components/addSensorData.js';
 
@@ -12,13 +12,12 @@ let addSensorModalBody = (vnode) => [
 let deleteData = {modal:false, type:'sensor', func: deleteSensor};
 
 let sensorLine = {
+  delete:{modal:false, type:'data', func: deleteSensorData},
   oninit:(vnode) => {
     vnode.state.open = false;
-    vnode.state.values = [];
     vnode.state.openDetails = _ => {
       vnode.state.open = !vnode.state.open;
-      m.request({url:`/api/admin/sensor/values.php?sensor=${vnode.attrs.id}`})
-      .then((r) => vnode.state.values = r, window.requestError);
+      if (!g.sensorData[vnode.attrs.id]) getSensorData(vnode.attrs.id);
     };
   },
   view:(vnode) => m('.card', {style:'padding: 10px;'}, [
@@ -36,13 +35,24 @@ let sensorLine = {
       }}, 'Delete') : null,
     vnode.state.open ? m('',[
       m(addSensorData,{sensor:vnode.attrs}),
-      vnode.state.values.map((v) => m('', [
+      g.sensorData[vnode.attrs.id] ? g.sensorData[vnode.attrs.id].map((v) => m('', [
+        m('button', {onclick:_ => {
+          vnode.state.delete.modal = true;
+          vnode.state.delete.id = v.id;
+          vnode.state.delete.name = `${v.quantity} ${vnode.attrs.unit}`;
+          if (g.visitLookup[v.visit_id] && g.groupLookup[g.visitLookup[v.visit_id].group_id])
+            vnode.state.delete.name = g.groupLookup[g.visitLookup[v.visit_id].group_id].name;
+            vnode.state.delete.type = `from the visit by ${vnode.state.delete.name}`;
+            vnode.state.delete.sensor_id = vnode.attrs.id;
+        }}, 'delete'),
         m('span' , unixToTime(v.timestamp) ),
         m('span' , ' - ' ),
         m('span', `${v.quantity} ${vnode.attrs.unit}`),
-
-      ]))
+        g.visitLookup[v.visit_id] && g.groupLookup[g.visitLookup[v.visit_id].group_id] ?
+          m('span', ` - ${g.groupLookup[g.visitLookup[v.visit_id].group_id].name}`) : null
+      ])) : null
     ]) : null,
+    m(deleteModal, vnode.state.delete),
   ])
 };
 
@@ -56,7 +66,7 @@ export default {
     m('.level',[
       m('.level-left', m('h1.title','Sensors')),
       m('.level-right',m('button.button.is-primary.add-button',
-        {onclick:function(){ vnode.state.add.modal = true; }} ,'Add')),
+        {onclick:function(){ vnode.state.add.modal = true; }} ,'Add Sensor')),
     ]),
     m(addModal, vnode.state.add),
     m(deleteModal, vnode.state.delete),

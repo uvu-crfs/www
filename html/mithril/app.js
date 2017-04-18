@@ -9,9 +9,11 @@ if (g.docker) {
 g.uvu.admin = g.uvu.entitlements.includes('services:crfs:admin');
 g.notifications = [];
 g.sensors = [];
+g.sensorData = {};
 g.groups = [];
 g.groupLookup = {};
 g.visits = [];
+g.visitLookup = {};
 g.affiliations = [];
 g.affiliationLookup = {};
 g.uvuColors = ['#00843D', '#4BA23F', '#78BE20', '#C5E86C', '#86C8BC', '#00BFB3',

@@ -92,19 +92,33 @@ export var deleteSensor = function(vnode){
   .then( _ => vnode.state.close() );
 };
 
-export var addSensorData = function(data){
-  if (!data.timestamp) data.timestamp = Date.now();
-  //TODO needs visit
-  //console.log(data);
-  return m.request({method: 'POST', url: '/api/admin/sensor/value.php', data: data})
-  .then(
-    function(r){ getSensors();  },
-    window.requestError
-  )
-  .then(function(){data.quantity = 0;})
-  ;
+export var getSensorData = function(id){
+  m.request({url:`/api/admin/sensor/values.php?sensor=${id}`})
+  .then((r) => g.sensorData[id] = r.reverse() , window.requestError);
 };
 
+export var addSensorData = function(data){
+  if (!data.timestamp) data.timestamp = Date.now();
+  return m.request({method: 'POST', url: '/api/admin/sensor/value.php', data: data})
+  .then(
+    function(r){ getSensors();  getSensorData(data.sensor);},
+    window.requestError
+  )
+  .then(function(){data.quantity = 0;});
+};
+
+export var deleteSensorData = function(vnode){
+  return m.request({ method: 'DELETE', url: '/api/admin/sensor/value.php', data: {id:vnode.attrs.id, sensor: vnode.attrs.sensor_id} })
+  .then(
+    function(r){
+      getSensors();
+      getSensorData(vnode.attrs.sensor_id);
+      addNotification("Deleted sensor data from" + vnode.attrs.name);
+    },
+    window.requestError
+  )
+  .then( _ => vnode.state.close() );
+};
 
 //***** GROUPS Fcts *****
 export var getGroup = function() {
@@ -154,18 +168,18 @@ export var deleteGroup = function(vnode){
 //***** VISIT Fcts *****
 export var getVisit = function(){
   return m.request({ method: 'GET', url: '/api/admin/visit.php'})
-  .then(
-    function(r){ g.visit = r; },
-    window.requestError
-  );
+  .then( (r) => g.visit = r , window.requestError);
+};
+
+let createVisitsLookup = (visits) => {
+  for (var i in visits){ g.visitLookup[visits[i].id] = visits[i]; }
 };
 
 export var getVisits = function(){
   return m.request({url: '/api/admin/visits.php'})
-  .then(
-    function(r){ g.visits = r.reverse(); },
-    window.requestError
-  );
+  .then( (r) =>  {g.visits = r.reverse();
+    createVisitsLookup(r);} , window.requestError)
+  ;
 };
 
 export var addVisit = function(vnode){
