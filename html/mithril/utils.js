@@ -75,7 +75,6 @@ export var getSensors = function(){
 };
 
 export var addSensor = function(vnode){
-  console.log(vnode);
   return m.request({method: 'POST', url: '/api/admin/sensor/type.php', data:vnode.attrs.data })
   .then(
     (r) => { getSensors(); addNotification('New sensor "' + vnode.attrs.data.name + '" with units of "' + vnode.attrs.data.unit + '"'); },

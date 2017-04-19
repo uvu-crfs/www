@@ -44,6 +44,6 @@ m.route(document.body, "/home", {
 
 import {addNotification} from '/mithril/utils.js';
 window.requestError = (e) => {
-  addNotification(e);
+  addNotification(e.toString());
   console.log(e);
 };
