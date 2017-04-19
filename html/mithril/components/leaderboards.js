@@ -62,6 +62,7 @@ var leaderboard = {
   oninit:(vnode) => vnode.state.getLeaderboard(vnode, vnode.attrs),
   oncreate:(vnode) => vnode.state.generateChart(vnode),
   onremove:(vnode) => vnode.state.chart.destroy(),
+  onbeforeupdate:(vnode) => { if (g.updateLeaderboard) vnode.state.getLeaderboard(vnode, vnode.attrs); },
 };
 
 export default {
@@ -70,13 +71,14 @@ export default {
   endDate:{},
   oninit:(vnode) => {
     m.request('/api/open/sensor/types.php')
-      .then((r) => vnode.state.leaderboards = r, window.requestError );
+      .then((r) => vnode.state.leaderboards = r.reverse(), window.requestError );
     vnode.state.updateGraphs = _ =>  {
       let tmp = JSON.parse(JSON.stringify(vnode.state.leaderboards));
       vnode.state.leaderboards = [];
       m.redraw(); vnode.state.leaderboards = tmp;
     };
   },
+  onupdate:(vnode) => { if (g.updateLeaderboard) g.updateLeaderboard = false; },
   view:(vnode) => m('',[
     m('h2.title.is-4', `Leaderboard${vnode.state.leaderboards.length>1?'s':''}`),
     m('',[

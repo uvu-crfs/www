@@ -16,6 +16,7 @@ g.visits = [];
 g.visitLookup = {};
 g.affiliations = [];
 g.affiliationLookup = {};
+g.updateLeaderboard = false;
 g.uvuColors = ['#00843D', '#4BA23F', '#78BE20', '#C5E86C', '#86C8BC', '#00BFB3',
     '#0095C8', '#BDD6E6', '#595478', '#DDD0CE', '#BC8279', '#823B34', '#E15230',
     '#D45D00', '#FFB500', '#FBD865', '#696158', '#A7A8AA'];

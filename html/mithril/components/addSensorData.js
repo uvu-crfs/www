@@ -16,7 +16,9 @@ export default {
     return m('form', {
       onsubmit:function(e){
         e.preventDefault();
-        if(vnode.state.quantity > 0) addSensorData(vnode.state); },
+        if(vnode.state.quantity > 0) addSensorData(vnode.state);
+        g.updateLeaderboard = true;
+      },
     },[
       m('span',  vnode.attrs.sensor.name),
       m('input', {

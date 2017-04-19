@@ -114,7 +114,7 @@ export var deleteSensorData = function(vnode){
     function(r){
       getSensors();
       getSensorData(vnode.attrs.sensor_id);
-      addNotification("Deleted sensor data from" + vnode.attrs.name);
+      addNotification("Deleted sensor data from " + vnode.attrs.name);
     },
     window.requestError
   )
