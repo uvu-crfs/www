@@ -89,7 +89,7 @@ let desktopView = {
 var footer = {
   view:_=> m('#footer',[
     m('#footerSchool', m('.footerAddress', m('.footinfowrap',[
-      m('a[title="Utah Valley University"][href="http://maps.google.com/?ll=40.278969,-111.717825&amp;spn=0.019579,0.033388&amp;t=m&amp;z=15"]', m('span.addressText', '800 West University Parkway, Orem, UT 84058')),
+      m('a[title="Utah Valley University"][href="https://www.google.com/maps/@40.278969,-111.717825,15z"]', m('span.addressText', '800 West University Parkway, Orem, UT 84058')),
       m('span', '|'),
       m('span.addressText','(801) 863-INFO (4636)'),
       m('span', '|'),
