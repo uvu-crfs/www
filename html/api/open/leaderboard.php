@@ -34,7 +34,9 @@ $now = time() * 1000;
 $query =
 "SELECT name as group_name, visit_id, ROUND(total/days,2) as per_day FROM (
     SELECT visit_id, total, group_id, start_date, end_date,
-      ((end_date - start_date)/86400000) AS days
+      ((end_date - start_date)/86400000) + 1  AS days
+      -- 86400000 is days in micro-seconds 1000 * 60 * 60 * 24
+      -- +1 one is because dates are at time 0:00
     FROM (
       SELECT visit_id, SUM(quantity) AS total
       FROM ${sensor_table}
