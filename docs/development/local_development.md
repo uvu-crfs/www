@@ -1,8 +1,8 @@
-# Developer setup
+# Local Development
 
 ## Prerequisites
 
-Install docker with docker-compose.
+Install [docker](https://www.docker.com/community-edition) with docker-compose.
 
 ## Local setup
 
