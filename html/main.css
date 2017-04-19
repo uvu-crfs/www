@@ -57,6 +57,9 @@ a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
   position: fixed;
   z-index: 49;
 }
+.modal {
+  position: fixed;
+}
 .modal-background {
   position: fixed;
   z-index: 50;

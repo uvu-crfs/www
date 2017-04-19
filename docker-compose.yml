@@ -1,5 +1,5 @@
 crfs:
-  build: "./docker-secrets"
+  image: piuma/centos7-apache-php
   links:
     - maria
   volumes:
@@ -10,7 +10,6 @@ crfs:
     - "443:443"
   environment:
     - docker=true
-  #command: "bash"
 
 maria:
   image: mariadb
