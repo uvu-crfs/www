@@ -154,16 +154,17 @@ function get_all_rows_from_table($table_name)
 
 function create_sensor_table($id)
 {
-    $query = 'create table sensor_'.$id.
-      '(
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `quantity` decimal(10,3) NOT NULL,
-  `timestamp` bigint(20) DEFAULT NULL,
-  `visit_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `visit_id` (`visit_id`),
-  CONSTRAINT `sensor_1_ibfk_1` FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
-)';
+    $query = "CREATE TABLE sensor_${id} (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `quantity` DECIMAL(10,3) NOT NULL,
+      `timestamp` BIGINT(20) DEFAULT NULL,
+      `visit_id` INT(11) NOT NULL,
+      PRIMARY KEY (`id`),
+      -- KEY `visit_id` (`visit_id`),
+      -- CONSTRAINT `sensor_1_ibfk_1`
+      FOREIGN KEY (`visit_id`) REFERENCES `visits` (`id`)
+    )";
+    $values = [];
 
     try {
         $stmt = $GLOBALS['pdo']->prepare($query);
