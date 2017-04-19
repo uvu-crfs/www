@@ -2,7 +2,9 @@ import developerOptions from "./developerOptions.js";
 
 var header = {
   linkAttrs: function(r) {
-    return {href: "./#!" + r, class: m.route.get() == r ? 'is-active': ''};
+    var attrs = {href: "./#!" + r, class: m.route.get() == r ? 'is-active': ''};
+    if (isIE){ attrs.onclick = _ => location.reload(); }
+    return attrs;
   },
   mobileLinkAttrs: function(r) {
     return {href: "./#!" + r, style: `${m.route.get() == r ? 'background-color: #FFF8E6;': ''}`};
@@ -26,7 +28,10 @@ let mobileView = {
   // view:(vnode) => m(".nav.has-shadow", [
     m('.nav-left',[
       m('',{ style:'width:60px; height:60px; display:table;'},''),
-      m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
+      m("a.nav-item",{
+        href: "./#!/home", style:'font-size:large;',
+        onclick: _ => { if (isIE) location.reload(); }
+      }, "Capitol Reef"),
     ]),
     m('.nav-right', {style:'flex-grow: 0;'}, m('.nav-item',[
       m('.fa.fa-bars.fa-3x', {
@@ -59,7 +64,10 @@ let desktopView = {
   // view:() => m(".nav.has-shadow", [
     m('.nav-left',[
       m('',{ style:'width:60px; height:60px; display:table;'},''),
-      m("a.nav-item",{href: "./#!/home", style:'font-size:large;'}, "Capitol Reef"),
+      m("a.nav-item",{
+        href: "./#!/home", style:'font-size:large;',
+        onclick: _ => { if (isIE) location.reload(); }
+      }, "Capitol Reef"),
       m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
       g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/visits"),  "Visits") : null,
       g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/groups"),  "Groups") : null,
@@ -124,3 +132,24 @@ export default function headerFooter(content){
     }
   };
 }
+
+// http://stackoverflow.com/questions/19999388/check-if-user-is-using-ie-with-jquery
+function detectIE() {
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) { // IE 10 or older => return version number
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) { // IE 11 => return version number
+        var rv = ua.indexOf('rv:');
+        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    }
+    var edge = ua.indexOf('Edge/');
+    if (edge > 0) { // Edge (IE 12+) => return version number
+       return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+    }
+    // other browser
+    return false;
+}
+var isIE = detectIE();

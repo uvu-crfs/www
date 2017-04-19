@@ -166,9 +166,14 @@ export var attachCourseToGroupModal = {
     vnode.state.data.newAffil = {modal:false};
     vnode.state.type = 'course to group';
   },
+  // onupdate:(vnode) => {
+  //   $(`#affiliationSelect`).select2({ placeholder: "Choose an affiliation", width : '340px'});
+  //   // departmentSelect
+  //   // courseSelect
+  // },
   view:(vnode) => m(addModal, vnode.state, [
     m('.label', 'Affiliation'),
-    m('select', {onchange:(e) => {
+    m('select#affiliationSelect', {onchange:(e) => {
       vnode.state.data.affiliation = g.affiliations[e.target.value];
       vnode.state.data.affiliation_id = vnode.state.data.affiliation.id;
       vnode.attrs.func = attachAffiliationToGroup;
@@ -176,11 +181,11 @@ export var attachCourseToGroupModal = {
     }},
       blankFirstOption(g.affiliations.map((v,i) => m('option', {value:i} ,v.name)))
     ),
-    m('button.button.is-small', {onclick:() => vnode.state.data.newAffil.modal = true },"New"),
+    // m('button.button.is-small', {onclick:() => vnode.state.data.newAffil.modal = true },"New"),
     m(addAffiliationModal, vnode.state.data.newAffil),
     (vnode.state.data.affiliation && vnode.state.data.affiliation.departments) ? m('', [
       m('.label', 'Department'),
-      m('select', {onchange:(e) => {
+      m('select#departmentSelect', {onchange:(e) => {
           vnode.state.department = vnode.state.data.affiliation.departments[e.target.value];
           vnode.state.data.department_id = vnode.state.department.id;
           vnode.attrs.func = attachDepartmentToGroup;
@@ -190,7 +195,7 @@ export var attachCourseToGroupModal = {
       ),
       (vnode.state.department && vnode.state.department.courses) ? m('', [
         m('.label', 'Course'),
-        m('select', {onchange:(e) => {
+        m('select#courseSelect', {onchange:(e) => {
             vnode.state.course = vnode.state.department.courses[e.target.value];
             vnode.state.data.course_id = vnode.state.course.id;
             vnode.attrs.func = attachCourseToGroup;
