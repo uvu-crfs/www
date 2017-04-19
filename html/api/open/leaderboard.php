@@ -31,13 +31,13 @@ if (is_numeric($tmp)) {
     $limit = $tmp;
 }
 $now = time() * 1000;
-$query = '
-  SELECT name as group_name, visit_id, ROUND(total/days,2) as per_day FROM (
+$query =
+"SELECT name as group_name, visit_id, ROUND(total/days,2) as per_day FROM (
     SELECT visit_id, total, group_id, start_date, end_date,
       ((end_date - start_date)/86400000) AS days
     FROM (
       SELECT visit_id, SUM(quantity) AS total
-      FROM '.$sensor_table.'
+      FROM ${sensor_table}
       GROUP BY visit_id
       ORDER BY total
     ) AS tmp1
@@ -47,7 +47,7 @@ $query = '
   ) AS tmp2
   INNER JOIN groups ON groups.id=tmp2.group_id
   ORDER BY per_day LIMIT ?
-';
+";
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);

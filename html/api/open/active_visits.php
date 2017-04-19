@@ -6,8 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 require_once '/var/www/lib/database.php';
 
 $current_time = time() * 1000;
-$query = 'select * from visits where start_date <= '.$current_time.
-  ' and end_date >= '.$current_time;
+$query =
+"SELECT * FROM visits
+ WHERE start_date <= ${current_time}
+ AND end_date >= ${current_time}
+";
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);

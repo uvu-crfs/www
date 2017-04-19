@@ -15,15 +15,15 @@ $sensor_table = 'sensor_'.$id;
 
 $now = time() * 1000;
 $query =
-' SELECT groups.name AS group_name, per_day
+" SELECT groups.name AS group_name, per_day
   FROM(SELECT t.visit_id, group_id, ROUND(SUM(quantity)/days,2) AS per_day
   FROM (SELECT id AS visit_id, group_id, ((end_date - ?)/86400000) AS days
   FROM visits
   WHERE start_date <= ? AND end_date >= ? ) AS t
-  JOIN sensor_2 AS st ON st.visit_id = t.visit_id
+  JOIN ${sensor_table} AS st ON st.visit_id = t.visit_id
   GROUP BY group_id) as t2
   JOIN groups ON groups.id = t2.group_id
-';
+";
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);
