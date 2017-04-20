@@ -22,10 +22,6 @@ MariaDB is an fork of MySQL. It is the database for the system. This was require
 
 Shibboleth is what UVU uses for authentication. We use it for logging in and entitlements to restrict access for admins.
 
-### [TravisCI](https://travis-ci.org/uvu-crfs/www)
-
-Travis is a contiunous integration system. On every git commit it runs a set of tests described by the file `.travis.yml` It can be configured to auto update the live page after passing the tests.
-
 ## Frontend
 
 ### [MithrilJS](https://mithril.js.org/)
@@ -61,3 +57,13 @@ Pikaday is just a fancy date picker.
 ### [JQuery](https://jquery.com/)
 
 JQuery is a big library, but we only use it to incorporate things like Select2.
+
+## Other
+
+### [TravisCI](https://travis-ci.org/uvu-crfs/www)
+
+Travis is a contiunous integration system. On every git commit it runs a set of tests described by the file `.travis.yml` It can be configured to auto update the live page after passing the tests.
+
+### [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
+Markdown is what these documents are written in.
