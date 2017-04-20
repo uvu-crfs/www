@@ -1,6 +1,6 @@
 # Developer Documentation
 
-This is a reference for developers. To get starting developing check out the [local development](local_development.md) section.
+This is a reference for developers. To get starting developing check out the [local development](local.md) section.
 
 ## Technology
 
@@ -9,9 +9,8 @@ This is an PHP application running on an Apache web server. The user interface i
 ## Authentication
 
 Details can be found on the [authentication page](authentication.md). This is the important takeaway:
-* The route `/uvu` requires authentication
+* The route `/uvu` requires UVU authentication
 * The route `/api/admin` requires UVU authentication plus an entitlement
-
 
 ## Secrets
 
