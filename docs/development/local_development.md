@@ -14,3 +14,10 @@ See it in your browser http://localhost
 
 When done stop all docker containers
 * `docker-compose stop`
+
+
+## Helpful Hints
+
+* Anything in the `html` folder can be accessed from a web browser.
+* The file `docker-compose.yml` is how docker is configured. The `volumes` are how the folders in this file are mapped to the docker images.
+* If there are database connection issues make sure the file `/var/www/secrets/database.js` exists.
