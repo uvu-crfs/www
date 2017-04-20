@@ -1,6 +1,6 @@
 # Developer Documentation
 
-This is a reference for developers. To get starting developing check out the [local development](local.md) section.
+This is a reference for developers. To get starting developing check out the [local development](local.md) section. The project is name `www` because it should become the `www` folder in `/var`, which Apache uses to run the web server.
 
 ## Technology
 

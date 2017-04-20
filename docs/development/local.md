@@ -23,3 +23,4 @@ When done stop all docker containers
 * If there are database connection issues make sure the file `/var/www/secrets/database.js` exists.
 * There are two copies of the main html file `html/index.php` and `html/www/index.php`. The first for open access and the second for authentication. Make sure they stay in sync.
 * The both html files call the same MithrilJS app starting in the file `html/mithril/app.js`.
+* The `lib` folder is for files that are used by PHP but cannot be accessed from the web.
