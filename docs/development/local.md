@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-Install [docker](https://www.docker.com/community-edition) with docker-compose.
+Install [docker](https://www.docker.com/community-edition). Make sure it includes docker-compose.
 
 ## Local setup
 
@@ -21,5 +21,5 @@ When done stop all docker containers
 * Anything in the `html` folder can be accessed from a web browser.
 * The file `docker-compose.yml` is how docker is configured. The `volumes` are how the folders in this file are mapped to the docker images.
 * If there are database connection issues make sure the file `/var/www/secrets/database.js` exists.
-* The main html file `html/index.php` and copied to `html/www/index.php` have open access and authentication.
-* The both html files call the same mithril app starting in the file `html/mithril/app.js`.
+* There are two copies of the main html file `html/index.php` and `html/www/index.php`. The first for open access and the second for authentication. Make sure they stay in sync.
+* The both html files call the same MithrilJS app starting in the file `html/mithril/app.js`.

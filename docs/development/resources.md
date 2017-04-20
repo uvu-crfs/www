@@ -10,6 +10,10 @@ Apache is a web server. We use it to server our PHP files. This was required by 
 
 PHP is a web language. We use it to communicate with the database and server the php files. It is also how the application can get system variables like if a user is logged in or not. This was required by UVU IT.
 
+### [PDO](https://phpdelusions.net/pdo)
+
+PDO is the php plugin that we use to connect to the database. It protects from sql injection.
+
 ### [MariaDB](https://mariadb.org/)
 
 MariaDB is an fork of MySQL. It is the database for the system. This was required by UVU IT.
@@ -37,6 +41,10 @@ Bulma is a small CSS library. It is similar to [Bootstrap](http://getbootstrap.c
 ### [Font Awesome](http://fontawesome.io/icons/)
 
 Font Awesome in included if you want to use icons.
+
+### [C3](http://c3js.org/)
+
+C3 is a library that uses D3 to make charts. We use it for leaderboard and reports.
 
 ### [Traceur](https://github.com/google/traceur-compiler)
 
