@@ -148,8 +148,8 @@ export var addGroup = function(vnode){
 };
 
 export var editGroup = function(vnode){
-    return m.request({url: '/api/admin/group.php', method:'PUT', data:vnode.state.data})
-    .then( (r) => getGroup(), window.requestError )
+    return m.request({url: '/api/admin/group.php', method:'PUT', data:vnode.attrs.data})
+    .then( (r) => getGroups(), window.requestError )
     .then( _ => vnode.state.close() );
 };
 

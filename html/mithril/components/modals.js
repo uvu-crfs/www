@@ -128,7 +128,8 @@ export var editGroupModal = {
         m('p.modal-card-title', `Update ${vnode.attrs.type}`),
         m('.delete', {onclick:vnode.state.close }, ''),
       ]),
-      m('section.modal-card-body', vnode.attrs.body(vnode)),
+      vnode.children.length === 0 ? m('section.modal-card-body', vnode.attrs.body(vnode)) : null,
+      vnode.children.length !== 0 ? m('section.modal-card-body', vnode.children) : null,
       m('footer.modal-card-foot',[
         m('a.button.is-primary[type=submit]', {onclick: _ => vnode.attrs.func(vnode) }, 'Update'),
         m('a.button',  {onclick:vnode.state.close }, 'Cancel')

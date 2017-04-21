@@ -52,18 +52,11 @@ let groupDetails = {
   ]) : null,
 };
 
-let editGroupModalBody = (vnode) => [
-  m('.label', 'Name'),
-  m('input.input', {
-    value: vnode.attrs.data,
-    onchange:(e) => vnode.attrs.data.name = e.target.value}, ''), //vnode.state.data = e.target.value
-];
-
 export default {
   oninit: (vnode) => {
     vnode.state.add = {modal:false, type: 'group', func: addGroup, data:{}};
     vnode.state.delete = {modal:false, type: 'group', func: deleteGroup};
-    vnode.state.edit = {modal:false, type: 'group', func: editGroup, body: editGroupModalBody};
+    vnode.state.edit = {modal:false, type: 'group', func: editGroup, data:{}};
     if (g.groups.length === 0) getGroups();
     vnode.state.openDetails = (group) => {
       group.detailsOpen = !group.detailsOpen;
@@ -85,7 +78,13 @@ export default {
       m('input.input', {onchange:(e) => vnode.state.add.data.name = e.target.value}, ''),
     ]),
     m(deleteModal, vnode.state.delete),
-    m(editGroupModal, vnode.state.edit),
+    m(editGroupModal, vnode.state.edit, [
+      m('.label', 'Name'),
+      m('input.input', {
+        value: vnode.state.edit.data.name,
+        oninput:(e) => vnode.state.edit.data.name = e.target.value
+      }, ''),
+    ]),
     g.groups.map((g) => m('.card', {group:g, editModal:vnode.state.edit, style:'padding: 10px;'}, [
       m('',[
         m('button.button.is-small',
@@ -106,8 +105,8 @@ export default {
         g.detailsOpen ? m('button.button.is-primary.is-small.is-pulled-right',
           {onclick:_ => {
             vnode.state.edit.modal = true;
-            vnode.state.edit.data = `${g.name}`;
-            // console.log(vnode.attrs);
+            vnode.state.edit.data.id = `${g.id}`;
+            vnode.state.edit.data.name = `${g.name}`;
           }}, 'Edit') : null,
       ]),
       m(groupDetails, g),
