@@ -7,10 +7,10 @@ export default {
     vnode.state.unix = getTimeStamp();
   },
   view: function(vnode){ return m('',[
-    m('a[href="phpinfo.php"]', 'PHP info'),
-    m('a[href="https://github.com/uvu-crfs/www"]', 'Source code and documentation'),
     m('h1.title', "Developer Tools"),
     m('',[
+      m('a[href="phpinfo.php"]', 'PHP info'),
+      m('div',m('a[href="https://github.com/uvu-crfs/www"]', 'Source code and documentation')),
       m('.subtitle', 'Notifications'),
       m('form',[
         m('input',{
