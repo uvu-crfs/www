@@ -19,10 +19,8 @@ let addVisitModalBody = (vnode) => [
   // m('button', {disabled:true}, 'Add Group'), //TODO this should add a group,
   m('.label', 'Start Date'),
   m(pikaday, {obj:vnode.state.data, key:'start_date', htmlId: "startDate"}),
-  // m('input[type="date"]', {oninput:(e) => {vnode.state.data.start_date = htmlDateToUnix(e.target.value); console.log(vnode.state.data); }}, ''),
   m('.label', 'End Date'),
   m(pikaday, {obj:vnode.state.data, key:'end_date', htmlId: "endDate"}),
-  // m('input[type="date"]', {oninput:(e) => vnode.state.data.end_date = htmlDateToUnix(e.target.value) }, ''),
   m('.label', 'Days'),
   m('input.input[type="number"]', {onchange:(e) => vnode.state.data.days = e.target.value }, ''),
   m('.label', 'Nights'),
@@ -105,15 +103,15 @@ let editVisitModalBody = (vnode) => [
   m('.label', 'Evaluation Complete'),
   m('label.checkbox-inline',
     m('input[type="checkbox"]', {
-      checked: vnode.attrs.data.evaluation,
-      onclick: _ => {
-        vnode.attrs.data.evaluation = !vnode.attrs.data.evaluation;
+      checked: vnode.attrs.data.evaluation === '1' || vnode.attrs.data.evaluation === true,
+      onclick: (e) => {
+        vnode.attrs.data.evaluation = e.target.checked;
       }
     }, ''), ''),
   m('.label', 'Summary Complete'),
   m('label.checkbox-inline',
     m('input[type="checkbox"]', {
-      checked: vnode.attrs.data.summary,
+      checked: vnode.attrs.data.summary === '1' || vnode.attrs.data.summary === true,
       onclick: (e) => {
         vnode.attrs.data.summary = e.target.checked;
       }
@@ -121,9 +119,9 @@ let editVisitModalBody = (vnode) => [
   m('.label', 'Dark Sky Tour Given'),
   m('label.checkbox-inline',
     m('input[type="checkbox"]', {
-      checked: vnode.attrs.data.darksky,
-      onclick: _ => {
-        vnode.attrs.data.darksky = !vnode.attrs.data.darksky;
+      checked: vnode.attrs.data.darksky === '1' || vnode.attrs.data.darksky === true,
+      onclick: (e) => {
+        vnode.attrs.data.darksky = e.target.checked;
       }
     }, ''), ''),
   m('.label', 'Notes'),
@@ -166,12 +164,38 @@ let visitCard = {
       }}, 'Delete') : null,
     vnode.state.open ? m('button.button.is-primary.is-small.is-pulled-right',
       {onclick:_ => {
-        //Display editVisit Modal w/ visit
         vnode.attrs.editModal.modal = true;
-        vnode.attrs.editModal.data = vnode.attrs.visit;
+        vnode.attrs.editModal.data = Object.assign({}, vnode.attrs.visit);
       }}, 'Edit') : null,
     vnode.state.open ? m('',[
-      m('p',`Contact ${vnode.attrs.visit.contact}`),
+      vnode.attrs.visit.contact ? m('',[
+        m('','Contact:'),
+        m('p.box',vnode.attrs.visit.contact)
+      ]) : null,
+      vnode.attrs.visit.days || vnode.attrs.visit.nights || vnode.attrs.visit.advisors ||
+        vnode.attrs.visit.students_female || vnode.attrs.visit.students_male ? m('',[
+        m('','Counts:'),
+        m('.box',[
+          vnode.attrs.visit.days ? m('.tag.is-medium', `Days: ${vnode.attrs.visit.days} `): null,
+          vnode.attrs.visit.nights ? m('.tag.is-medium', `Nights: ${vnode.attrs.visit.nights}`): null,
+          vnode.attrs.visit.advisors ? m('.tag.is-medium', `Advisors: ${vnode.attrs.visit.advisors} `): null,
+          vnode.attrs.visit.students_female ? m('.tag.is-medium', `Female Students: ${vnode.attrs.visit.students_female}`): null,
+          vnode.attrs.visit.students_male ? m('.tag.is-medium', `Male Students: ${vnode.attrs.visit.students_male}`): null,
+        ])
+      ]): null,
+      vnode.attrs.visit.darksky === '1' || vnode.attrs.visit.evaluation === '1' ||
+        vnode.attrs.visit.summary === '1' ? m('', [
+        m('', 'Completed:'),
+        m('.box',[
+          vnode.attrs.visit.darksky === '1' ? m('.tag.is-medium', 'Dark Sky Tour') : null,
+          vnode.attrs.visit.evaluation === '1' ? m('.tag.is-medium', 'Evaluation') : null,
+          vnode.attrs.visit.summary === '1' ? m('.tag.is-medium', 'Summary') : null,
+        ])
+      ]): null,
+      vnode.attrs.visit.notes ? m('', [
+        m('', 'Notes'),
+        m('.box', m('', vnode.attrs.visit.notes))
+      ]) : null,
     ]) : null,
     vnode.state.delete.modal ? m(deleteModal, vnode.state.delete) : null
   ])
