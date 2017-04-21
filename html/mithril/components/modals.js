@@ -167,11 +167,11 @@ export var attachCourseToGroupModal = {
     vnode.state.data.newAffil = {modal:false};
     vnode.state.type = 'course to group';
   },
-  // onupdate:(vnode) => {
-  //   $(`#affiliationSelect`).select2({ placeholder: "Choose an affiliation", width : '340px'});
-  //   // departmentSelect
-  //   // courseSelect
-  // },
+  onupdate:(vnode) => {
+    $(`#affiliationSelect`).select2({ placeholder: "Choose an affiliation", width : '340px'});
+    $(`#departmentSelect`).select2({ placeholder: "Choose an department", width : '340px'});
+    $(`#courseSelect`).select2({ placeholder: "Choose an course", width : '340px'});
+  },
   view:(vnode) => m(addModal, vnode.state, [
     m('.label', 'Affiliation'),
     m('select#affiliationSelect', {onchange:(e) => {
