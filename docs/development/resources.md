@@ -8,19 +8,19 @@ Apache is a web server. We use it to server our PHP files. This was required by 
 
 ### [PHP 5](http://php.net/)
 
-PHP is a web language. We use it to communicate with the database and server the php files. It is also how the application can get system variables like if a user is logged in or not. This was required by UVU IT.
+PHP is a web language. We use it to communicate with the database and serve the php files. It is also how the application can get system variables like if a user is logged in or not. This was required by UVU IT.
 
 ### [PDO](https://phpdelusions.net/pdo)
 
-PDO is the php plugin that we use to connect to the database. It protects from sql injection.
+PDO is the php plugin that we use to connect to the database. It protects against sql injection.
 
 ### [MariaDB](https://mariadb.org/)
 
-MariaDB is an fork of MySQL. It is the database for the system. This was required by UVU IT.
+MariaDB is an open source fork of MySQL. It is the database for the system. This was required by UVU IT.
 
 ### [Shibboleth](https://shibboleth.net/)
 
-Shibboleth is what UVU uses for authentication. We use it for logging in and entitlements to restrict access for admins.
+Shibboleth is what UVU uses for authentication. We use it for logging in and for establishing entitlements to restrict access for admins.
 
 ## Frontend
 
@@ -36,15 +36,15 @@ Bulma is a small CSS library. It is similar to [Bootstrap](http://getbootstrap.c
 
 ### [Font Awesome](http://fontawesome.io/icons/)
 
-Font Awesome in included if you want to use icons.
+Font Awesome is included if you want to use icons.
 
 ### [C3](http://c3js.org/)
 
-C3 is a library that uses D3 to make charts. We use it for leaderboard and reports.
+C3 is a library that uses D3 to make charts. We use it for the leaderboard and reports.
 
 ### [Traceur](https://github.com/google/traceur-compiler)
 
-Tracer compiles the Javascript code from ES2015 the current ECMAScript. It allows things like `import`, `export`, and lambda function `() => {}`. It can be removed if browsers ever become (compatible](https://kangax.github.io/compat-table/es6/).
+Traceur compiles the Javascript code from ES2015 (the current ECMAScript). It allows things like `import`, `export`, and lambda function `() => {}`. It can be removed if browsers ever become (compatible](https://kangax.github.io/compat-table/es6/).
 
 ### [Select2](https://select2.github.io/)
 
