@@ -1,8 +1,6 @@
-# Documentation
+# Definitions
 
 If you are looking for developer documentation go [here](development).
-
-## Definitions
 
 ## Groups
 
@@ -75,13 +73,23 @@ Units - Units of what we are tracking/measuring          i.e. Lbs.
 ## Example
 
 1) A group must be added BEFORE any visits for that group can be added
+
 Group:  
+
 name - BYU Hockey
+
 2) Group BYU Hockey can now add visits in the Visits tab
+
 Visit: 
+
 start date - 6/9/2016
+
 end date - 6/12/2016
+
 3) Sensor data can now be added for any of the dates between 6/9/2016 AND 6/12/2016
-Sensors:  
+
+Sensors:
+
 Trash            6/9/2016         12 Lbs.
+
 Water            6/11/2016        15 Gal.
