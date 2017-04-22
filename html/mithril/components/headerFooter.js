@@ -39,8 +39,8 @@ let mobileView = {
           m('a.panel-tabs', {onclick:_ => g.uvu.loggedIn = false}, 'Logout') :
           m('a.panel-tabs', {onclick:_ => g.uvu.loggedIn = true}, 'Login')
       : g.uvu.loggedIn ?
-          m(`a.panel-tabs[href='https://my.uvu.edu/Shibboleth.sso/Logout']`, 'Logout'):
-          m(`a.panel-tabs[href='/uvu']`, 'Login')
+          m(`a.panel-tabs[title='Logout'][href='https://cas.uvu.edu/cas/logout?destination=https%3A%2F%2Fcrfs.uvu.com']`, 'Logout'):
+          m(`a.panel-tabs[title='Login'href='/uvu']`, 'Login')
     ])
   ])
 };
