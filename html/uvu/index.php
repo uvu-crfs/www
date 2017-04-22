@@ -7,9 +7,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		<script>if (location.protocol !== 'https:') location.href = `https:${window.location.href.substring(window.location.protocol.length)}`; </script>
 		<?php
 			echo file_get_contents('https://uvu.edu/_resources/includes/styles.inc');
-			echo file_get_contents('https://uvu.edu/_resources/includes/headerscripts.inc');
-			echo file_get_contents('https://uvu.edu/_resources/includes/footerscripts.inc');
+			// echo file_get_contents('https://uvu.edu/_resources/includes/headerscripts.inc');
+			// echo file_get_contents('https://uvu.edu/_resources/includes/footerscripts.inc');
 		?>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css" integrity="sha256-6ZFIKt0ohcBorQWIruhlYBoADBIFrJuXtEJsjFxb2Wk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/main.css">
 		<link rel="stylesheet" href="https://uvu.edu/_resources/galleries/flex-slider/flexslider.css" type="text/css" media="screen" />
