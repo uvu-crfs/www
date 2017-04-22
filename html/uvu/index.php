@@ -38,7 +38,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 							<div id="mquery"></div>
 							<div id="logo"><a href="http://www.uvu.edu">&nbsp;</a></div>
 							<div id="pageTitle">
-								<p><a href="http://www.uvu.edu/crfs"><span>Capitol Reef Field Station</span></a></p>
+								<p><a href="http://www.uvu.edu/crfs" title="Capitol Reef Field Station"><span>Capitol Reef Field Station</span></a></p>
 							</div>
 							<div class="clearfloat"></div>
 						</div>

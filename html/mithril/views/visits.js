@@ -32,21 +32,21 @@ let addVisitModalBody = (vnode) => [
   m('.label', 'Advisors'),
   m('input.input[type="number"]', {onchange:(e) => vnode.state.data.advisors = e.target.value }, ''),
   m('.label', 'Evaluation Complete'),
-  m('label.checkbox-inline',
+  m('label',
     m('input[type="checkbox"]', {
       onclick: (e) => {
         vnode.state.data.evaluation =  e.target.checked;
       }
     }, ''), ''),
   m('.label', 'Summary Complete'),
-  m('label.checkbox-inline',
+  m('label',
     m('input[type="checkbox"]', {
       onclick: (e) => {
         vnode.state.data.summary = e.target.checked;
       }
     }, ''), ''),
   m('.label', 'Dark Sky Tour Given'),
-  m('label.checkbox-inline',
+  m('label',
     m('input[type="checkbox"]', {
       onclick: (e) => {
         vnode.state.data.darksky = e.target.checked;
@@ -101,7 +101,7 @@ let editVisitModalBody = (vnode) => [
     onchange:(e) => vnode.attrs.data.advisors = e.target.value
   }, ''),
   m('.label', 'Evaluation Complete'),
-  m('label.checkbox-inline',
+  m('label',
     m('input[type="checkbox"]', {
       checked: vnode.attrs.data.evaluation === '1' || vnode.attrs.data.evaluation === true,
       onclick: (e) => {
@@ -109,7 +109,7 @@ let editVisitModalBody = (vnode) => [
       }
     }, ''), ''),
   m('.label', 'Summary Complete'),
-  m('label.checkbox-inline',
+  m('label',
     m('input[type="checkbox"]', {
       checked: vnode.attrs.data.summary === '1' || vnode.attrs.data.summary === true,
       onclick: (e) => {
@@ -117,7 +117,7 @@ let editVisitModalBody = (vnode) => [
       }
     }, ''), ''),
   m('.label', 'Dark Sky Tour Given'),
-  m('label.checkbox-inline',
+  m('label',
     m('input[type="checkbox"]', {
       checked: vnode.attrs.data.darksky === '1' || vnode.attrs.data.darksky === true,
       onclick: (e) => {
