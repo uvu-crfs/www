@@ -2,19 +2,40 @@
 
 If you are looking for developer documentation go [here](development).
 
-## Groups
+
+## Home
 
 ### Description
 
-Group represents the groups that sign up for and visit the CRFS i.e. Software III
+Home displays the top 3 leaderboards for each sensor, based on the Start and End dates (inclusive)
 
-### Usage Instructions
+### Usage
 
-Group MUST be added before adding a visit to that group
+Dynamically view leaderboards based on date constraints
 
 ### Fields
 
-Name - Name of group
+Start (date) - Determines which sensor data to include in leaderboard display
+
+End (date) - Determines which sensor data to include in leaderboard display
+
+
+## Reports
+
+### Description
+
+Reports displays 3 reports (Affiliations, Departments and Courses), based on the Start and End dates (inclusive)
+
+### Usage
+
+Dynamically view reports based on date constraints
+
+### Fields
+
+Start (date) - Determines which sensor data to include in leaderboard display
+
+End (date) - Determines which sensor data to include in leaderboard display
+
 
 ## Visits
 
@@ -54,6 +75,22 @@ Notes - Notes about visit
 
 Contact - Contact person for visit
 
+
+## Groups
+
+### Description
+
+Group represents the groups that sign up for and visit the CRFS i.e. Software III
+
+### Usage Instructions
+
+Group MUST be added before adding a visit to that group
+
+### Fields
+
+Name - Name of group
+
+
 ## Sensors
 
 ### Description
@@ -69,6 +106,28 @@ Sensors can only add measurements to dates between Start date and End date (incl
 Sensor Name - Name of what is being tracked/measured     i.e. Trash
 
 Units - Units of what we are tracking/measuring          i.e. Lbs.
+
+
+## Affiliations
+
+### Description
+
+Affiliations are used to determine how groups are associated with universities, their departments and courses, as well as other institutions
+
+### Usage
+
+Affiliations, Departments and Courses can be added in the 'Affiliations' section and attached to visits in the 'Visits' section
+
+### Fields
+
+Affiliation - Name of the University or organization
+
+Department - Name of the department (if university/college)
+
+Course - Name of the course (if university/college)
+
+
+
 
 ## Example
 
