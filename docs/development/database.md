@@ -16,7 +16,7 @@ There needs to be a JSON file to control the database in the path `/var/www/secr
 ## Tables
 
 ### Visits
-The `visits` table is the main one used for reports. It each time a `group` has visited.
+The `visits` table is the main one used for reports. It is updated each time a `group` has visited.
 
 ### Groups
 The `groups` table lists groups that have visited. You can attach `affiliations`,`courses` or `departments` to them.
