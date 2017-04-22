@@ -160,7 +160,7 @@ let visitCard = {
       {onclick:_ => {
         vnode.state.delete.modal = true;
         vnode.state.delete.id = vnode.attrs.visit.id;
-        vnode.state.delete.name = g.groupLookup[vnode.attrs.visit.group_id].name;
+        if (vnode.attrs.visit.group_id) vnode.state.delete.name = g.groupLookup[vnode.attrs.visit.group_id].name;
       }}, 'Delete') : null,
     vnode.state.open ? m('button.button.is-primary.is-small.is-pulled-right',
       {onclick:_ => {
