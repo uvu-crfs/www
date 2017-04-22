@@ -1,6 +1,6 @@
 # Authentication
 
-The actual web server has shibboleth installed to handle authentication. Protected routes can be configure in the file `/etc/httpd/conf.d/shib.conf`. Attributes can be configured in the file `/etc/shibboleth/attribute-map.xml`. In the docker setup the authentication is faked. See the variable `g.uvu` in the file `html/mithril/app.js`.
+The actual web server has shibboleth installed to handle authentication. Protected routes can be configured in the file `/etc/httpd/conf.d/shib.conf`. Attributes can be configured in the file `/etc/shibboleth/attribute-map.xml`. In the docker setup the authentication is faked. See the variable `g.uvu` in the file `html/mithril/app.js`.
 
 ## Protected Routes
 
