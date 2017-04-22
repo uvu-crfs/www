@@ -32,7 +32,7 @@ import visitsView from '/mithril/views/visits.js';
 import affiliationView from '/mithril/views/affiliation.js';
 import developerView from '/mithril/views/developer.js';
 
-m.route(document.body, "/home", {
+m.route(document.getElementById("mithril"), "/home", {
   "/home": headerFooter(home),
   "/reports": headerFooter(reportsView),
   "/visits": headerFooter(g.uvu.loggedIn ? visitsView : ''),

@@ -84,61 +84,28 @@ a.nav-item.is-tab.is-active, .panel-tabs a.is-active{
 
 .panel-block, .panel-tabs { background-color: white; }
 
-#logo{
-  background-color:white;
-  border-radius: 50px;
-  position: absolute;
-  z-index: 3;
-  width:60px;
-  height:60px;
-  border: 1px solid #275D38;
-  border: 1px solid var(--uvu-green);
+#pageTitle a, #pageTitle a:hover {
+  font-family:stratum-1-web, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size:27px;
+  color: #275d38;
 }
 
-#logo:hover { width: 100px; height: 100px; }
+.contentArea {
+  padding: 0;
+}
 
 #content {
   /*Hight - header - footer*/
-  min-height: calc(100vh - 60px - 90px);
+  min-height: calc(100vh - 155px - 130px);
   padding: 10px;
 }
 
-#footer{
-  text-align: center;
-  width: 100%;
-  background-color: #275D38;
-  background-color: var(--uvu-green);
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  line-height: 12px;
-  font-weight: bold;
-  padding: 25px 0;
-  margin-top: 10px;
+#loadSpace {
+  min-height: calc(100vh - 106px - 130px);
 }
 
-#footer a { color: white; }
-#footer .addressText{ padding: 0 10px;}
-#footer h4 {padding: 10px 0 0 0 ;
-  font-family: stratum-1-web, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  font-size: 17px;
-  font-style: normal;
-  font-weight: 500;
-  height: auto;
-  letter-spacing: 3px;
-  line-height: 15px;
-}
-
-@media only screen and (min-width: 850px) {
-  #footer #ob { position: relative; }
-  #footer #ob a{
-    position: absolute;
-    right: 20px;
-    bottom: 10px;
-    background: url(/vendor/hpob.png) no-repeat scroll 0 0 transparent;
-    display: block;
-    height: 16px;
-    text-decoration: none;
-    width: 51px;
-  }
+#loading {
+  position: absolute;
+  right: 0; left: 0;
+  margin: 30vh;
 }

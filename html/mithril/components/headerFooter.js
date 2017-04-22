@@ -11,37 +11,23 @@ var header = {
   },
   oninit: function(){},
   view:function(){
-    return m('',[
-    m('a#logo[href="http://www.uvu.edu/crfs/"]',
-      m('img[src=/vendor/uvu_institutional_square/PNG/UVUSquareGreen-0001.png];',
-        { style:'width:100%; height:100%;'}, '')
-    ),
-    m(mobileView),
-    m(desktopView),
-    ]);
+    return m('',[ m(mobileView), m(desktopView)]);
   }
 };
 
 let mobileView = {
   open: false,
   view:(vnode) => m(".nav.has-shadow.is-hidden-desktop", [
-  // view:(vnode) => m(".nav.has-shadow", [
-    m('.nav-left',[
-      m('',{ style:'width:60px; height:60px; display:table;'},''),
-      m("a.nav-item",{
-        href: "./#!/home", style:'font-size:large;',
-        onclick: _ => { if (isIE) location.reload(); }
-      }, "Capitol Reef"),
-    ]),
     m('.nav-right', {style:'flex-grow: 0;'}, m('.nav-item',[
-      m('.fa.fa-bars.fa-3x', {
+      m('.fa.fa-bars.fa-2x', {
         style:'color: white;', onclick: _=> vnode.state.open = !vnode.state.open
       })
     ])),
-    !vnode.state.open ? null : m('nav.panel', {style:"position: absolute; top: 60px; right: 0px; font-size:20px;"}, [
+    !vnode.state.open ? null : m('nav.panel', {style:"position: absolute; top: 50px; font-size:20px;"}, [
       g.uvu.loggedIn ?
         m('p.panel-tabs', {style:'padding: 10px;'} ,g.uvu.displayName) :
         m('p.panel-tabs', {style:'padding: 10px;'} , 'Open Access') ,
+      m('a.panel-tabs', header.mobileLinkAttrs("/home"), 'Home'),
       m('a.panel-tabs', header.mobileLinkAttrs("/reports"), 'Reports'),
       g.uvu.admin ? m('a.panel-tabs', header.mobileLinkAttrs("/visits"), 'Visists') : null,
       g.uvu.admin ? m('a.panel-tabs', header.mobileLinkAttrs("/groups"), 'Groups') : null,
@@ -61,13 +47,8 @@ let mobileView = {
 
 let desktopView = {
   view:() => m(".nav.has-shadow.is-hidden-touch", [
-  // view:() => m(".nav.has-shadow", [
     m('.nav-left',[
-      m('',{ style:'width:60px; height:60px; display:table;'},''),
-      m("a.nav-item",{
-        href: "./#!/home", style:'font-size:large;',
-        onclick: _ => { if (isIE) location.reload(); }
-      }, "Capitol Reef"),
+      m("a.nav-item.is-tab", header.linkAttrs("/home"),  "Home"),
       m("a.nav-item.is-tab", header.linkAttrs("/reports"),  "Reports"),
       g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/visits"),  "Visits") : null,
       g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/groups"),  "Groups") : null,
@@ -94,22 +75,6 @@ let desktopView = {
   ])
 };
 
-var footer = {
-  view:_=> m('#footer',[
-    m('#footerSchool', m('.footerAddress', m('.footinfowrap',[
-      m('a[title="Utah Valley University"][href="https://www.google.com/maps/@40.278969,-111.717825,15z"]', m('span.addressText', '800 West University Parkway, Orem, UT 84058')),
-      m('span', '|'),
-      m('span.addressText','(801) 863-INFO (4636)'),
-      m('span', '|'),
-      m('a[href="http://www.uvu.edu/copyright/"]', m('span.addressText', `Copyright © ${new Date().getFullYear()}`)),
-      m('span', '|'),
-      m('a[href="http://www.uvu.edu/legal/"]', m('span.addressText.disclaimer', 'Disclaimers & Legal')),
-      m('h4', 'UTAH VALLEY UNIVERSITY')
-    ]))),
-    m('#ob', m('a[href="http://a.cms.omniupdate.com/10?skin=uvu&amp;account=UVU-WWW&amp;site=UVU_Public_Site&amp;action=de&amp;path=/index.pcf"]'))
-  ])
-};
-
 export default function headerFooter(content){
   return {
     view: function(vnode) {
@@ -117,7 +82,6 @@ export default function headerFooter(content){
         m(header),
         m('#content', m(content, vnode.state)),
         m(developerOptions),
-        m(footer),
         (g.notifications.length > 0) ? m('.message',
           {style:'position: absolute; top: 50px; right: 10px;'} ,[
           m('.message-header',[

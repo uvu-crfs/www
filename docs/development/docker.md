@@ -15,7 +15,7 @@ This is a list of commands that could be helpful.
 * Connect to the running apache/php container
   * `docker exec -i -t www_crfs_1 /bin/bash`
 * Trail PHP logs
-  `docker exec -it www_crfs_1 /bin/bash -c "tail -f /var/log/httpd/ssl_error_log"``
+  `docker exec -it www_crfs_1 /bin/bash -c "tail -f /var/log/httpd/ssl_error_log"`
 * Remove the database (to start fresh)
   * `docker rm www_maria_1`
 * Run a script to initialize the database

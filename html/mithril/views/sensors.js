@@ -29,7 +29,7 @@ let sensorLine = {
     vnode.state.open ? m('',[
       m(addSensorData,{sensor:vnode.attrs}),
       g.sensorData[vnode.attrs.id] ? g.sensorData[vnode.attrs.id].map((v) => m('', [
-        m('button', {onclick:_ => {
+        m('button.button.is-small', {onclick:_ => {
           vnode.state.delete.modal = true;
           vnode.state.delete.id = v.id;
           vnode.state.delete.name = `${v.quantity} ${vnode.attrs.unit}`;
