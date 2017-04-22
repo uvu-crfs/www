@@ -19,7 +19,7 @@ let groupDetails = {
           m('span','Affiliations:'),
           g.groupLookup[vnode.state.group.id].affiliations.map((v) => m('span.tag', v.affiliation_name,
             m('button.delete.is-small', {onclick:_ => {
-                m.request({method:'DELETE', url:'api/admin/lookup_group_affiliation.php',
+                m.request({method:'DELETE', url:'/api/admin/lookup_group_affiliation.php',
                   data:{'group_id':v.group_id, 'affiliation_id':v.affiliation_id}})
                 .then( _ => getAttachedAffiliations(v.group_id), window.requestError );
             }})
@@ -30,7 +30,7 @@ let groupDetails = {
           m('span','Departments:'),
           g.groupLookup[vnode.state.group.id].departments.map((v) => m('span.tag', v.concat,
             m('button.delete.is-small', {onclick:_ => {
-                m.request({method:'DELETE', url:'api/admin/lookup_group_department.php',
+                m.request({method:'DELETE', url:'/api/admin/lookup_group_department.php',
                   data:{'group_id':v.group_id, 'department_id':v.department_id}})
                 .then( _ => getAttachedDepartments(v.group_id), window.requestError );
             }})
@@ -41,7 +41,7 @@ let groupDetails = {
           m('span','Courses:'),
           g.groupLookup[vnode.state.group.id].courses.map((v) => m('span.tag', v.concat,
             m('button.delete.is-small', {onclick:_ => {
-                m.request({method:'DELETE', url:'api/admin/lookup_group_course.php',
+                m.request({method:'DELETE', url:'/api/admin/lookup_group_course.php',
                   data:{'group_id':v.group_id, 'course_id':v.course_id}})
                 .then( _ => getAttachedCourses(v.group_id), window.requestError );
             }})
