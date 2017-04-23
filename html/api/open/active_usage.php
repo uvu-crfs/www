@@ -16,8 +16,12 @@ $sensor_table = 'sensor_'.$id;
 $now = time() * 1000;
 $query =
 " SELECT groups.name AS group_name, per_day
-  FROM(SELECT t.visit_id, group_id, ROUND(SUM(quantity)/days,2) AS per_day
-  FROM (SELECT id AS visit_id, group_id, ((end_date - ?)/86400000) AS days
+  FROM(SELECT t.visit_id, group_id, ROUND(SUM(quantity)/(days * people),2) AS per_day
+  FROM (SELECT
+      id AS visit_id,
+      group_id,
+      ((end_date - ?)/86400000) AS days,
+      (IFNULL(students_female,0) + IFNULL(students_male,0) + IFNULL(advisors,0)) AS people
   FROM visits
   WHERE start_date <= ? AND end_date >= ? ) AS t
   JOIN ${sensor_table} AS st ON st.visit_id = t.visit_id
