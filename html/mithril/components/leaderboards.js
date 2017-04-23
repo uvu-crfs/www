@@ -12,6 +12,7 @@ var leaderboard = {
     }
     if (localStorage.getItem("leaderboardCount") !== null) {
       limit = `&limit=${localStorage.getItem("leaderboardCount")}`;
+      vnode.state.showLabels = localStorage.getItem("leaderboardCount") <= 25;
     }
     Promise.all([
       m.request(`/api/open/leaderboard.php?sensor_id=${sensor_info.id}${start}${end}${limit}`)
@@ -19,43 +20,32 @@ var leaderboard = {
       m.request(`/api/open/active_usage.php?sensor_id=${sensor_info.id}${start}${end}${limit}`)
         .then( (r) => vnode.state.active = r, window.requestError ),
     ])
-    .then(_ => vnode.state.updateC3Columns(vnode))
-    .then(_ => vnode.state.updateChart(vnode))
-    ;
-  },
-  columns: [],
-  concat: [],
-  updateC3Columns:(vnode) => {
-    let cols = [['x']];
-    vnode.state.concat = vnode.state.active.concat(vnode.state.leaders);
-    vnode.state.concat.forEach((e,idx) => {
-      cols[0].push(e.group_name);
-      let row = [e.group_name];
-      for(var i=0; i < idx; i++){ row.push(null); }
-      row.push(e.per_day);
-      cols.push(row);
-    });
-    console.log(JSON.stringify(cols));
-    vnode.state.columns = cols;
-
-    // vnode.state.columns =
-
+    .then(_ => vnode.state.updateChart(vnode));
   },
   generateChart:(vnode) => {
+    let jsonData = vnode.state.active.concat(vnode.state.leaders);
     vnode.state.chart = c3.generate({
       bindto: `#leaderboard${vnode.attrs.id}`,
-      tooltip: { format: {value:(value, ratio, id) => `${value} ${vnode.attrs.unit} per person per day` } },
-      data: {
-        x : 'x',
-        columns: vnode.state.columns,
-        type: 'bar',
-        groups : [vnode.state.concat.map((e) => e.group_name)],
-      },
       color: { pattern: g.uvuColors.sort(_ => 0.5 - Math.random()) },
-      legend: { hide: true },
-      axis: { x: { type: 'category' },  y: { label: `${vnode.attrs.unit} \\ person \\ day` }, },
+      data: {
+        type:'bar', json: jsonData, legend: { hide: true },
+        keys: { x : 'visit_id', value: ['per_day'], title: 'group_name', },
+        labels: { format: (v, id, i, j) => { if(vnode.state.showLabels) return v; }},
+        names: (a,b,c,d) => console.log(a,b,c,d),
+        color: (_,d) => g.uvuColors[d.x % g.uvuColors.length]
+      },
+      tooltip: {
+        format: {
+          name: _ => '',
+          value:(value, ratio, id) => `${value} ${vnode.attrs.unit} per person per day`,
+          title: (x) => jsonData[x].group_name,
+         }
+      },
       title: { text: `${vnode.attrs.name}` },
-      bar: { width: { ratio: 0.5 } }
+      axis: {
+        x: { type: 'category', tick: { format: (x) => { if(vnode.state.showLabels) return jsonData[x].group_name; }}},
+        y: { label: `${vnode.attrs.unit} \\ person \\ day` },
+      },
     });
   },
   updateChart:(vnode) => {
@@ -101,7 +91,7 @@ export default {
         changeFunc: (date) => {localStorage.setItem('leaderboardEnd', date); vnode.state.updateGraphs();}
       }),
       m('span', 'Count:'),
-      m('input[type=number]', {
+      m('input[type=number][min=1]', {
         value: vnode.state.count,
         oninput: (e) => {
           localStorage.setItem('leaderboardCount', e.target.value);
