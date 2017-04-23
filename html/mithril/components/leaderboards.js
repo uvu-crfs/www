@@ -28,7 +28,7 @@ var leaderboard = {
       bindto: `#leaderboard${vnode.attrs.id}`,
       color: { pattern: g.uvuColors.sort(_ => 0.5 - Math.random()) },
       data: {
-        type:'bar', json: jsonData, legend: { hide: true },
+        type:'bar', json: jsonData,
         keys: { x : 'visit_id', value: ['per_day'], title: 'group_name', },
         labels: { format: (v, id, i, j) => { if(vnode.state.showLabels) return v; }},
         names: (a,b,c,d) => console.log(a,b,c,d),
@@ -41,6 +41,7 @@ var leaderboard = {
           title: (x) => jsonData[x].group_name,
          }
       },
+      legend: { hide: true },
       title: { text: `${vnode.attrs.name}` },
       axis: {
         x: { type: 'category', tick: { format: (x) => { if(vnode.state.showLabels) return jsonData[x].group_name; }}},
