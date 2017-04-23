@@ -3,17 +3,20 @@ import {pikaday} from '/mithril/components/pikaday.js';
 var leaderboard = {
   leaders:[], active:[],
   getLeaderboard:(vnode, sensor_info) => {
-    let start = '', end = '';
+    let start = '', end = '', limit = '';
     if (localStorage.getItem("leaderboardStart") !== null) {
       start = `&start=${localStorage.getItem("leaderboardStart")}`;
     }
     if (localStorage.getItem("leaderboardEnd") !== null) {
       end = `&end=${localStorage.getItem("leaderboardEnd")}`;
     }
+    if (localStorage.getItem("leaderboardCount") !== null) {
+      limit = `&limit=${localStorage.getItem("leaderboardCount")}`;
+    }
     Promise.all([
-      m.request(`/api/open/leaderboard.php?sensor_id=${sensor_info.id}${start}${end}`)
+      m.request(`/api/open/leaderboard.php?sensor_id=${sensor_info.id}${start}${end}${limit}`)
         .then( (r) => vnode.state.leaders = r, window.requestError ),
-      m.request(`/api/open/active_usage.php?sensor_id=${sensor_info.id}${start}${end}`)
+      m.request(`/api/open/active_usage.php?sensor_id=${sensor_info.id}${start}${end}${limit}`)
         .then( (r) => vnode.state.active = r, window.requestError ),
     ])
     .then(_ => vnode.state.updateC3Columns(vnode))
@@ -32,7 +35,11 @@ var leaderboard = {
       row.push(e.per_day);
       cols.push(row);
     });
+    console.log(JSON.stringify(cols));
     vnode.state.columns = cols;
+
+    // vnode.state.columns =
+
   },
   generateChart:(vnode) => {
     vnode.state.chart = c3.generate({
@@ -70,6 +77,7 @@ export default {
   startDate:{},
   endDate:{},
   oninit:(vnode) => {
+    vnode.state.count = localStorage.getItem('leaderboardCount') || 3;
     m.request('/api/open/sensor/types.php')
       .then((r) => vnode.state.leaderboards = r.reverse(), window.requestError );
     vnode.state.updateGraphs = _ =>  {
@@ -92,6 +100,15 @@ export default {
         createFunc: _ => localStorage.getItem('leaderboardEnd'),
         changeFunc: (date) => {localStorage.setItem('leaderboardEnd', date); vnode.state.updateGraphs();}
       }),
+      m('span', 'Count:'),
+      m('input[type=number]', {
+        value: vnode.state.count,
+        oninput: (e) => {
+          localStorage.setItem('leaderboardCount', e.target.value);
+          vnode.state.count = e.target.value;
+          vnode.state.updateGraphs();
+        }
+      })
     ]),
     vnode.state.leaderboards.map((l) => m(leaderboard, l)),
   ]),
