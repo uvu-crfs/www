@@ -9,6 +9,10 @@ If you are looking for developer documentation go [here](development).
 
 Home displays the top lowest usage in a graph for each sensor, based on the Start and End dates
 
+When a group is currently visiting it will have the visiting groups information as the first group in the leaderboard.
+
+When an admin is logged in and a group is currently visiting the admin can enter sensor data from this page.
+
 ### Usage
 
 Dynamically view leaderboards based on date constraints
@@ -141,7 +145,7 @@ name - BYU Hockey
 
 2) Group BYU Hockey can now add visits in the Visits tab
 
-Visit: 
+Visit:
 
 start date - 6/9/2016
 
