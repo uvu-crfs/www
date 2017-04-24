@@ -1,4 +1,5 @@
 import {pikaday} from '/mithril/components/pikaday.js';
+import {getVisits, unixToDate} from '/mithril/utils.js';
 
 var leaderboard = {
   leaders:[], active:[],
@@ -31,12 +32,12 @@ var leaderboard = {
         type:'bar', json: jsonData,
         keys: { x : 'visit_id', value: ['per_day'], title: 'group_name', },
         labels: { format: (v, id, i, j) => { if(vnode.state.showLabels) return v; }},
-        names: (a,b,c,d) => console.log(a,b,c,d),
         color: (_,d) => g.uvuColors[d.x % g.uvuColors.length]
       },
       tooltip: {
         format: {
-          name: _ => '',
+          name:  (name, ratio, id, index) => `${unixToDate(g.visitLookup[jsonData[index].visit_id].start_date)} - \n
+            ${unixToDate(g.visitLookup[jsonData[index].visit_id].end_date)}`,
           value:(value, ratio, id) => `${value} ${vnode.attrs.unit} per person per day`,
           title: (x) => jsonData[x].group_name,
          }
@@ -68,6 +69,7 @@ export default {
   startDate:{},
   endDate:{},
   oninit:(vnode) => {
+    if (g.visits.length === 0) getVisits();
     vnode.state.count = localStorage.getItem('leaderboardCount') || 3;
     m.request('/api/open/sensor/types.php')
       .then((r) => vnode.state.leaderboards = r.reverse(), window.requestError );
