@@ -17,27 +17,31 @@ if (is_numeric($tmp)) {
     $end = $tmp;
 }
 
-$query = '
-  SELECT
-    SUM(visit_count) AS visit_count, affiliations.name
+$query =
+'  SELECT
+    SUM(visit_count) AS visit_count, affiliations.name,
+    visit_count * people AS user_days
   FROM (
     SELECT
-     tmp5.group_id, tmp5.visit_count,
+     tmp5.group_id, tmp5.visit_count, people,
      COALESCE(lga.affiliation_id, tmp5.affiliation_id) AS affiliation_id
     FROM (
       SELECT
         tmp4.group_id, tmp4.visit_count,
         tmp4.department_id,
-        departments.affiliation_id
+        departments.affiliation_id,
+        people
       FROM (
         SELECT
-          tmp3.group_id, visit_count,
+          tmp3.group_id, visit_count, people,
           COALESCE(tmp3.department_id, lgd.department_id) AS department_id
         FROM(
-          SELECT tmp2.group_id, visit_count, course_id, department_id
+          SELECT tmp2.group_id, visit_count, course_id, department_id, people
           FROM (
-            SELECT group_id, COUNT(*) AS visit_count FROM (
-              SELECT group_id, id AS visit_id FROM visits
+            SELECT group_id, COUNT(*) AS visit_count,people FROM (
+              SELECT group_id, id AS visit_id,
+              (IFNULL(students_female,0) + IFNULL(students_male,0) + IFNULL(advisors,0)) AS people
+              FROM visits
               WHERE start_date >= ? AND end_date <= ?
             ) AS tmp
             GROUP BY group_id
@@ -66,7 +70,8 @@ try {
 
 $output = [];
 foreach (get_all_rows($stmt) as $row) {
-    array_push($output, [$row['name'], $row['visit_count']]);
+    // array_push($output, [$row['name'], $row['visit_count']]);
+    array_push($output, [$row['name'], $row['user_days']]);
 }
 echo print_json($output);
 //expected output ~ [["Snow College",2],["UAEA",1],["KU",1],["Mt. SAC",1]]

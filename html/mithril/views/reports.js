@@ -6,7 +6,7 @@ export default {
       bindto: id,
       color: { pattern: g.uvuColors.sort(_ => 0.5 - Math.random()) },
       tooltip: { format: {value:(value, ratio, id) =>
-        `${value} visit - ${Math.floor(ratio*100)}%` } },
+        `${value} user days - ${Math.floor(ratio*100)}%` } },
       data: { type : 'pie', columns: cols
         //onclick: function (d, i) { console.log("onclick", d, i); },
         //onmouseover: function (d, i) { console.log("onmouseover", d, i); },

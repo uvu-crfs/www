@@ -18,15 +18,16 @@ if (is_numeric($tmp)) {
 
 require_once '/var/www/lib/database.php';
 
-$query = '
-  SELECT
+$query =
+' SELECT
     lgc.group_id, visit_count,
     CONCAT(affiliations.name, " ", courses.name) as name,
     affiliations.name AS affiliation_name,
-    courses.name AS course_name
+    courses.name AS course_name,
+    visit_count * people AS user_days
   FROM (
-    SELECT group_id, COUNT(*) AS visit_count FROM (
-      SELECT group_id, id AS visit_id FROM visits
+    SELECT group_id, COUNT(*) AS visit_count, people FROM (
+      SELECT group_id, id AS visit_id, (IFNULL(students_female,0) + IFNULL(students_male,0) + IFNULL(advisors,0)) AS people FROM visits
       WHERE start_date >= ? AND end_date <= ?
     ) AS tmp
     GROUP BY group_id
@@ -48,6 +49,6 @@ try {
 
 $output = [];
 foreach (get_all_rows($stmt) as $row) {
-    array_push($output, [$row['name'], $row['visit_count']]);
+    array_push($output, [$row['name'], $row['user_days']]);
 }
 echo print_json($output);

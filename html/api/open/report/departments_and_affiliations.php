@@ -20,19 +20,20 @@ if (is_numeric($tmp)) {
   Returns Associative Array of Affiliations and Departments from Database
 */
 
-$query = '
-  SELECT
-    group_id, visit_count,
+$query =
+' SELECT
+    group_id, visit_count, visit_count * people AS user_days,
     CONCAT(affiliations.name, " ", departments.name) AS name
   FROM (
     SELECT
-      tmp3.group_id, visit_count,
+      tmp3.group_id, visit_count, people,
       COALESCE(tmp3.department_id, lgd.department_id) AS department_id
     FROM(
-      SELECT tmp2.group_id, visit_count, course_id, department_id
+      SELECT tmp2.group_id, visit_count, course_id, department_id, people
       FROM (
-        SELECT group_id, COUNT(*) AS visit_count FROM (
-          SELECT group_id, id AS visit_id FROM visits
+        SELECT group_id, COUNT(*) AS visit_count, people FROM (
+          SELECT group_id, id AS visit_id, (IFNULL(students_female,0) + IFNULL(students_male,0) + IFNULL(advisors,0)) AS people
+          FROM visits
           WHERE start_date >= ? AND end_date <= ?
         ) AS tmp
         GROUP BY group_id
@@ -57,6 +58,6 @@ try {
 
 $output = [];
 foreach (get_all_rows($stmt) as $row) {
-    array_push($output, [$row['name'], $row['visit_count']]);
+    array_push($output, [$row['name'], $row['user_days']]);
 }
 echo print_json($output);
