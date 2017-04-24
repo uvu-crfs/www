@@ -36,7 +36,8 @@ var leaderboard = {
       },
       tooltip: {
         format: {
-          name:  (name, ratio, id, index) => `${unixToDate(g.visitLookup[jsonData[index].visit_id].start_date)} - \n
+          name:  (name, ratio, id, index) => (g.visits.length === 0) ? '' :
+            `${unixToDate(g.visitLookup[jsonData[index].visit_id].start_date)} -
             ${unixToDate(g.visitLookup[jsonData[index].visit_id].end_date)}`,
           value:(value, ratio, id) => `${value} ${vnode.attrs.unit} per person per day`,
           title: (x) => jsonData[x].group_name,

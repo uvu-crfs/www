@@ -176,7 +176,7 @@ let createVisitsLookup = (visits) => {
 };
 
 export var getVisits = function(){
-  return m.request({url: '/api/open/visits.php'})
+  return m.request({url: '/api/admin/visits.php'})
   .then( (r) =>  {g.visits = r.reverse();
     createVisitsLookup(r);} , window.requestError)
   ;
