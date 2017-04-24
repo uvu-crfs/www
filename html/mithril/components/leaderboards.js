@@ -4,7 +4,7 @@ import {getVisits, unixToDate} from '/mithril/utils.js';
 var leaderboard = {
   leaders:[], active:[],
   getLeaderboard:(vnode, sensor_info) => {
-    let start = '', end = '', limit = '';
+    let start = '', end = '', limit = '', showLabels = true;
     if (localStorage.getItem("leaderboardStart") !== null) {
       start = `&start=${localStorage.getItem("leaderboardStart")}`;
     }
