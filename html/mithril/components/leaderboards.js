@@ -18,7 +18,7 @@ var leaderboard = {
     Promise.all([
       m.request(`/api/open/leaderboard.php?sensor_id=${sensor_info.id}${start}${end}${limit}`)
         .then( (r) => vnode.state.leaders = r, window.requestError ),
-      m.request(`/api/open/active_usage.php?sensor_id=${sensor_info.id}${start}${end}${limit}`)
+      m.request(`/api/open/active_usage.php?sensor_id=${sensor_info.id}${start}${end}`)
         .then( (r) => vnode.state.active = r, window.requestError ),
     ])
     .then(_ => vnode.state.updateChart(vnode));
