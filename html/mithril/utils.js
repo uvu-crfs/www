@@ -304,27 +304,24 @@ export var attachDepartmentToGroup = function(vnode){
 };
 
 export var getAttachedCourses = function(group_id){
-  //console.log(group_id);
   return m.request({url: `/api/open/group_courses.php?group_id=${group_id}`})
   .then(
-    (r) => { g.groupLookup[group_id].courses = r; /*console.log(g.groupLookup[group_id]);*/ },
+    (r) => { g.groupLookup[group_id].courses = r; },
     window.requestError
   );
 };
 
 export var getAttachedDepartments = function(group_id){
-  //console.log(group_id);
   return m.request({url: `/api/open/group_departments.php?group_id=${group_id}`})
   .then(
-    (r) => { g.groupLookup[group_id].departments = r; /*console.log(g.groupLookup[group_id]);*/ },
+    (r) => { g.groupLookup[group_id].departments = r; },
     window.requestError
   );
 };
 export var getAttachedAffiliations = function(group_id){
-  //console.log(group_id);
   return m.request({url: `/api/open/group_affiliations.php?group_id=${group_id}`})
   .then(
-    (r) => { g.groupLookup[group_id].affiliations = r; /*console.log(g.groupLookup[group_id]);*/ },
+    (r) => { g.groupLookup[group_id].affiliations = r; },
     window.requestError
   );
 };

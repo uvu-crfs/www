@@ -17,7 +17,7 @@ let departmentDetails = {
       m('.level-left.department', m('h3.title.is-5',[
         m('span', 'Courses'),
         m('button.button.is-small.is-light',
-           {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add); } }, 'Add'),
+           {onclick:_ => vnode.state.add.modal = true }, 'Add'),
       ])),
     ]),
     m(addCourseModal, vnode.state.add),
@@ -41,13 +41,12 @@ let affiliationDetails = {
     vnode.state.add = {modal:false, data:{affiliation_id:vnode.attrs.affiliation.id}};
     vnode.state.delete = {modal:false, type:'department', func:deleteDepartment};
   },
-  onchange:(vnode) => console.log(vnode.attrs),
   view:(vnode) => m('',[
     m('.level',[
       m('.level-left', m('h2.title.is-4',[
         m('span', 'Departments'),
         m('button.button.is-small.is-light',
-           {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add); } }, 'Add'),
+           {onclick:_ => vnode.state.add.modal = true }, 'Add'),
       ])),
     ]),
     m(addDepartmentModal, vnode.state.add),
@@ -73,7 +72,7 @@ export default {
     m('.level',[
       m('.level-left', m('h1.title','Affiliations')),
       m('.level-right',m('button.button.is-primary.add-button',
-        {onclick:_ => {vnode.state.add.modal = true; console.log(vnode.state.add);} }, 'Add Affiliation')),
+        {onclick:_ => vnode.state.add.modal = true }, 'Add Affiliation')),
     ]),
     m(addAffiliationModal, vnode.state.add),
     m(deleteModal, vnode.state.delete),
