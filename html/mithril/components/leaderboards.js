@@ -70,7 +70,7 @@ export default {
   startDate:{},
   endDate:{},
   oninit:(vnode) => {
-    if (g.visits.length === 0) getVisits();
+    if (g.visits.length === 0 && g.uvu.loggedIn) getVisits();
     vnode.state.count = localStorage.getItem('leaderboardCount') || 3;
     m.request('/api/open/sensor/types.php')
       .then((r) => vnode.state.leaderboards = r.reverse(), window.requestError );
