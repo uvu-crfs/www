@@ -2,9 +2,9 @@ import {pikaday} from '/mithril/components/pikaday.js';
 import {getVisits, unixToDate} from '/mithril/utils.js';
 
 var leaderboard = {
-  leaders:[], active:[],
+  leaders:[], active:[], showLabels: true,
   getLeaderboard:(vnode, sensor_info) => {
-    let start = '', end = '', limit = '', showLabels = true;
+    let start = '', end = '', limit = '';
     if (localStorage.getItem("leaderboardStart") !== null) {
       start = `&start=${localStorage.getItem("leaderboardStart")}`;
     }
