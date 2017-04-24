@@ -14,6 +14,9 @@ if (!is_numeric($id)) {
 $sensor_table = 'sensor_'.$id;
 
 $now = time() * 1000;
+$yesterday = strtotime("-1 days") * 1000;
+//Yesteday because timestamps are always 12am of the day
+
 $query =
 " SELECT groups.name AS group_name, per_day, start_date, end_date
   FROM(SELECT t.visit_id, group_id, ROUND(SUM(quantity)/(days * people),2) AS per_day, start_date, end_date
@@ -32,7 +35,7 @@ $query =
 
 try {
     $stmt = $GLOBALS['pdo']->prepare($query);
-    $stmt->execute([$now, $now, $now]);
+    $stmt->execute([$now, $now, $yesterday]);
 } catch (PDOException $e) {
     echo 'Database issue: '.$e->getMessage();
 
