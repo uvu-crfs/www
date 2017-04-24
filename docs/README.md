@@ -7,7 +7,7 @@ If you are looking for developer documentation go [here](development).
 
 ### Description
 
-Home displays the top 3 leaderboards for each sensor, based on the Start and End dates (inclusive)
+Home displays the top lowest usage in a graph for each sensor, based on the Start and End dates
 
 ### Usage
 
@@ -19,6 +19,7 @@ Start (date) - Determines which sensor data to include in leaderboard display
 
 End (date) - Determines which sensor data to include in leaderboard display
 
+Count - Choose how many visits you want to show in the leaderboard
 
 ## Reports
 
@@ -42,6 +43,7 @@ End (date) - Determines which sensor data to include in leaderboard display
 ### Description
 
 Each group can have 0 or more visits.
+
 
 ### Usage Instructions
 
