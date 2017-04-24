@@ -33,7 +33,8 @@ if (is_numeric($tmp)) {
 $now = time() * 1000;
 $query =
 "SELECT
-  name as group_name, visit_id, ROUND(total/(days * people),2) as per_day
+  name as group_name, visit_id, ROUND(total/(days * people),2) as per_day,
+  start_date, end_date
 FROM (
     SELECT visit_id, total, group_id, start_date, end_date,
       (IFNULL(students_female,0) + IFNULL(students_male,0) + IFNULL(advisors,0)) AS people,
