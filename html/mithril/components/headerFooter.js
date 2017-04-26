@@ -33,6 +33,7 @@ let mobileView = {
       g.uvu.admin ? m('a.panel-tabs', header.mobileLinkAttrs("/groups"), 'Groups') : null,
       g.uvu.admin ? m('a.panel-tabs', header.mobileLinkAttrs("/sensors"), 'Sensors') : null,
       g.uvu.admin ? m('a.panel-tabs', header.mobileLinkAttrs("/affiliations"), 'Affiliations') : null,
+      g.uvu.admin ? m('a.panel-tabs', header.mobileLinkAttrs("/tables"), 'Tables') : null,
       g.docker ? m('a.panel-tabs', header.mobileLinkAttrs("/developer"), 'Developer') : null,
       g.docker ?
         g.uvu.loggedIn ?
@@ -55,6 +56,7 @@ let desktopView = {
       g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/groups"),  "Groups") : null,
       g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/sensors"),  "Sensors") : null,
       g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/affiliations"),  "Affiliations") : null,
+      g.uvu.admin ? m("a.nav-item.is-tab", header.linkAttrs("/tables"),  "Tables") : null,
       g.docker ? m("a.nav-item.is-tab", header.linkAttrs("/developer"),  "Developer") : null,
     ]),
     m('.nav-right', {style:'flex-grow: 0;'}, [

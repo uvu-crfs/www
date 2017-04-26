@@ -30,6 +30,7 @@ import sensorsView from '/mithril/views/sensors.js';
 import groupsView from '/mithril/views/groups.js';
 import visitsView from '/mithril/views/visits.js';
 import affiliationView from '/mithril/views/affiliation.js';
+import tableView from '/mithril/views/tables.js';
 import developerView from '/mithril/views/developer.js';
 
 m.route(document.getElementById("mithril"), "/home", {
@@ -39,6 +40,7 @@ m.route(document.getElementById("mithril"), "/home", {
   "/groups": headerFooter(g.uvu.loggedIn ? groupsView : ''),
   "/sensors": headerFooter(g.uvu.loggedIn ? sensorsView : ''),
   "/affiliations": headerFooter(g.uvu.loggedIn ? affiliationView : ''),
+  "/tables": headerFooter(g.uvu.loggedIn ? tableView : ''),
   "/developer": headerFooter(g.docker || g.uvu.admin ? developerView : '')
 });
 
