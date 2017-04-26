@@ -1,7 +1,7 @@
 export default {
   select: [],
   headers: [],
-  query: `SELECT * FROM groups`,
+  query: localStorage.getItem("tableQuery") || 'SELECT * FROM groups',
   view:(vnode) => m('',[
     m('h1.title', 'Tables'),
     m('p.p', 'Enter a MySQL "SELECT" query here and it will return a table which can be copy and pasted into a spreadsheet if needed.'),
@@ -13,6 +13,7 @@ export default {
           (r) => {
             vnode.state.select = r;
             vnode.state.headers = Object.keys(vnode.state.select[0]);
+            localStorage.setItem("tableQuery", vnode.state.query);
           },
           window.requestError
         );
